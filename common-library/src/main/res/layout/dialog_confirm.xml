@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/match_wrap">
+
+    <LinearLayout style="@style/dialog_bg">
+
+        <RelativeLayout style="@style/match_wrap_h"
+            android:padding="@dimen/margin_padding_16"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/txt_title"
+                style="@style/tv_user_black_16"
+                android:textStyle="bold"
+                android:text="@string/dialog_title"/>
+        </RelativeLayout>
+
+        <View style="@style/view_line_v" />
+
+        <LinearLayout
+            style="@style/match_wrap"
+            android:minHeight="100dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/txt_content"
+                style="@style/tv_user_black_14"
+                android:padding="@dimen/margin_padding_10" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/match_wrap_h"
+            android:layout_marginTop="@dimen/margin_padding_20">
+
+            <Button
+                android:id="@+id/btn_no"
+                style="@style/weight_wrap"
+                android:layout_marginLeft="@dimen/margin_padding_5"
+                android:layout_marginRight="@dimen/margin_padding_5"
+                android:background="@drawable/btn_login_gray"
+                android:textColor="@color/white"
+                android:text="@string/dialog_cancel"/>
+
+            <Button
+                android:id="@+id/btn_yes"
+                style="@style/weight_wrap"
+                android:layout_marginLeft="@dimen/margin_padding_5"
+                android:layout_marginRight="@dimen/margin_padding_5"
+                android:background="@drawable/btn_login_red"
+                android:textColor="@color/white"
+                android:text="@string/dialog_ok" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_padding_15" />
+    </LinearLayout>
+</LinearLayout>

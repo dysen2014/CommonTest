@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyHeight="6%"
+    android:keyWidth="20%p"
+    android:horizontalGap="1%"
+    android:verticalGap="0.5%">
+
+    <Row>
+        <Key
+            android:keyHeight="12.5%"
+            android:keyEdgeFlags="left"
+            android:codes="-103"
+            android:keyLabel="C" />
+        <Key
+            android:codes="49"
+            android:keyLabel="1" />
+        <Key
+            android:codes="50"
+            android:keyLabel="2" />
+        <Key
+            android:codes="51"
+            android:keyLabel="3" />
+        <Key
+            android:codes="-101"
+            android:keyHeight="12.5%"
+            android:keyEdgeFlags="right"
+            android:keyIcon="@mipmap/icon_key_del" />
+    </Row>
+
+    <Row >
+        <Key
+            android:codes="-180"
+            android:keyHeight="0dp"
+            android:keyEdgeFlags="left" />
+        <Key
+            android:codes="52"
+            android:keyLabel="4" />
+        <Key
+            android:codes="53"
+            android:keyLabel="5" />
+        <Key
+            android:codes="54"
+            android:keyLabel="6" />
+        <Key
+            android:codes="-180"
+            android:keyHeight="0dp"
+            android:keyEdgeFlags="right"/>
+    </Row>
+
+    <Row>
+        <Key
+            android:keyEdgeFlags="left"
+            android:codes="-105"
+            android:keyIcon="@mipmap/ico_pre"/>
+        <Key
+            android:codes="55"
+            android:keyLabel="7" />
+        <Key
+            android:codes="56"
+            android:keyLabel="8" />
+        <Key
+            android:codes="57"
+            android:keyLabel="9" />
+        <Key
+            android:codes="-102"
+            android:keyHeight="12.5%"
+            android:keyEdgeFlags="right"
+            android:keyLabel="@string/jump"/>
+    </Row>
+
+    <Row>
+        <Key
+            android:keyEdgeFlags="left"
+            android:codes="-106"
+            android:keyIcon="@mipmap/ico_next"/>
+
+        <Key
+            android:codes="46"
+            android:keyLabel="." />
+        <Key
+            android:codes="-104"
+            android:keyIcon="@mipmap/ico_pickoff" />
+        <Key
+            android:codes="48"
+            android:keyLabel="0" />
+        <Key
+            android:codes="-180"
+            android:keyHeight="0dp"
+            android:keyEdgeFlags="right" />
+    </Row>
+</Keyboard>

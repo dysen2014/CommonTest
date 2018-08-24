@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Test App</string>
+    <string name="jump_authenticator">启动身份验证器</string>
+    <string name="jump_gesture">启动手势密码</string>
+    <string name="jump_pop">启动PopWindow</string>
+    <string name="scan_qr">扫描QR码</string>
+    <string name="http_get">请求数据</string>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dysen.test.TestActivity">
+
+    <LinearLayout
+        style="@style/match_match"
+        android:gravity="center">
+
+        <Button style="@style/common_btn_wra"
+            android:id="@+id/btn_up"
+            android:text="向上👆"
+            />
+        <Button style="@style/common_btn_wra"
+            android:id="@+id/btn_down"
+            android:text="向下👇"/>
+
+
+        <Button
+            android:id="@+id/btn_get"
+            android:text="@string/http_get"
+            android:layout_gravity="center"
+            style="@style/common_btn_wra"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

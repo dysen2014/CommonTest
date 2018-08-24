@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">common-library</string>
+    <string name="jump">OK</string>
+    <string name="dialog_title">Note</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_ok">Ok</string>
 </resources>
