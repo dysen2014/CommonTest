@@ -5,15 +5,22 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
@@ -33,6 +40,7 @@ import com.dysen.common_library.views.ConfirmDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -149,6 +157,7 @@ public class Tools {
     public static int dp2px(float dpValue) {
         return DeviceUtil.dp2px(getApp(), dpValue);
     }
+
     public static int sp2px(float spValue) {
         float scale = getApp().getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * scale + 0.5f);
@@ -208,10 +217,10 @@ public class Tools {
     }
 
     public static void toastShortError(String mError) {
-        if(!TextUtils.isEmpty(mError) && (
+        if (!TextUtils.isEmpty(mError) && (
                 mError.contains("错误") ||
-                mError.contains("网络") ||
-                mError.contains("异常"))){
+                        mError.contains("网络") ||
+                        mError.contains("异常"))) {
 
             toastShort(mError);
         }
@@ -390,7 +399,7 @@ public class Tools {
     }
 
     public static String formatDate(String date) {
-        if(date.contains(":"))
+        if (date.contains(":"))
             return formatDate(date, "yyyy-MM-dd HH:mm");
         else
             return date;
@@ -434,16 +443,16 @@ public class Tools {
         }
     }
 
-    public static boolean isEmpty(TextView tv){
+    public static boolean isEmpty(TextView tv) {
         return TextUtils.isEmpty(getText(tv));
     }
 
-    public static boolean isEmpty(TextView tv, CharSequence errorMsg){
-        if(tv == null){
+    public static boolean isEmpty(TextView tv, CharSequence errorMsg) {
+        if (tv == null) {
             Tools.toastShort("TextView 对象为空!");
             return true;
         }
-        if(TextUtils.isEmpty(getText(tv))){
+        if (TextUtils.isEmpty(getText(tv))) {
             Tools.toastShort(errorMsg);
             return true;
         }
@@ -451,8 +460,8 @@ public class Tools {
         return false;
     }
 
-    public static String getText(TextView tv){
-        if(tv == null)
+    public static String getText(TextView tv) {
+        if (tv == null)
             return null;
         else
             return tv.getText().toString().trim();
@@ -460,20 +469,23 @@ public class Tools {
 
     /**
      * 隐藏软键盘
+     *
      * @param activity
      */
-    public static void hideSoftInput(Activity activity){
+    public static void hideSoftInput(Activity activity) {
         try {
-            ((InputMethodManager)activity.getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
+            ((InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
                     activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
     }
 
     /**
      * 显示软键盘
+     *
      * @param activity
      */
-    public static void showSoftInput(Activity activity, EditText editText){
+    public static void showSoftInput(Activity activity, EditText editText) {
         try {
             editText.setFocusable(true);
             editText.setFocusableInTouchMode(true);
@@ -488,7 +500,7 @@ public class Tools {
 
     public static void eventBusRegister(Object object) {
         try {
-            if (!EventBus.getDefault().isRegistered(object)){
+            if (!EventBus.getDefault().isRegistered(object)) {
                 EventBus.getDefault().register(object);
             }
         } catch (Exception e) {
@@ -528,7 +540,7 @@ public class Tools {
 
     public static String handleZeroString(String str) {
         try {
-            if(isZero(str))
+            if (isZero(str))
                 return "0.00";
             else
                 return str;
@@ -540,7 +552,7 @@ public class Tools {
 
     public static boolean isZero(String d) {
         try {
-            if(TextUtils.isEmpty(d))
+            if (TextUtils.isEmpty(d))
                 return true;
 
             BigDecimal mBigDecimal = new BigDecimal(d);
@@ -554,10 +566,11 @@ public class Tools {
 
     /**
      * 加载图片
+     *
      * @param img
      * @param url
      */
-    public static void loadImageBitmap2(final ImageView img, final String url){
+    public static void loadImageBitmap2(final ImageView img, final String url) {
         if (!URLUtil.isNetworkUrl(url)) {
             LogUtils.e("loadImageBitmap sNetworkUrl(url) == false");
             return;
@@ -586,6 +599,7 @@ public class Tools {
 
     /**
      * 去除list<T>重复的数据
+     *
      * @param list
      * @param <T>
      * @return
@@ -625,10 +639,11 @@ public class Tools {
 
     /**
      * 执行动画
+     *
      * @param view
      * @param animationId
      */
-    public static void doAnimation(final View view, final int animationId){
+    public static void doAnimation(final View view, final int animationId) {
         try {
             view.startAnimation(AnimationUtils.loadAnimation(getApp(), animationId));
         } catch (Exception e) {
@@ -636,17 +651,17 @@ public class Tools {
         }
     }
 
-    public static void doFadeinAnimation(final View view){
+    public static void doFadeinAnimation(final View view) {
         doAnimation(view, R.anim.fadein);
     }
 
     /**
      * 显示
      */
-    public static void setVisible(final View view){
+    public static void setVisible(final View view) {
         try {
-            if(view == null || view.getVisibility() == View.VISIBLE)
-                return ;
+            if (view == null || view.getVisibility() == View.VISIBLE)
+                return;
             view.setVisibility(View.VISIBLE);
             doAnimation(view, R.anim.fadein);
         } catch (Exception e) {
@@ -656,13 +671,14 @@ public class Tools {
 
     /**
      * 隐藏
+     *
      * @param view
      */
     public static void setGone(final View view) {
         try {
-            if(view == null || view.getVisibility() == View.GONE ||
+            if (view == null || view.getVisibility() == View.GONE ||
                     view.getVisibility() == View.INVISIBLE)
-                return ;
+                return;
             view.setVisibility(View.GONE);
             doAnimation(view, R.anim.fadeout);
         } catch (Exception e) {
@@ -672,10 +688,11 @@ public class Tools {
 
     /**
      * 加载图片
+     *
      * @param img
      * @param url
      */
-    public static void loadImageBitmap(final ImageView img, final String url){
+    public static void loadImageBitmap(final ImageView img, final String url) {
         if (!URLUtil.isNetworkUrl(url)) {
             LogUtils.e("loadImageBitmap isNetworkUrl(url) == false");
             return;
@@ -719,6 +736,7 @@ public class Tools {
 
     /**
      * 信息确认框
+     *
      * @param context
      * @param msg
      * @param mOnYesClickListener
@@ -742,7 +760,7 @@ public class Tools {
      * @param context
      * @param msg
      */
-    public static ConfirmDialog showConfirmDialog(Context context, String msg , View.OnClickListener mOnYesClickListener) {
+    public static ConfirmDialog showConfirmDialog(Context context, String msg, View.OnClickListener mOnYesClickListener) {
         return showConfirmDialog(context, msg, mOnYesClickListener, null);
     }
 
@@ -770,21 +788,23 @@ public class Tools {
 
     /**
      * 是否英语语言
+     *
      * @return
      */
-    public static boolean isLanguageEnglish(){
+    public static boolean isLanguageEnglish() {
         return ChangeLanguageHelper.getAppLanguage() == ChangeLanguageHelper.CHANGE_LANGUAGE_ENGLISH;
     }
 
     /**
      * 防止控件被重复点击
+     *
      * @param distance 间隔 默认300毫秒 test
      * @return
      */
     public static boolean isFastDoubleClick(int distance) {
         long time = System.currentTimeMillis();
-        long timeD = ((long)time - lastClickTime);
-        if (0 < timeD && timeD < (long)distance) {
+        long timeD = ((long) time - lastClickTime);
+        if (0 < timeD && timeD < (long) distance) {
             return true;
         }
         lastClickTime = time;
@@ -793,9 +813,86 @@ public class Tools {
 
     /**
      * 防止控件被重复点击
+     *
      * @return
      */
     public static boolean isFastDoubleClick() {
         return isFastDoubleClick(300);
     }
+
+    /**
+     * 获取屏幕分辨率
+     */
+    public static Point getRealScreenSize(Context context) {
+        Point screenSize = null;
+        try {
+            screenSize = new Point();
+            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            Display defaultDisplay = windowManager.getDefaultDisplay();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                defaultDisplay.getRealSize(screenSize);
+            } else {
+                try {
+                    Method mGetRawW = Display.class.getMethod("getRawWidth");
+                    Method mGetRawH = Display.class.getMethod("getRawHeight");
+                    screenSize.set(
+                            (Integer) mGetRawW.invoke(defaultDisplay),
+                            (Integer) mGetRawH.invoke(defaultDisplay)
+                    );
+                } catch (Exception e) {
+                    screenSize.set(defaultDisplay.getWidth(), defaultDisplay.getHeight());
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return screenSize;
+    }
+
+    /**
+     * 图片缩放
+     *
+     * @param ivPic
+     */
+    static boolean num = true;
+    static float scaleWidth, scaleHeight;
+
+    private static void imgZoom(Activity activity, final ImageView ivPic, final Bitmap bitmap) {
+        DisplayMetrics dm = new DisplayMetrics();//创建矩阵
+        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int w = dm.widthPixels; //得到屏幕的宽度
+        int h = dm.heightPixels; //得到屏幕的高度
+        scaleWidth = ((float) w) / width;
+        scaleHeight = ((float) h) / height;
+
+        ivPic.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN:  //当屏幕检测到第一个触点按下之后就会触发到这个事件。
+                        if (num == true) {
+                            Matrix matrix = new Matrix();
+                            matrix.postScale(scaleWidth, scaleHeight);
+
+                            Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                            ivPic.setImageBitmap(newBitmap);
+                            num = false;
+                        } else {
+                            Matrix matrix = new Matrix();
+                            matrix.postScale(1.0f, 1.0f);
+                            Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                            ivPic.setImageBitmap(newBitmap);
+                            num = true;
+                        }
+                        break;
+                }
+                return false;
+            }
+        });
+    }
+
 }
