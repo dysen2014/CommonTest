@@ -2,11 +2,13 @@ package com.dysen.common_library.utils;
 
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -24,7 +26,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.request.RequestOptions;
+import com.dysen.common_library.R;
+
 import java.io.File;
+import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +54,7 @@ public class BitmapUtils {
     static boolean num;
     static Bitmap baseBitmap, newBitmap;
 
-    public static void viewZoom(Activity activity, final ImageView ivPic, Bitmap bitmap, @DrawableRes final int resImgId) {
+    public static void viewZoom(final Activity activity, final ImageView ivPic, Bitmap bitmap, @DrawableRes final int resImgId) {
         if (bitmap == null)
             baseBitmap = getResBitmap(activity, resImgId);
         else
@@ -75,7 +83,11 @@ public class BitmapUtils {
                             num = false;
                         }
                         newBitmap = Bitmap.createBitmap(baseBitmap, 0, 0, baseBitmap.getWidth(), baseBitmap.getHeight(), matrix, true);
-                        ivPic.setImageBitmap(newBitmap);
+//                        ivPic.setImageBitmap(newBitmap);
+                        Glide.with(activity.getBaseContext())
+                                .load(newBitmap)
+                                .apply(new RequestOptions().circleCropTransform())
+                                .into(ivPic);
                         break;
                 }
 
@@ -226,7 +238,7 @@ public class BitmapUtils {
         }
         return getBbitmap;
     }
-    
+
     /**
      * 缩放图片
      *
@@ -276,14 +288,27 @@ public class BitmapUtils {
     public static String saveBitmap(Bitmap bitmap, String path) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-HHmmss");
-//        String saveFileName = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/Screenshots" + "/Screenshot_" + sdf.format(new Date()) + ".png";
-        String saveFileName = path + sdf.format(new Date()) + ".png";
-        FileUtils.saveBitmap(bitmap, new File(saveFileName));
+        String dirPath = FileUtils.getPath(path);
+        if (!FileUtils.isFolderExist(dirPath))
+            FileUtils.getFile(dirPath).mkdirs();
+        String saveFileName = dirPath + sdf.format(new Date()) + ".jpg";
+        FileUtils.saveBitmap(bitmap, FileUtils.getFile(saveFileName));
         return saveFileName;
+    }
+
+    public static String saveBitmap(Activity activity, Bitmap bitmap) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-HHmmss");
+        File file = new File(activity.getExternalFilesDir(null).getAbsolutePath() + "/ZB/Screenshots/");
+        FileUtils.checkDirectory(file);
+        String path = file.getAbsolutePath() + "/Screenshot_" + sdf.format(new Date()) + ".jpg";
+        FileUtils.saveBitmap(bitmap, new File(path));
+        return path;
     }
 
     /**
      * 系统方式分享
+     *
      * @param activity
      * @param saveFileName
      */
@@ -361,4 +386,60 @@ public class BitmapUtils {
             return false;
     }
 
+    /**
+     * 通过uri获取文件的绝对路径
+     *
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static String getRealFilePath(final Context context, final Uri uri) {
+        if (null == uri) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null)
+            data = uri.getPath();
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+
+    /**
+     * 文件删除
+     *
+     * @param autoClearDay 文件保存天数
+     */
+    public static void autoClear(String dirPath, final int autoClearDay) {
+        FileUtils.delete(dirPath, new FilenameFilter() {
+
+            @Override
+            public boolean accept(File file, String filename) {
+                String s = FileUtils.getFileNameWithoutExtension(filename);
+                int day = autoClearDay < 0 ? autoClearDay : -1 * autoClearDay;
+                String date = DateUtils.getOtherDay(day);
+                if (s.contains("Screenshot_")) {
+                    s = s.substring(s.indexOf("_") + 1, s.indexOf("-"));
+                    String ss = DateUtils.dateSimpleFormat(DateUtils.getOtherFormat(day), DateUtils.SHORT_DATE_FORMAT);
+                    return ss.compareTo(s) >= 0;
+                }
+                if (FormatUtil.isNumeric(s)) {
+                    String newStr = DateUtils.getNormalDateString(Long.valueOf(s));//把毫秒数转成 "yyyy-MM-dd 格式
+                    return date.compareTo(newStr) >= 0;
+                } else
+                    return false;
+            }
+        });
+    }
 }

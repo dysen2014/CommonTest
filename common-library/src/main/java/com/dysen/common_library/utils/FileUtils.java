@@ -1,9 +1,13 @@
 package com.dysen.common_library.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -675,6 +679,11 @@ public class FileUtils {
         return dirPath;
     }
 
+    public static File getFile(String filePath) {
+
+        return new File(filePath);
+    }
+
     /**
      * 根据对象获取属性名
      *
@@ -1012,12 +1021,24 @@ public class FileUtils {
         }
     }
 
-    public static void checkDirectory(File file) {
+    public static boolean checkDirectory(File file) {
         if (file == null)
-            return;
+            return false;
         if (!file.getParentFile().exists())
             checkDirectory(file.getParentFile());
-        file.mkdir();
+        return file.mkdir();
+    }
+
+    /**
+     *
+     * @param path 文件夹路径
+     */
+    public static void isExist(String path) {
+        File file = new File(path);
+        //判断文件夹是否存在,如果不存在则创建文件夹
+        if (!file.exists()) {
+            file.mkdir();
+        }
     }
 
     /**
@@ -1028,7 +1049,7 @@ public class FileUtils {
      */
     public static boolean checkFileExist(String path) {
         if (path == null || path.isEmpty())
-            return true;
+            return false;
         File file = new File(path);
         return file.exists();
     }
@@ -1075,4 +1096,63 @@ public class FileUtils {
         }
         return lists;
     }
+
+
+    /**
+     * 通过uri获取文件的绝对路径
+     *
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static String getRealFilePath(final Context context, final Uri uri) {
+        if (null == uri) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null)
+            data = uri.getPath();
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+
+    /**
+     * 文件删除
+     *
+     * @param autoClearDay 文件保存天数
+     */
+    public static void autoClear(String dirPath, final int autoClearDay) {
+        FileUtils.delete(dirPath, new FilenameFilter() {
+
+            @Override
+            public boolean accept(File file, String filename) {
+                String s = FileUtils.getFileNameWithoutExtension(filename);
+                int day = autoClearDay < 0 ? autoClearDay : -1 * autoClearDay;
+                String date = DateUtils.getOtherDay(day);
+                if (s.contains("Screenshot_")) {
+                    s = s.substring(s.indexOf("_") + 1, s.indexOf("-"));
+                    String ss = DateUtils.dateSimpleFormat(DateUtils.getOtherFormat(day), DateUtils.SHORT_DATE_FORMAT);
+                    return ss.compareTo(s) >= 0;
+                }
+                if (FormatUtil.isNumeric(s)) {
+                    String newStr = DateUtils.getNormalDateString(Long.valueOf(s));//把毫秒数转成 "yyyy-MM-dd 格式
+                    return date.compareTo(newStr) >= 0;
+                } else
+                    return false;
+            }
+        });
+    }
+
 }

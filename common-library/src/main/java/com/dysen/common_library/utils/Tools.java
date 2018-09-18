@@ -21,6 +21,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
@@ -30,9 +31,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.dysen.common_library.R;
 import com.dysen.common_library.base.AppContext;
 import com.dysen.common_library.ui.UIHelper;
@@ -45,8 +43,10 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -194,7 +194,7 @@ public class Tools {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApp(), msg, Toast.LENGTH_SHORT).show();
+                UIHelper.ToastMessage(getApp(), msg.toString());
             }
         });
     }
@@ -565,39 +565,6 @@ public class Tools {
     }
 
     /**
-     * 加载图片
-     *
-     * @param img
-     * @param url
-     */
-    public static void loadImageBitmap2(final ImageView img, final String url) {
-        if (!URLUtil.isNetworkUrl(url)) {
-            LogUtils.e("loadImageBitmap sNetworkUrl(url) == false");
-            return;
-        }
-        RequestListener<String, GlideDrawable> mRequestListener = new RequestListener<String, GlideDrawable>() {
-            @Override
-            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                img.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                return false;
-            }
-
-            @Override
-            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
-                                           boolean isFromMemoryCache, boolean isFirstResource) {
-                img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                return false;
-            }
-        };
-
-        Glide.with(getApp())
-                .load(url)
-                .error(R.mipmap.empty_load_failed)
-                .listener(mRequestListener)
-                .into(img);
-    }
-
-    /**
      * 去除list<T>重复的数据
      *
      * @param list
@@ -684,54 +651,6 @@ public class Tools {
         } catch (Exception e) {
             Tools.printStackTrace(e);
         }
-    }
-
-    /**
-     * 加载图片
-     *
-     * @param img
-     * @param url
-     */
-    public static void loadImageBitmap(final ImageView img, final String url) {
-        if (!URLUtil.isNetworkUrl(url)) {
-            LogUtils.e("loadImageBitmap isNetworkUrl(url) == false");
-            return;
-        }
-
-        img.setImageResource(R.mipmap.ic_default_photo);
-        img.setScaleType(ImageView.ScaleType.FIT_XY);
-        img.setTag(url);
-
-        RequestListener<String, GlideDrawable> mRequestListener = new RequestListener<String, GlideDrawable>() {
-            @Override
-            public boolean onException(Exception e, String imgUrl, Target<GlideDrawable> target, boolean isFirstResource) {
-                if (TextUtils.equals(String.valueOf(img.getTag()), imgUrl)) {
-                    img.setImageResource(R.mipmap.ic_error_load_failed);
-                    img.setScaleType(ImageView.ScaleType.FIT_XY);
-                }
-                img.setTag(null);
-                return false;
-            }
-
-            @Override
-            public boolean onResourceReady(GlideDrawable resource, String imgUrl, Target<GlideDrawable> target,
-                                           boolean isFromMemoryCache, boolean isFirstResource) {
-                if (TextUtils.equals(String.valueOf(img.getTag()), imgUrl)) {
-                    img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    img.setImageDrawable(resource);
-                    if (!isFromMemoryCache) {
-                        doFadeinAnimation(img);
-                    }
-                }
-                img.setTag(null);
-                return false;
-            }
-        };
-
-        Glide.with(getApp())
-                .load(url)
-                .listener(mRequestListener)
-                .preload();
     }
 
     /**
@@ -895,4 +814,53 @@ public class Tools {
         });
     }
 
+    /**
+     * 播放动画
+     * @param context
+     * @param view
+     * @param animId
+     */
+    public static void playAnimation(Context context, View view, int animId){
+        // 初始化需要加载的动画资源
+        Animation animation = AnimationUtils
+                .loadAnimation(context, animId);
+        // 将View执行Animation动画
+        view.startAnimation(animation);
+    }
+
+    /**
+     * 几天前毫秒
+     *
+     * @param days
+     * @return
+     */
+    public static long getDaysAgoTimeMillis(int days) {
+        return System.currentTimeMillis() - days * 24 * 3600 * 1000L;
+    }
+
+    /**
+     * 转换参数
+     *
+     * @param param
+     * @return
+     */
+    public static Map<String, String> convertParameter(Map<String, Object> param) {
+        Map<String, String> result = new HashMap<>();
+        if (param == null) {
+            return result;
+        }
+        for (String key : param.keySet()) {
+            result.put(key, String.valueOf(param.get(key)));
+        }
+        return result;
+    }
+
+    /**
+     * 判断字符是否是正数
+     * @param sVal
+     * @return
+     */
+    public static boolean checkPositiveNumber(String sVal) {
+        return Character.isDigit(sVal.charAt(0)) ? true : false;
+    }
 }

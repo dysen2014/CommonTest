@@ -4,14 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dysen.common_library.R;
+import com.dysen.common_library.utils.Tools;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * @package com.dysen.gesturelock.activity
@@ -40,7 +46,6 @@ public class BaseActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_base);
         baseInit();
-
     }
     protected void baseInit() {
         if (mHandler == null)
@@ -55,6 +60,8 @@ public class BaseActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Tools.eventBusRegister(this);
     }
     /**
      * set screen view
@@ -80,5 +87,15 @@ public class BaseActivity extends AppCompatActivity {
         if (isfinish.length > 0)
             if (isfinish[0])
                 finish();
+    }
+
+    // This method will be called when a MessageEvent is posted (in the UI thread for Toast)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(Message message) {
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Tools.eventBusUnregister(this);
     }
 }

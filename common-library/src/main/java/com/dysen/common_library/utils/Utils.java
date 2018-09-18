@@ -1,7 +1,9 @@
 package com.dysen.common_library.utils;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -149,5 +151,29 @@ public class Utils {
         int heights = bmp.getHeight();
         int navBarHeights = heights - rect.bottom;
         return Arrays.asList(new Integer[]{statusBarHeights, navBarHeights});
+    }
+
+    /**
+     * 权限动态申请
+     * @param mActivity
+     * @param permissions
+     */
+    public static void checkPermission(Activity mActivity, List<String> permissions){
+        /**
+         * 动态获取权限，Android 6.0 新特性，一些保护权限，除了要在AndroidManifest中声明权限，还要使用如下代码动态获取
+         */
+        if (Build.VERSION.SDK_INT >= 23) {
+            int REQUEST_CODE_CONTACT = 101;
+            if (permissions == null || permissions.size() < 0){
+                permissions = Arrays.asList(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE});
+            }
+            //验证是否许可权限
+            for (String str : permissions) {
+                if (mActivity.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
+                    //申请权限
+                    mActivity.requestPermissions((String[]) permissions.toArray(), REQUEST_CODE_CONTACT);
+                }
+            }
+        }
     }
 }
