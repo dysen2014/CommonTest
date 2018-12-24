@@ -17,7 +17,7 @@ import com.journeyapps.barcodescanner.DecoratedBarcodeView;
  * 793169940@qq.com
  *扫描rwei二维码
  */
-public class CustomScanActivity extends BaseActivity implements DecoratedBarcodeView.TorchListener{
+public abstract class CustomScanActivity extends BaseActivity implements DecoratedBarcodeView.TorchListener{
     private Activity context;
     private TextView tv_head_title;
     private TextView tv_head_back;

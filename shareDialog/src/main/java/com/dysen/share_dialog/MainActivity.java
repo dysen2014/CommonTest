@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onShot(String imagePath) {
                         // do something
                         Log.e("imagePath", "imagePath=" + imagePath);
-                        ScreenShot.shareAct2(MainActivity.this, imagePath);
+                        ScreenShot.shareAct(MainActivity.this, imagePath);
                     }
                 }
         );

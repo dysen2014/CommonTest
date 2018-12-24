@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ll_market"
+    android:id="@+id/ll_market_info">
+    <ImageView
+        android:id="@+id/img_market_type"
+        style="@style/img_market_icon"/>
+    <LinearLayout
+        style="@style/wrap_wrap_cv"
+        android:layout_toRightOf="@+id/img_market_type">
+        <LinearLayout
+            style="@style/wrap_wrap_h">
+            <TextView
+                android:id="@+id/tv_currency_name"
+                style="@style/tv_currency_name" />
+            <TextView
+                android:id="@+id/tv_exchange_type"
+                style="@style/tv_exchange_name"/>
+            <ImageView
+                android:id="@+id/img_collect"
+                style="@style/img_market_collect"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_jylx"
+            style="@style/tv_market_vol"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_toLeftOf="@+id/ll_market_rate"
+        style="@style/wrap_wrap_cv">
+        <TextView
+            android:id="@+id/tv_currentPrice"
+            style="@style/tv_market_price"/>
+        <TextView
+            android:id="@+id/tv_currentPrice_d"
+            style="@style/tv_market_price_d"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/ll_market_rate"
+        style="@style/ll_market_rate">
+        <TextView
+            android:id="@+id/tv_market_rate"
+            style="@style/tv_market_rate"/>
+    </RelativeLayout>
+</RelativeLayout>

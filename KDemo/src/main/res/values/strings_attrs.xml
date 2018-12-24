@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="safety_trans_status">
+        <item>永久关闭</item>
+        <item>始终开启</item>
+        <item>关闭6个小时</item>
+    </string-array>
+    <string-array name="safety_trans_status_key">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="kline_target">
+        <item>1分</item>
+        <item>5分</item>
+        <item>15分</item>
+        <item>30分</item>
+        <item>1时</item>
+        <item>2时</item>
+        <item>4时</item>
+        <item>6时</item>
+        <item>12时</item>
+        <item>1天</item>
+        <item>3天</item>
+        <item>1周</item>
+    </string-array>
+    <string-array name="kline_target_funds">
+        <item>1分</item>
+        <item>5分</item>
+        <item>30分</item>
+        <item>1天</item>
+        <item>1周</item>
+    </string-array>
+</resources>  

@@ -2,8 +2,9 @@ package com.dysen.common_library.views;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,315 +17,373 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 /**
- * @package com.dysen.common_library.views
- * @email dy.sen@qq.com
- * created by dysen on 2018/8/15 - 下午4:06
- * @info
+ *
+ * 自定义PopWindow类，封装了PopWindow的一些常用属性，用Builder模式支持链式调用
+ * Created by snedy on 16/11/28.
  */
 
-public class CustomPopWindow implements PopupWindow.OnDismissListener {
+public class CustomPopWindow implements PopupWindow.OnDismissListener{
     private static final String TAG = "CustomPopWindow";
-    private static final float DEFAULT_ALPHA = 0.7F;
+    private static final float DEFAULT_ALPHA = 0.7f;
     private Context mContext;
     private int mWidth;
     private int mHeight;
-    private boolean mIsFocusable;
-    private boolean mIsOutside;
-    private int mResLayoutId;
+    private boolean mIsFocusable = true;
+    private boolean mIsOutside = true;
+    private int mResLayoutId = -1;
     private View mContentView;
     private PopupWindow mPopupWindow;
-    private int mAnimationStyle;
-    private boolean mClippEnable;
-    private boolean mIgnoreCheekPress;
-    private int mInputMode;
-    private PopupWindow.OnDismissListener mOnDismissListener;
-    private int mSoftInputMode;
-    private boolean mTouchable;
-    private View.OnTouchListener mOnTouchListener;
-    private Window mWindow;
-    private boolean mIsBackgroundDark;
-    private float mBackgroundDrakValue;
-    private boolean enableOutsideTouchDisMiss;
+    private int mAnimationStyle = -1;
 
-    private CustomPopWindow(Context context1, Context context) {
-        this.mIsFocusable = true;
-        this.mIsOutside = true;
-        this.mResLayoutId = -1;
-        this.mAnimationStyle = -1;
-        this.mClippEnable = true;
-        this.mIgnoreCheekPress = false;
-        this.mInputMode = -1;
-        this.mSoftInputMode = -1;
-        this.mTouchable = true;
-        this.mIsBackgroundDark = false;
-        this.mBackgroundDrakValue = 0.0F;
-        this.enableOutsideTouchDisMiss = true;
-        this.mContext = context;
+    private boolean mClippEnable = true;//default is true
+    private boolean mIgnoreCheekPress = false;
+    private int mInputMode = -1;
+    private PopupWindow.OnDismissListener mOnDismissListener;
+    private int mSoftInputMode = -1;
+    private boolean mTouchable = true;//default is ture
+    private View.OnTouchListener mOnTouchListener;
+
+    private Window mWindow;//当前Activity 的窗口
+    /**
+     * 弹出PopWindow 背景是否变暗，默认不会变暗。
+     */
+    private boolean mIsBackgroundDark = false;
+
+    private float mBackgroundDrakValue = 0;// 背景变暗的值，0 - 1
+    /**
+     * 设置是否允许点击 PopupWindow之外的地方，关闭PopupWindow
+     */
+    private boolean enableOutsideTouchDisMiss = true;// 默认点击pop之外的地方可以关闭
+
+    private CustomPopWindow(Context context){
+        mContext = context;
     }
 
     public int getWidth() {
-        return this.mWidth;
+        return mWidth;
     }
 
     public int getHeight() {
-        return this.mHeight;
+        return mHeight;
     }
 
-    public CustomPopWindow showAsDropDown(View anchor, int xOff, int yOff) {
-        if (this.mPopupWindow != null) {
-            this.mPopupWindow.showAsDropDown(anchor, xOff, yOff);
+    /**
+     *
+     * @param anchor
+     * @param xOff
+     * @param yOff
+     * @return
+     */
+    public CustomPopWindow showAsDropDown(View anchor, int xOff, int yOff){
+        if(mPopupWindow!=null){
+            mPopupWindow.showAsDropDown(anchor,xOff,yOff);
         }
-
         return this;
     }
 
-    public CustomPopWindow showAsDropDown(View anchor) {
-        if (this.mPopupWindow != null) {
-            this.mPopupWindow.showAsDropDown(anchor);
+    public CustomPopWindow showAsDropDown(View anchor){
+        if(mPopupWindow!=null){
+            mPopupWindow.showAsDropDown(anchor);
         }
-
         return this;
     }
 
-    @RequiresApi(
-            api = 19
-    )
-    public CustomPopWindow showAsDropDown(View anchor, int xOff, int yOff, int gravity) {
-        if (this.mPopupWindow != null) {
-            this.mPopupWindow.showAsDropDown(anchor, xOff, yOff, gravity);
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public CustomPopWindow showAsDropDown(View anchor, int xOff, int yOff, int gravity){
+        if(mPopupWindow!=null){
+            mPopupWindow.showAsDropDown(anchor,xOff,yOff,gravity);
         }
-
         return this;
     }
 
-    public CustomPopWindow showAtLocation(View parent, int gravity, int x, int y) {
-        if (this.mPopupWindow != null) {
-            this.mPopupWindow.showAtLocation(parent, gravity, x, y);
-        }
 
+    /**
+     * 相对于父控件的位置（通过设置Gravity.CENTER，下方Gravity.BOTTOM等 ），可以设置具体位置坐标
+     * @param parent 父控件
+     * @param gravity
+     * @param x the popup's x location offset
+     * @param y the popup's y location offset
+     * @return
+     */
+    public CustomPopWindow showAtLocation(View parent, int gravity, int x, int y){
+        if(mPopupWindow!=null){
+            mPopupWindow.showAtLocation(parent,gravity,x,y);
+        }
         return this;
     }
 
-    private void apply(PopupWindow popupWindow) {
-        popupWindow.setClippingEnabled(this.mClippEnable);
-        if (this.mIgnoreCheekPress) {
+    /**
+     * 添加一些属性设置
+     * @param popupWindow
+     */
+    private void apply(PopupWindow popupWindow){
+        popupWindow.setClippingEnabled(mClippEnable);
+        if(mIgnoreCheekPress){
             popupWindow.setIgnoreCheekPress();
         }
-
-        if (this.mInputMode != -1) {
-            popupWindow.setInputMethodMode(this.mInputMode);
+        if(mInputMode!=-1){
+            popupWindow.setInputMethodMode(mInputMode);
         }
-
-        if (this.mSoftInputMode != -1) {
-            popupWindow.setSoftInputMode(this.mSoftInputMode);
+        if(mSoftInputMode!=-1){
+            popupWindow.setSoftInputMode(mSoftInputMode);
         }
-
-        if (this.mOnDismissListener != null) {
-            popupWindow.setOnDismissListener(this.mOnDismissListener);
+        if(mOnDismissListener!=null){
+            popupWindow.setOnDismissListener(mOnDismissListener);
         }
-
-        if (this.mOnTouchListener != null) {
-            popupWindow.setTouchInterceptor(this.mOnTouchListener);
+        if(mOnTouchListener!=null){
+            popupWindow.setTouchInterceptor(mOnTouchListener);
         }
+        popupWindow.setTouchable(mTouchable);
 
-        popupWindow.setTouchable(this.mTouchable);
+
+
     }
 
-    private PopupWindow build() {
-        if (this.mContentView == null) {
-            this.mContentView = LayoutInflater.from(this.mContext).inflate(this.mResLayoutId, (ViewGroup)null);
+    private PopupWindow build(){
+
+        if(mContentView == null){
+            mContentView = LayoutInflater.from(mContext).inflate(mResLayoutId,null);
         }
 
-        Activity activity = (Activity)this.mContentView.getContext();
-        if (activity != null && this.mIsBackgroundDark) {
-            float alpha = this.mBackgroundDrakValue > 0.0F && this.mBackgroundDrakValue < 1.0F ? this.mBackgroundDrakValue : 0.7F;
-            this.mWindow = activity.getWindow();
-            WindowManager.LayoutParams params = this.mWindow.getAttributes();
+        // 2017.3.17 add
+        // 获取当前Activity的window
+        Activity activity = (Activity) mContentView.getContext();
+        if(activity!=null && mIsBackgroundDark){
+            //如果设置的值在0 - 1的范围内，则用设置的值，否则用默认值
+            final  float alpha = (mBackgroundDrakValue > 0 && mBackgroundDrakValue < 1) ? mBackgroundDrakValue : DEFAULT_ALPHA;
+            mWindow = activity.getWindow();
+            WindowManager.LayoutParams params = mWindow.getAttributes();
             params.alpha = alpha;
-            this.mWindow.addFlags(2);
-            this.mWindow.setAttributes(params);
+            mWindow.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            mWindow.setAttributes(params);
         }
 
-        if (this.mWidth != 0 && this.mHeight != 0) {
-            this.mPopupWindow = new PopupWindow(this.mContentView, this.mWidth, this.mHeight);
-        } else {
-            this.mPopupWindow = new PopupWindow(this.mContentView, -2, -2);
+
+        if(mWidth != 0 && mHeight!=0 ){
+            mPopupWindow = new PopupWindow(mContentView,mWidth,mHeight);
+        }else{
+            mPopupWindow = new PopupWindow(mContentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+        if(mAnimationStyle!=-1){
+            mPopupWindow.setAnimationStyle(mAnimationStyle);
         }
 
-        if (this.mAnimationStyle != -1) {
-            this.mPopupWindow.setAnimationStyle(this.mAnimationStyle);
+        apply(mPopupWindow);//设置一些属性
+
+        if(mWidth == 0 || mHeight == 0){
+            mPopupWindow.getContentView().measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            //如果外面没有设置宽高的情况下，计算宽高并赋值
+            mWidth = mPopupWindow.getContentView().getMeasuredWidth();
+            mHeight = mPopupWindow.getContentView().getMeasuredHeight();
         }
 
-        this.apply(this.mPopupWindow);
-        if (this.mWidth == 0 || this.mHeight == 0) {
-            this.mPopupWindow.getContentView().measure(0, 0);
-            this.mWidth = this.mPopupWindow.getContentView().getMeasuredWidth();
-            this.mHeight = this.mPopupWindow.getContentView().getMeasuredHeight();
-        }
+        // 添加dissmiss 监听
+        mPopupWindow.setOnDismissListener(this);
 
-        this.mPopupWindow.setOnDismissListener(this);
-        if (!this.enableOutsideTouchDisMiss) {
-            this.mPopupWindow.setFocusable(true);
-            this.mPopupWindow.setOutsideTouchable(false);
-            this.mPopupWindow.setBackgroundDrawable((Drawable)null);
-            this.mPopupWindow.getContentView().setFocusable(true);
-            this.mPopupWindow.getContentView().setFocusableInTouchMode(true);
-            this.mPopupWindow.getContentView().setOnKeyListener(new View.OnKeyListener() {
+        //2017.6.27 add:fix 设置  setOutsideTouchable（false）点击外部取消的bug.
+        // 判断是否点击PopupWindow之外的地方关闭 popWindow
+        if(!enableOutsideTouchDisMiss){
+            //注意这三个属性必须同时设置，不然不能disMiss，以下三行代码在Android 4.4 上是可以，然后在Android 6.0以上，下面的三行代码就不起作用了，就得用下面的方法
+            mPopupWindow.setFocusable(true);
+            mPopupWindow.setOutsideTouchable(false);
+            mPopupWindow.setBackgroundDrawable(null);
+            //注意下面这三个是contentView 不是PopupWindow
+            mPopupWindow.getContentView().setFocusable(true);
+            mPopupWindow.getContentView().setFocusableInTouchMode(true);
+            mPopupWindow.getContentView().setOnKeyListener(new View.OnKeyListener() {
+                @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
-                    if (keyCode == 4) {
-                        CustomPopWindow.this.mPopupWindow.dismiss();
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        mPopupWindow.dismiss();
+
                         return true;
-                    } else {
-                        return false;
                     }
+                    return false;
                 }
             });
-            this.mPopupWindow.setTouchInterceptor(new View.OnTouchListener() {
+            //在Android 6.0以上 ，只能通过拦截事件来解决
+            mPopupWindow.setTouchInterceptor(new View.OnTouchListener() {
+                @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    int x = (int)event.getX();
-                    int y = (int)event.getY();
-                    if (event.getAction() != 0 || x >= 0 && x < CustomPopWindow.this.mWidth && y >= 0 && y < CustomPopWindow.this.mHeight) {
-                        if (event.getAction() == 4) {
-                            Log.e("CustomPopWindow", "out side ...");
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    } else {
-                        Log.e("CustomPopWindow", "out side ");
-                        Log.e("CustomPopWindow", "width:" + CustomPopWindow.this.mPopupWindow.getWidth() + "height:" + CustomPopWindow.this.mPopupWindow.getHeight() + " x:" + x + " y  :" + y);
+
+                    final int x = (int) event.getX();
+                    final int y = (int) event.getY();
+
+                    if ((event.getAction() == MotionEvent.ACTION_DOWN)
+                            && ((x < 0) || (x >= mWidth) || (y < 0) || (y >= mHeight))) {
+                        Log.e(TAG,"out side ");
+                        Log.e(TAG,"width:"+mPopupWindow.getWidth()+"height:"+mPopupWindow.getHeight()+" x:"+x+" y  :"+y);
+                        return true;
+                    } else if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+                        Log.e(TAG,"out side ...");
                         return true;
                     }
+                    return false;
                 }
             });
-        } else {
-            this.mPopupWindow.setFocusable(this.mIsFocusable);
-            this.mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
-            this.mPopupWindow.setOutsideTouchable(this.mIsOutside);
+        }else{
+            mPopupWindow.setFocusable(mIsFocusable);
+            mPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            mPopupWindow.setOutsideTouchable(mIsOutside);
         }
+        // update
+        mPopupWindow.update();
 
-        this.mPopupWindow.update();
-        return this.mPopupWindow;
+        return mPopupWindow;
     }
 
+    @Override
     public void onDismiss() {
-        this.dissmiss();
+        dissmiss();
     }
 
-    public void dissmiss() {
-        if (this.mOnDismissListener != null) {
-            this.mOnDismissListener.onDismiss();
+    /**
+     * 关闭popWindow
+     */
+    public void dissmiss(){
+
+        if(mOnDismissListener!=null){
+            mOnDismissListener.onDismiss();
         }
 
-        if (this.mWindow != null) {
-            WindowManager.LayoutParams params = this.mWindow.getAttributes();
-            params.alpha = 1.0F;
-            this.mWindow.setAttributes(params);
+        //如果设置了背景变暗，那么在dissmiss的时候需要还原
+        if(mWindow!=null){
+            WindowManager.LayoutParams params = mWindow.getAttributes();
+            params.alpha = 1.0f;
+            mWindow.setAttributes(params);
         }
-
-        if (this.mPopupWindow != null && this.mPopupWindow.isShowing()) {
-            this.mPopupWindow.dismiss();
+        if(mPopupWindow!=null && mPopupWindow.isShowing()){
+            mPopupWindow.dismiss();
         }
-
     }
 
     public PopupWindow getPopupWindow() {
-        return this.mPopupWindow;
+        return mPopupWindow;
     }
 
-    public static class PopupWindowBuilder {
+    public static class PopupWindowBuilder{
         private CustomPopWindow mCustomPopWindow;
 
-        public PopupWindowBuilder(Context context) {
-            this.mCustomPopWindow = new CustomPopWindow(context, null);
+        public PopupWindowBuilder(Context context){
+            mCustomPopWindow = new CustomPopWindow(context);
         }
-
-        public CustomPopWindow.PopupWindowBuilder size(int width, int height) {
-            this.mCustomPopWindow.mWidth = width;
-            this.mCustomPopWindow.mHeight = height;
+        public PopupWindowBuilder size(int width,int height){
+            mCustomPopWindow.mWidth = width;
+            mCustomPopWindow.mHeight = height;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setFocusable(boolean focusable) {
-            this.mCustomPopWindow.mIsFocusable = focusable;
+
+        public PopupWindowBuilder setFocusable(boolean focusable){
+            mCustomPopWindow.mIsFocusable = focusable;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setView(int resLayoutId) {
-            this.mCustomPopWindow.mResLayoutId = resLayoutId;
-            this.mCustomPopWindow.mContentView = null;
+
+
+        public PopupWindowBuilder setView(int resLayoutId){
+            mCustomPopWindow.mResLayoutId = resLayoutId;
+            mCustomPopWindow.mContentView = null;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setView(View view) {
-            this.mCustomPopWindow.mContentView = view;
-            this.mCustomPopWindow.mResLayoutId = -1;
+        public PopupWindowBuilder setView(View view){
+            mCustomPopWindow.mContentView = view;
+            mCustomPopWindow.mResLayoutId = -1;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setOutsideTouchable(boolean outsideTouchable) {
-            this.mCustomPopWindow.mIsOutside = outsideTouchable;
+        public PopupWindowBuilder setOutsideTouchable(boolean outsideTouchable){
+            mCustomPopWindow.mIsOutside = outsideTouchable;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setAnimationStyle(int animationStyle) {
-            this.mCustomPopWindow.mAnimationStyle = animationStyle;
+        /**
+         * 设置弹窗动画
+         * @param animationStyle
+         * @return
+         */
+        public PopupWindowBuilder setAnimationStyle(int animationStyle){
+            mCustomPopWindow.mAnimationStyle = animationStyle;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setClippingEnable(boolean enable) {
-            this.mCustomPopWindow.mClippEnable = enable;
+
+        public PopupWindowBuilder setClippingEnable(boolean enable){
+            mCustomPopWindow.mClippEnable =enable;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setIgnoreCheekPress(boolean ignoreCheekPress) {
-            this.mCustomPopWindow.mIgnoreCheekPress = ignoreCheekPress;
+
+        public PopupWindowBuilder setIgnoreCheekPress(boolean ignoreCheekPress){
+            mCustomPopWindow.mIgnoreCheekPress = ignoreCheekPress;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setInputMethodMode(int mode) {
-            this.mCustomPopWindow.mInputMode = mode;
+        public PopupWindowBuilder setInputMethodMode(int mode){
+            mCustomPopWindow.mInputMode = mode;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setOnDissmissListener(PopupWindow.OnDismissListener onDissmissListener) {
-            this.mCustomPopWindow.mOnDismissListener = onDissmissListener;
+        public PopupWindowBuilder setOnDissmissListener(PopupWindow.OnDismissListener onDissmissListener){
+            mCustomPopWindow.mOnDismissListener = onDissmissListener;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setSoftInputMode(int softInputMode) {
-            this.mCustomPopWindow.mSoftInputMode = softInputMode;
+
+        public PopupWindowBuilder setSoftInputMode(int softInputMode){
+            mCustomPopWindow.mSoftInputMode = softInputMode;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setTouchable(boolean touchable) {
-            this.mCustomPopWindow.mTouchable = touchable;
+
+        public PopupWindowBuilder setTouchable(boolean touchable){
+            mCustomPopWindow.mTouchable = touchable;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setTouchIntercepter(View.OnTouchListener touchIntercepter) {
-            this.mCustomPopWindow.mOnTouchListener = touchIntercepter;
+        public PopupWindowBuilder setTouchIntercepter(View.OnTouchListener touchIntercepter){
+            mCustomPopWindow.mOnTouchListener = touchIntercepter;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder enableBackgroundDark(boolean isDark) {
-            this.mCustomPopWindow.mIsBackgroundDark = isDark;
+        /**
+         * 设置背景变暗是否可用
+         * @param isDark
+         * @return
+         */
+        public PopupWindowBuilder enableBackgroundDark(boolean isDark){
+            mCustomPopWindow.mIsBackgroundDark = isDark;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder setBgDarkAlpha(float darkValue) {
-            this.mCustomPopWindow.mBackgroundDrakValue = darkValue;
+        /**
+         * 设置背景变暗的值
+         * @param darkValue
+         * @return
+         */
+        public PopupWindowBuilder setBgDarkAlpha(float darkValue){
+            mCustomPopWindow.mBackgroundDrakValue = darkValue;
             return this;
         }
 
-        public CustomPopWindow.PopupWindowBuilder enableOutsideTouchableDissmiss(boolean disMiss) {
-            this.mCustomPopWindow.enableOutsideTouchDisMiss = disMiss;
+        /**
+         * 设置是否允许点击 PopupWindow之外的地方，关闭PopupWindow
+         * @param disMiss
+         * @return
+         */
+        public PopupWindowBuilder enableOutsideTouchableDissmiss(boolean disMiss){
+            mCustomPopWindow.enableOutsideTouchDisMiss = disMiss;
             return this;
         }
 
-        public CustomPopWindow create() {
-            this.mCustomPopWindow.build();
-            return this.mCustomPopWindow;
+
+        public CustomPopWindow create(){
+            //构建PopWindow
+            mCustomPopWindow.build();
+            return mCustomPopWindow;
         }
+
     }
+
 }

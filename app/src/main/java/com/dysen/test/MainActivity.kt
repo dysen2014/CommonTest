@@ -6,26 +6,28 @@ import android.view.View
 import com.dysen.authenticator.AppContext
 import com.dysen.authenticator.AuthenticatorActivity
 import com.dysen.common_library.base.BaseActivity
-import com.dysen.common_library.bean.CommonBean
-import com.dysen.common_library.http.HttpMethods
-import com.dysen.common_library.http.HttpResult
-import com.dysen.common_library.subscribers.ProgressSubscriber
-import com.dysen.common_library.subscribers.SubscriberNextOrErrorListener
 import com.dysen.common_library.ui.UIHelper
 import com.dysen.common_library.utils.Tools
+import com.dysen.test.contacts.GetContactsActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity(), View.OnClickListener {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        baseSetContentView(R.layout.activity_main)
+    override fun initView() {
+    }
 
+    override fun setListener() {
         btn_start_authenticator.setOnClickListener(this)
         btn_start_gesture.setOnClickListener(this)
         btn_pop.setOnClickListener(this)
         btn_scan.setOnClickListener(this)
+        btn_contacts.setOnClickListener(this)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        baseSetContentView(R.layout.activity_main)
     }
 
     override fun onClick(view: View?) {//方式2
@@ -45,6 +47,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             R.id.btn_scan -> {
 
                 scanBarcode()
+            }
+            R.id.btn_contacts -> {
+
+                transAty(com.dysen.test.contacts.GetContactsActivity::class.java)
             }
         }
     }

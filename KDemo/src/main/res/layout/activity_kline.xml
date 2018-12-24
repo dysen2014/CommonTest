@@ -1,0 +1,79 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_trans_kline"
+    style="@style/match_match_bg_color"
+    android:background="@color/full_bg">
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        style="@style/match_wrap"
+        android:orientation="vertical">
+
+<!--
+        <include
+            android:id="@+id/include_kx"
+            layout="@layout/layout_kline_header"
+            android:background="@color/full_bg" />
+-->
+    </LinearLayout>
+
+    <FrameLayout
+        style="@style/match_match"
+        android:layout_below="@+id/include_kx">
+
+        <LinearLayout
+            android:id="@+id/ll_share"
+            style="@style/match_match"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
+
+            <com.dysen.kdemo.views.RateLinearView
+                android:id="@+id/linear_rate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:close="$ 0.0"
+                app:cnyColor="@color/bnt_color"
+                app:cnyPrice="￥ 0.0"
+                app:cnySize="@dimen/text_size_16"
+                app:coinName="BTC"
+                app:coinNameColor="@color/white"
+                app:coinNameSize="@dimen/text_size_16"
+                app:high="0.0"
+                app:low="0.0"
+                app:open="0.0"
+                app:rate="+0%"
+                app:rateColor="@color/bnt_color"
+                app:usdColor="@color/bnt_color"
+                app:usdPrice="$ 0.0"
+                app:usdSize="@dimen/text_size_20"
+                app:vol="0" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/linear_rate"
+                android:background="@color/status_bar_bg" />
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                style="@style/match_match_bg_color"
+                android:background="@color/full_bg">
+
+                <include layout="@layout/layout_kline" />
+                <com.dysen.kdemo.views.MagicIndicatorView
+                    android:id="@+id/magic_indicator_title"
+                    style="@style/match_match"
+                    android:layout_height="35dp"
+                    app:background_color="@color/full_bg"
+                    app:indicator_type="1"
+                    app:selected_color="@color/text_color_red"
+                    app:text_normal_color="@color/white"
+                    app:text_selected_color="@color/text_color_red"
+                    app:text_size="@dimen/text_size_14"
+                    app:width_size="4" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

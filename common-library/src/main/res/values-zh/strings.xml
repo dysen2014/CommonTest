@@ -4,4 +4,27 @@
     <string name="dialog_title">温馨提示</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_ok">确认</string>
+
+    <string name="share_save_success">保存成功</string>
+    <string name="share_save_failed">保存失败</string>
+
+    <!--个人信息-->
+    <string name="user_info">个人信息</string>
+    <string name="user_info_tx">头像</string>
+    <string name="user_info_nc">昵称</string>
+    <string name="user_info_dlzh">登录账户</string>
+    <string name="user_info_bdsj">绑定手机</string>
+    <string name="user_info_smrz">实名认证</string>
+    <string name="user_info_yhid">用户ID</string>
+    <string name="user_info_wsz">未设置</string>
+    <string name="user_info_nc_tip">注意：昵称只允许设置一次，如有疑问请联系客服。</string>
+    <!--星期-->
+    <string name="week_monday">星期一 </string>
+    <string name="week_tuesday">星期二 </string>
+    <string name="week_wednesday">星期三 </string>
+    <string name="week_thursday">星期四 </string>
+    <string name="week_friday">星期五 </string>
+    <string name="week_saturday">星期六 </string>
+    <string name="week_sunday">星期天 </string>
+    <string name="month_day">MM月dd日 </string>
 </resources>

@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by Luis on 2018/3/13.
  */
 
-public class DateUtils {
+public class DateUtils extends android.text.format.DateUtils{
 
     /**
      * yyyy-MM-dd HH:mm:ss字符串

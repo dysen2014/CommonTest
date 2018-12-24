@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/match_match">
+
+        <LinearLayout
+            android:id="@+id/linear_introduction"
+            style="@style/match_wrap"
+            android:background="@color/kbg"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_padding_10">
+
+            <TextView
+                android:id="@+id/cointitle"
+                style="@style/tv_user_white_14"
+                android:layout_marginLeft="@dimen/margin_padding_8" />
+
+            <WebView
+                android:id="@+id/webview"
+                style="@style/match_wrap"
+                android:background="@color/black"
+                android:scrollbars="vertical" />
+        </LinearLayout>
+
+</ScrollView>

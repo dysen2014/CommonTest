@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dysen.kdemo.views.ObservableScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/observableScrollView"
+    style="@style/match_wrap"
+    android:layout_marginBottom="@dimen/margin_padding_45"
+    android:background="@color/full_bg"
+    android:scrollbars="vertical">
+
+    <RelativeLayout style="@style/match_wrap">
+
+        <LinearLayout style="@style/match_wrap">
+
+            <LinearLayout
+                style="@style/match_wrap_h"
+                android:background="@color/kbg">
+
+                <com.dysen.kdemo.views.MagicIndicatorView
+                    android:id="@+id/mMagicIndicatorView"
+                    style="@style/wrap_wrap"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/margin_padding_5"
+                    app:background_color="@color/kbg"
+                    app:indicator_type="1"
+                    app:selected_color="@color/text_color_red"
+                    app:text_normal_color="@color/white"
+                    app:text_selected_color="@color/text_color_red"
+                    app:text_size="@dimen/text_size_14"
+                    app:width_size="6" />
+
+                <TextView
+                    android:id="@+id/tv_target"
+                    android:layout_width="50dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/margin_padding_5"
+                    android:paddingRight="@dimen/margin_padding_5"
+                    android:text="MA"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_14" />
+
+                <ImageView
+                    android:id="@+id/image_full"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_padding_10"
+                    android:scaleType="centerInside"
+                    android:src="@mipmap/ico_fullscreen" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+                <com.dysen.kdemo.views.TargetView
+                    android:id="@+id/my_charts_view"
+                    style="@style/match_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/relative_target"
+                    style="@style/wrap_wrap"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/dropdown_arrow"
+                        style="@style/wrap_wrap"
+                        android:layout_alignParentRight="true"
+                        android:paddingRight="50dp"
+                        android:src="@mipmap/dropdown_arrow" />
+
+                    <LinearLayout
+                        style="@style/wrap_wrap"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/dropdown_arrow"
+                        android:layout_marginRight="@dimen/margin_padding_10"
+                        android:background="@mipmap/dropdown_bg"
+                        android:paddingLeft="@dimen/margin_padding_10"
+                        android:paddingRight="@dimen/margin_padding_10">
+
+                        <TextView
+                            android:id="@+id/ma"
+                            style="@style/tv_user_white_14"
+                            android:drawablePadding="@dimen/margin_padding_10"
+                            android:padding="@dimen/margin_padding_10"
+                            android:text="@string/ma" />
+
+                        <View style="@style/user_safety_line" />
+
+                        <LinearLayout style="@style/wrap_wrap">
+
+                            <TextView
+                                android:id="@+id/ema"
+                                style="@style/tv_user_white_14"
+                                android:drawablePadding="@dimen/margin_padding_10"
+                                android:padding="@dimen/margin_padding_10"
+                                android:text="@string/ema" />
+
+                            <View style="@style/user_safety_line" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/boll"
+                            style="@style/tv_user_white_14"
+                            android:drawablePadding="@dimen/margin_padding_10"
+                            android:padding="@dimen/margin_padding_10"
+                            android:text="@string/boll" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <com.dysen.kdemo.views.MagicIndicatorView
+                android:id="@+id/mklineTagget"
+                style="@style/match_match"
+                android:layout_height="35dp"
+                app:background_color="@color/full_bg"
+                app:indicator_type="1"
+                app:selected_color="@color/text_color_red"
+                app:text_normal_color="@color/white"
+                app:text_selected_color="@color/text_color_red"
+                app:text_size="@dimen/text_size_14"
+                app:width_size="3" />
+
+            <com.dysen.kdemo.views.TargetView
+                android:id="@+id/mTargetView"
+                style="@style/match_weight"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+            <!--这里为stick_view占一个坑-->
+            <LinearLayout
+                android:id="@+id/space_view"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="vertical" />
+
+            <FrameLayout
+                android:id="@+id/fl_trans"
+                style="@style/match_match"
+                android:layout_weight="1"
+                android:background="@color/full_bg"
+                android:minHeight="200dp">
+
+                <com.dysen.kdemo.views.AutoHeightViewPager
+                    android:id="@+id/viewPager_type"
+                    style="@style/match_wrap"
+                    android:background="@color/full_bg"
+                    android:overScrollMode="never" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <com.dysen.kdemo.views.MagicIndicatorView
+            android:id="@+id/magic_indicator"
+            style="@style/match_match"
+            android:layout_height="35dp"
+            app:background_color="@color/full_bg"
+            app:indicator_type="1"
+            app:selected_color="@color/text_color_red"
+            app:text_normal_color="@color/white"
+            app:text_selected_color="@color/text_color_red"
+            app:text_size="@dimen/text_size_14"
+            app:width_size="5" />
+    </RelativeLayout>
+
+</com.dysen.kdemo.views.ObservableScrollView>

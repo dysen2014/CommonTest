@@ -74,4 +74,13 @@
 
     <color name="common_bg">#ff3367d6</color>
 
+    <!--7 color-->
+    <color name="color_gules">#FF0000</color>       <!--红色-->
+    <color name="color_orange">#FF7F00</color>       <!--橙色-->
+    <color name="color_yellow">#FFFF00</color>       <!--黄色-->
+    <color name="color_green">#00FF00</color>       <!--绿色-->
+    <color name="color_cyan_blue">#00FFFF</color>       <!--青色-->
+    <color name="color_blue">#0000FF</color>       <!--蓝色-->
+    <color name="color_violet">#8B00FF</color>       <!--紫色-->
+
 </resources>

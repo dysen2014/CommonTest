@@ -32,5 +32,27 @@
         android:layout_gravity="center"
         style="@style/common_btn_wra"/>
 
+    <Button
+        android:id="@+id/btn_other"
+        android:text="@string/other"
+        android:layout_gravity="center"
+        style="@style/common_btn_wra"/>
+    <Button
+        android:id="@+id/btn_contacts"
+        android:text="@string/contacts"
+        android:layout_gravity="center"
+        style="@style/common_btn_wra"/>
+
+    <ImageView
+        android:id="@+id/iv_test"
+        android:layout_gravity="center"
+        style="@style/common_btn_wra"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@color/transparent"
+        />
+
+
+
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:background="@color/whtie">
@@ -8,10 +9,10 @@
     <LinearLayout
         android:id="@+id/ll_add_pic"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:gravity="center"
-        android:padding="4dp"
-        android:orientation="horizontal">
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <ImageView
             android:id="@+id/iv_logo"
@@ -20,24 +21,26 @@
             android:src="@mipmap/icon_logo" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:minWidth="200dp"
             android:layout_weight="1"
-            android:paddingLeft="16dp"
-            android:layout_marginRight="24dp"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="扫描图片右侧二维码"
-                android:textSize="12sp"/>
+                android:textSize="10sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="随时随地掌握大行情"
                 android:textSize="10sp" />
+
         </LinearLayout>
 
         <ImageView
@@ -46,4 +49,4 @@
             android:layout_height="40dp"
             android:src="@mipmap/icon_qr" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

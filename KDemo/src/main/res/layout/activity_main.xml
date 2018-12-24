@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/match_match">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcl_view"
+        style="@style/match_match"/>
+</LinearLayout>

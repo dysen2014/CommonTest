@@ -80,6 +80,8 @@ public class ScreenShot {
     private static boolean num = true;
     private static String packageName, className;
 
+    private static int statusBarHeights, navBarHeights;
+
     // 获取指定Activity的截屏，保存到png文件
     public static Bitmap takeScreenShot(Activity activity) {
 
@@ -114,22 +116,40 @@ public class ScreenShot {
      * @return
      */
     public static Bitmap addMarkPic(Bitmap srcBitmap, Bitmap markBitmap) {
-
+        if (srcBitmap == null || markBitmap == null)
+            return null;
+        float scal = (float) markBitmap.getWidth() / srcBitmap.getWidth();
         if (markBitmap.getWidth() < srcBitmap.getWidth())
-            srcBitmap = scaleWithWH(srcBitmap, markBitmap.getWidth(), srcBitmap.getHeight());
-        Bitmap photoMark = Bitmap.createBitmap(srcBitmap.getWidth(), srcBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            srcBitmap = scaleWithWH(srcBitmap, srcBitmap.getWidth() * scal, srcBitmap.getHeight() * scal);
+        Bitmap photoMark = Bitmap.createBitmap(srcBitmap.getWidth(), (srcBitmap.getHeight() + markBitmap.getHeight() - navBarHeights), Bitmap.Config.ARGB_8888);
+
         Canvas canvas = new Canvas(photoMark);
         canvas.drawBitmap(srcBitmap, 0, 0, null);
         Bitmap bitmapMark = markBitmap.copy(Bitmap.Config.ARGB_8888, true);
-//        bitmapMark = scaleWithWH(bitmapMark, srcBitmap.getWidth(), bitmapMark.getHeight());
-        canvas.drawBitmap(bitmapMark, srcBitmap.getWidth() - bitmapMark.getWidth(), srcBitmap.getHeight() - bitmapMark.getHeight(), null);
-        canvas.save(Canvas.ALL_SAVE_FLAG);
-//        canvas.save();
+        canvas.drawBitmap(bitmapMark, 0, srcBitmap.getHeight() - navBarHeights, null);
+        canvas.save();
         canvas.restore();
         new_bitmap = scaleWithWH(photoMark, photoMark.getWidth(), photoMark.getHeight());
         return new_bitmap;
     }
 
+    public static void getStaNavHeight(Activity activity) {
+        // 获取屏幕
+        View cv = activity.getWindow().getDecorView();
+
+        cv.setDrawingCacheEnabled(true);
+        cv.buildDrawingCache();
+        Bitmap bmp = cv.getDrawingCache();
+
+        // 获取状态栏高度
+        Rect rect = new Rect();
+        cv.getWindowVisibleDisplayFrame(rect);
+        statusBarHeights = rect.top;
+
+        int widths = bmp.getWidth();
+        int heights = bmp.getHeight();
+        navBarHeights = heights - rect.bottom;
+    }
     /**
      * 把一个view转化成bitmap对象
      */
@@ -672,7 +692,6 @@ public class ScreenShot {
         else
             return false;
     }
-
 
     /**
      * 去除list<T>重复的数据

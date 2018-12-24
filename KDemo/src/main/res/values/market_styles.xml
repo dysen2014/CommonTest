@@ -1,0 +1,65 @@
+<resources>
+    <style name="ll_market" parent="match_wrap_bg_white">
+        <item name="android:padding">8dp</item>
+    </style>
+    <style name="ll_market_sort" parent="wrap_wrap_h">
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="tv_market_sort" parent="tv_user_black_12">
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="ll_market_rate_vol" parent="wrap_wrap_cv">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+    <style name="img_market_icon" parent="wrap_wrap_cv">
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+    </style>
+    <style name="tv_currency_name" parent="tv_user_black_14">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+    <style name="tv_exchange_name" parent="tv_user_gray_12">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:visibility">gone</item>
+    </style>
+    <style name="tv_market_vol" parent="tv_user_black_12">
+        <item name="android:textColor">@color/text_color_black2</item>
+        <item name="android:layout_marginTop">3dp</item>
+    </style>
+    <style name="tv_market_rate" parent="tv_user_white_14">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:text">+0.00%</item>
+    </style>
+    <style name="tv_market_price" parent="tv_user_black_14">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">right</item>
+    </style>
+    <style name="tv_market_price_d" parent="tv_market_vol">
+        <item name="android:layout_gravity">right</item>
+    </style>
+
+    <style name="img_market_btn" parent="wrap_wrap">
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+    <style name="ll_market_rate" parent="wrap_wrap_cv">
+        <item name="android:minWidth">72dp</item>
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_padding_10</item>
+        <item name="android:paddingLeft">@dimen/margin_padding_5</item>
+        <item name="android:paddingRight">@dimen/margin_padding_5</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@drawable/bnt_login</item>
+    </style>
+    <style name="img_market_collect" parent="wrap_wrap_cv">
+        <item name="android:src">@mipmap/icon_collection</item>
+        <item name="android:visibility">gone</item>
+    </style>
+</resources>

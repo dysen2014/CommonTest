@@ -166,7 +166,7 @@ public class NotificationUtil {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("image/*");
 //        String filePath = BitmapUtils.saveBitmap(bitmap, "/storage/emulated/0/Pictures/sendy");
-        String filePath = BitmapUtils.saveBitmap(bitmap, "Pictures/sendy");
+        String filePath = BitmapUtils.saveBitmap((Activity) mContext, bitmap, "Pictures/sendy", true);
         File file = FileUtils.getFile(filePath);
         if (Build.VERSION.SDK_INT >= 24) {
             uri = FileProvider.getUriForFile(mContext, mContext.getPackageName()+".fileprovider", file);

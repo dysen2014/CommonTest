@@ -37,6 +37,8 @@ import java.util.Locale;
 
 public class FileUtils {
 
+    private static boolean isSaveSucc;
+
     private FileUtils() {
         throw new Error("￣﹏￣");
     }
@@ -726,13 +728,13 @@ public class FileUtils {
      * @param bitmap
      * @return
      */
-    public static void saveBitmap(Bitmap bitmap, File f) {
+    public static boolean saveBitmap(Bitmap bitmap, File f) {
         if (f.exists()) {
             f.delete();
         }
         try {
             FileOutputStream out = new FileOutputStream(f);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+            isSaveSucc = bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
         } catch (FileNotFoundException e) {
@@ -740,8 +742,8 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return isSaveSucc;
     }
-
     /**
      * 复制单个文件
      *

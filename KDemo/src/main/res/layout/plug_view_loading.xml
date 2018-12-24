@@ -1,0 +1,15 @@
+<FrameLayout
+    style="@style/match_match"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/loadingImageView"
+        style="@style/wrap_wrap_ci"
+        android:src="@mipmap/load_bg" />
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        style="@style/wrap_wrap_ci"
+        android:src="@mipmap/chbtc_logo_s" />
+</FrameLayout>

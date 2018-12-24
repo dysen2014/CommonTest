@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/match_wrap">
+
+    <TextView
+        android:id="@+id/tv_group"
+        style="@style/tv_user_black2_14"
+        android:layout_width="match_parent"
+        android:background="#E0E0E0"
+        android:paddingLeft="16dp"
+        android:text="A" />
+
+    <com.dysen.common_library.views.RevealLayout
+        style="@style/match_wrap">
+
+        <RelativeLayout
+            style="@style/match_wrap"
+            android:padding="@dimen/margin_padding_16">
+
+            <ImageView
+                android:id="@+id/iv_pic"
+                style="@style/wrap_wrap"
+                android:layout_width="@dimen/margin_padding_40"
+                android:layout_height="@dimen/margin_padding_40"
+                android:layout_marginRight="@dimen/margin_padding_8" />
+
+            <LinearLayout
+                style="@style/wrap_wrap"
+                android:layout_toRightOf="@id/iv_pic">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/tv_user_black2_16"
+                    android:text="sendy" />
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    style="@style/tv_user_black2_14"
+                    android:layout_below="@id/tv_name"
+                    android:text="18971642933" />
+            </LinearLayout>
+        </RelativeLayout>
+    </com.dysen.common_library.views.RevealLayout>
+
+    <View
+        style="@style/view_line_v"
+        android:layout_height="2dp"
+        android:background="@drawable/actionbar_shadow_up" />
+</LinearLayout>

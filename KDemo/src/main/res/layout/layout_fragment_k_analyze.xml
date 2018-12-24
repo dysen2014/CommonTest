@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/match_match">
+
+        <LinearLayout
+            android:id="@+id/linear_analyze"
+            style="@style/match_match"
+            android:background="@color/kbg"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                style="@style/match_wrap"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_padding_5"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_padding_10"
+                    android:background="@color/dept_red" />
+
+                <TextView
+                    style="@style/tv_user_white_14"
+                    android:layout_marginRight="@dimen/margin_padding_10"
+                    android:text="@string/pay" />
+
+                <TextView
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_padding_10"
+                    android:background="@color/dept_greed" />
+
+                <TextView
+                    style="@style/tv_user_white_14"
+                    android:layout_marginRight="@dimen/margin_padding_10"
+                    android:text="@string/sell" />
+
+            </LinearLayout>
+
+            <com.dysen.kdemo.views.DepthView
+                android:id="@+id/depthview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="@dimen/margin_padding_5"
+                android:layout_marginLeft="@dimen/margin_padding_10"
+                android:layout_marginRight="@dimen/margin_padding_10"
+                android:layout_marginTop="@dimen/margin_padding_5" />
+
+            <LinearLayout
+                style="@style/match_wrap"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/tv_user_white_14"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_padding_10"
+                    android:text="@string/buy_20" />
+
+                <TextView
+                    style="@style/tv_user_white_14"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_padding_10"
+                    android:text="@string/sell_20" />
+            </LinearLayout>
+
+            <FrameLayout style="@style/match_wrap">
+
+                <LinearLayout
+                    style="@style/match_wrap"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_show_buy"
+                        style="@style/tv_user_white_14"
+                        android:background="@color/bnt_color"
+                        android:gravity="left"
+                        android:minWidth="50dp"
+                        android:padding="@dimen/margin_padding_10"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:id="@+id/tv_show_sell"
+                        style="@style/tv_user_white_14"
+                        android:background="@color/bnt_color2"
+                        android:gravity="right"
+                        android:minWidth="50dp"
+                        android:padding="@dimen/margin_padding_10"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    style="@style/match_wrap"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_vbuy"
+                        style="@style/tv_user_white_14"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="left"
+                        android:minWidth="50dp"
+                        android:padding="@dimen/margin_padding_10"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:id="@+id/tv_vsell"
+                        style="@style/tv_user_white_14"
+                        android:layout_alignParentRight="true"
+                        android:gravity="right"
+                        android:minWidth="50dp"
+                        android:padding="@dimen/margin_padding_10"
+                        android:singleLine="true" />
+                </RelativeLayout>
+            </FrameLayout>
+
+            <ListView
+                android:id="@+id/listview1"
+                style="@style/keyboard_listView"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_padding_5" />
+        </LinearLayout>
+
+</ScrollView>

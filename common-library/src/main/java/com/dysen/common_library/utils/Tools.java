@@ -12,14 +12,20 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -34,7 +40,9 @@ import com.bumptech.glide.Glide;
 import com.dysen.common_library.R;
 import com.dysen.common_library.base.AppContext;
 import com.dysen.common_library.ui.UIHelper;
+import com.dysen.common_library.views.AutoHeightViewPager;
 import com.dysen.common_library.views.ConfirmDialog;
+import com.dysen.common_library.views.CustomPopWindow;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -48,7 +56,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 
 public class Tools {
 
@@ -863,4 +870,149 @@ public class Tools {
     public static boolean checkPositiveNumber(String sVal) {
         return Character.isDigit(sVal.charAt(0)) ? true : false;
     }
+
+
+    public static void removeView(View view) {
+        if (view != null) {
+            ViewGroup parentViewGroup = (ViewGroup) view.getParent();
+            if (parentViewGroup != null) {
+                parentViewGroup.removeView(view);
+            }
+        }
+    }
+
+    /**
+     *  1、LinearLayoutManager:线性布局管理器，支持水平和垂直效果。
+     */
+    public static RecyclerView.LayoutManager setManager1(Context context, int orientation) {
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+        manager.setOrientation(orientation);
+        return manager;
+    }
+
+    /**
+     * 　2、GridLayoutManager:网格布局管理器，支持水平和垂直效果。
+     */
+    public static RecyclerView.LayoutManager setManager2(Context context, int spanCount) {
+        GridLayoutManager manager = new GridLayoutManager(context, spanCount);
+        return manager;
+    }
+
+    /**
+     *　3、StaggeredGridLayoutManager:分布型管理器，瀑布流效果
+     */
+    public static RecyclerView.LayoutManager setManager3(int spanCount, int orientation) {
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(spanCount, orientation);
+        return manager;
+    }
+
+    /**
+     * 通过时间戳 获得相应的星期
+     *
+     * @param date
+     * @return
+     */
+    public static String getCurrentWeek(Date... date) {
+        Calendar cal = Calendar.getInstance();
+        if (date.length > 0) {
+            cal.setTime(date[0]);
+        } else {
+            cal.setTime(com.dysen.common_library.utils.DateUtils.getToday());
+        }
+        int week = cal.get(Calendar.DAY_OF_WEEK);
+        String strWeek = "";
+        switch (week) {
+            case 1:
+                strWeek = Tools.getString(R.string.week_sunday);
+                break;
+            case 2:
+                strWeek = Tools.getString(R.string.week_monday);
+                break;
+            case 3:
+                strWeek = Tools.getString(R.string.week_tuesday);
+                break;
+            case 4:
+                strWeek = Tools.getString(R.string.week_wednesday);
+                break;
+            case 5:
+                strWeek = Tools.getString(R.string.week_thursday);
+                break;
+            case 6:
+                strWeek = Tools.getString(R.string.week_friday);
+                break;
+            case 7:
+                strWeek = Tools.getString(R.string.week_saturday);
+                break;
+            default:
+                strWeek = Tools.getString(R.string.week_sunday);
+                break;
+        }
+        return strWeek;
+    }
+
+    /**
+     * 分享时  显示的分享时间
+     *
+     * @param publishDate
+     * @return
+     */
+    public static String shareDate(long publishDate) {
+        return Tools.getCurrentWeek(new Date(publishDate)) + "\t\t" + DateUtils.dateSimpleFormat(new Date(publishDate),
+                DateUtils.BASE_DATE_FORMAT);
+    }
+
+    /**
+     * 点击图片  全屏显示/消失
+     *
+     * @param mActivity
+     * @param contentView
+     */
+    public static void showCustomView(Activity mActivity, final View contentView) {
+
+        //创建并显示popWindow
+        final CustomPopWindow mCustomPopWindow = new CustomPopWindow.PopupWindowBuilder(mActivity)
+                .setView(contentView)
+                .enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
+                .setBgDarkAlpha(0.1f) // 控制亮度
+//                .size(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                .create();
+        contentView.findViewById(R.id.iv_pic).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCustomPopWindow.getPopupWindow().isShowing())
+                    mCustomPopWindow.dissmiss();
+            }
+        });
+        if (mCustomPopWindow.getPopupWindow().isShowing())
+            mCustomPopWindow.dissmiss();
+        mCustomPopWindow.getPopupWindow().setAnimationStyle(R.style.pop_animation);
+        mCustomPopWindow.showAtLocation(contentView, Gravity.CENTER, 0, 0);
+        mCustomPopWindow.getPopupWindow().update();
+    }
+
+    /**
+     * 设置viewpager自适应高度
+     *
+     * @param vpType
+     */
+    public static void setAutoHeight(final AutoHeightViewPager vpType) {
+        vpType.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(final int position) {
+                // 切换到当前页面，重置高度
+                vpType.requestLayout();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
 }

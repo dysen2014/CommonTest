@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主背景色值 -->
+    <color name="background_color">#EFF0F2</color>
+    <color name="background_color2">#D5D5D5</color>
+    <color name="background_color3">#e2e3e6</color>
+    <color name="background_color4">#d3d4d4</color>
+    <color name="background_color5">#FFE5CF</color>
+    <color name="background_color6">#F5F5F5</color>
+    <color name="background_color7">#EAE1E0</color>
+
+    <!-- 状态栏色值 -->
+    <color name="status_bar_bg">#243040</color>
+    <color name="status_bar_bg2">#7582F4</color>
+    <!-- 头部颜色值 -->
+    <color name="main_header_bg">@color/status_bar_bg</color>
+    <!-- 底部颜色值 -->
+    <color name="main_footer_bg">#ffffff</color>
+    <!-- 登录头部颜色值 -->
+    <color name="main_login_header_bg">#A1BFD3</color>
+
+    <color name="background_color_white">#ffffff</color>
+
+    <!--竖分割线-->
+    <color name="vertical_line_color">#D5D5D5</color>
+
+
+    <!-- 底栏字体颜色 -->
+    <color name="footer_text_color_normal">#939393</color>
+    <color name="footer_text_color_selected">#E70101</color>
+
+    <!-- 按钮颜色 -->
+    <color name="bnt_color">#E70101</color>
+    <color name="bnt_color_disabled">#af0101</color>
+    <color name="bnt_color_selected">#F72D2D</color>
+    <color name="bnt_color2">#08BA52</color>
+    <color name="bnt_color2_disabled">#057C37</color>
+    <color name="bnt_color2_selected">#02CC56</color>
+    <color name="bnt_color3">#f3c761</color>
+    <color name="bnt_color3_selected">#c0ffbd21</color>
+    <color name="bnt_color4">#faedbd</color>
+    <color name="bnt_color5">#FFE5CF</color>
+    <color name="bnt_login_color">@color/bnt_color</color>
+    <color name="bnt_login_color_selected">@color/bnt_color_selected</color>
+
+    <color name="bnt_register_color">@android:color/transparent</color>
+    <color name="bnt_register_color_selected">@color/status_bar_bg</color>
+    <color name="bnt_register_color_normal">#2C3B52</color>
+    <color name="bnt_register_color_normal2">#324765</color>
+
+    <color name="multiple_image_select_primaryDark">@color/bnt_register_color_selected</color>
+    <color name="multiple_image_select_primary">@color/bnt_register_color_normal</color>
+
+    <color name="text_color_black">#3a3a3a</color>
+    <color name="text_color_black2">#5D5D5D</color>
+    <color name="text_color_white">#ffffff</color>
+    <color name="text_color_gray">#999999</color>
+    <color name="text_color_red">@color/bnt_color</color>
+    <color name="text_color_red2">#ED2D28</color>
+    <color name="text_color_green">@color/bnt_color2</color>
+    <color name="text_color_green2">#00BD9A</color>
+    <color name="text_color_orange">#c0ffbd21</color>
+    <color name="text_color_hint">#aaaaaa</color>
+    <color name="text_color_blue">#3B77D1</color>
+
+
+    <!--K线图颜色值-->
+    <color name="klinebg">#090A0B</color>
+    <color name="klinebgline">#292929</color>
+    <color name="klinexyword">#d6d6d6</color>
+    <color name="klinered">@color/bnt_color</color>
+    <color name="klinegreen">@color/bnt_color2</color>
+    <color name="kline5dayline">#dddddd</color>
+    <color name="kline10dayline">#ede32e</color>
+    <color name="kline30dayline">#f600ff</color>
+    <color name="kblack">#E0EEE0</color>
+    <color name="kViewblack">#181818</color>
+    <color name="kViewjwblack">#292929</color>
+    <color name="kViewztblack">#78797A</color>
+    <color name="kViewclickblack">#BEC5DA</color>
+    <color name="tabbg">#272729</color>
+    <color name="tabbgselected">#3b3b3d</color>
+    <color name="background_coler">#EFF0F2</color>
+    <color name="top_coler">#1F2A40</color>
+    <color name="white">#ffffff</color>
+
+    <color name="subject_select">@color/bnt_color</color>
+    <color name="subject_select2">@color/bnt_login_color_selected</color>
+    <color name="tint2">#999999</color>
+    <color name="subject">#505050</color>
+    <color name="subject2">@color/bnt_color2</color>
+    <color name="subject3">@color/bnt_color2_selected</color>
+    <color name="dialog_click_color">#303442</color>
+    <color name="dialog_text_click_color">#20559B</color>
+    <color name="separator_line_gray">#E6E6E6</color>
+    <color name="black">#000000</color>
+    <color name="lend_bg">#3B77D1</color> <!-- Android standard ICS color -->
+
+
+    <color name="bg1">#383D49</color>
+    <color name="bg2">#525765</color>
+    <color name="bg3">#383D49</color>
+
+    <color name="kbg">#172432</color>
+    <color name="full_bg">#1C2B3F</color>
+    <color name="dept_red">#AD6569</color>
+    <color name="dept_greed">#469777</color>
+    <color name="key_bk">#D3D3D3</color>
+    <color name="kline_click_bk">#7D96B3</color>
+    <color name="rate_color">#C1C1C1</color>
+    <color name="homekline_color">#F3F3F3</color>
+    <color name="homekline_ztcolor">#D8D8D8</color>
+
+    <!--7 color-->
+    <color name="color_gules">#FF0000</color>       <!--红色-->
+    <color name="color_orange">#FF7F00</color>       <!--橙色-->
+    <color name="color_yellow">#FFFF00</color>       <!--黄色-->
+    <color name="color_green">#00FF00</color>       <!--绿色-->
+    <color name="color_cyan_blue">#00FFFF</color>       <!--青色-->
+    <color name="color_blue">#0000FF</color>       <!--蓝色-->
+    <color name="color_violet">#8B00FF</color>       <!--紫色-->
+
+    <color name="dialog_txt_blue">#2298EF</color>
+    <color name="transparent">#00000000</color>
+</resources>

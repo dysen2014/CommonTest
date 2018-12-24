@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <declare-styleable name="MagicIndicator">
+    <attr name="normal_color" format="color"/>
+    <attr name="selected_color" format="color"/>
+    <attr name="background_color" format="color"/>
+    <attr name="width_size" format="float"/>
+    <attr name="text_size" format="dimension"/>
+    <attr name="text_normal_color" format="color"/>
+    <attr name="text_selected_color" format="color"/>
+    <attr name="indicator_type" format="integer"/>
+  </declare-styleable>
+</resources>

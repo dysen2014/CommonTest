@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
 
@@ -136,5 +138,11 @@ dependencies {
 
     //图片加载
     implementation 'com.github.bumptech.glide:glide:4.5.0'
-    implementation project(':magicindicator')
+
+    //
+
+    //    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //tab标签
+    implementation project(':Magicindicator')
 }

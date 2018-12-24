@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ChartAttrs">
+
+        <attr name="chart_axis" format="boolean"/>
+        <attr name="chart_axisThickness" format="dimension"/>
+        <attr name="chart_axisColor" format="reference|color"/>
+        <attr name="chart_axisBorderSpacing" format="dimension"/>
+        <attr name="chart_axisTopSpacing" format="dimension"/>
+
+        <attr name="chart_axisLabelsSpacing" format="dimension"/>
+
+        <attr name="chart_labels" format="enum">
+            <enum name="outside" value="0"/>
+            <enum name="inside" value="1"/>
+            <enum name="none" value="2"/>
+        </attr>
+
+        <attr name="chart_labelColor" format="reference|color"/>
+        <attr name="chart_fontSize" format="dimension"/>
+        <attr name="chart_typeface" format="string"/>
+
+        <attr name="chart_shadowColor" format="reference|color"/>
+        <attr name="chart_shadowDx" format="dimension"/>
+        <attr name="chart_shadowDy" format="dimension"/>
+        <attr name="chart_shadowRadius" format="dimension"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="BarChartAttrs">
+        <attr name="chart_barSpacing" format="dimension"/>
+        <attr name="chart_setSpacing" format="dimension"/>
+        <attr name="chart_cornerRadius" format="dimension"/>
+    </declare-styleable>
+    
+    
+    <declare-styleable name="DecimalEditText">
+        <attr name="decimalNumber" format="integer"/>
+    </declare-styleable>
+    
+    <declare-styleable name="rateview">
+        <!--自定义属性sivText,数据类型可以是引用或者字符串-->
+        <attr name="coin" format="string"/>
+        <attr name="coinSize" format="dimension"/>
+        <attr name="coinColor" format="color"/>
+        
+        
+        <attr name="coinUsd" format="string"/>
+        <attr name="coinUsdSize" format="dimension"/>
+        <attr name="coinUsdColor" format="color"/>
+        
+        
+        <attr name="ratetitle" format="string"/>
+        <attr name="ratetitleSize" format="dimension"/>
+        <attr name="ratetitleColor" format="color"/>
+        
+        
+        <attr name="rateview" format="string"/>
+        <attr name="rateviewSize" format="dimension"/>
+        <attr name="rateviewColor" format="color"/>
+        
+    </declare-styleable>
+    
+    
+    <declare-styleable name="selectorview">
+        <!--自定义属性sivText,数据类型可以是引用或者字符串-->
+        <attr name="noSelectColor" format="color"/>
+        <attr name="SelectColor" format="color"/>
+        <attr name="SelectTextSize" format="dimension"/>
+        <attr name="SingleSelection" format="boolean"/>
+        <attr name="noSelectbg" format="reference"/>
+        <attr name="Selectbg" format="reference"/>
+        <attr name="Weight" format="integer"/>
+    </declare-styleable>
+    
+    
+    
+    <declare-styleable name="rate">
+        <!--自定义属性sivText,数据类型可以是引用或者字符串-->
+        <attr name="coinName" format="string"/>
+        <attr name="coinNameSize" format="dimension"/>
+        <attr name="coinNameColor" format="color"/>
+        
+        <attr name="cnyPrice" format="string"/>
+        <attr name="cnySize" format="dimension"/>
+        <attr name="cnyColor" format="color"/>
+        
+        <attr name="usdPrice" format="string"/>
+        <attr name="usdSize" format="dimension"/>
+        <attr name="usdColor" format="color"/>
+        
+        
+        <attr name="rate" format="string"/>
+        <attr name="rateSize" format="dimension"/>
+        <attr name="rateColor" format="color"/>
+        
+        <attr name="vol" format="string"/>
+        <attr name="volSize" format="dimension"/>
+        <attr name="volColor" format="color"/>
+        
+        <attr name="open" format="string"/>
+        <attr name="openSize" format="dimension"/>
+        <attr name="openColor" format="color"/>
+        
+        
+        <attr name="close" format="string"/>
+        <attr name="closeSize" format="dimension"/>
+        <attr name="closeColor" format="color"/>
+        
+        
+        <attr name="high" format="string"/>
+        <attr name="highSize" format="dimension"/>
+        <attr name="highColor" format="color"/>
+        
+        <attr name="low" format="string"/>
+        <attr name="lowSize" format="dimension"/>
+        <attr name="lowColor" format="color"/>
+        
+        <attr name="textSize" format="dimension"/>
+        <attr name="textColor" format="color"/>
+        
+    </declare-styleable>
+    
+    <declare-styleable name="BubbleLayout">
+        <attr name="bl_arrowWidth" format="dimension|reference" />
+        <attr name="bl_cornersRadius" format="dimension|reference" />
+        <attr name="bl_arrowHeight" format="dimension|reference" />
+        <attr name="bl_arrowPosition" format="dimension|reference" />
+        <attr name="bl_bubbleColor" format="color|reference" />
+        <attr name="bl_strokeWidth" format="dimension|reference" />
+        <attr name="bl_strokeColor" format="color|reference" />
+        
+        <attr name="bl_arrowDirection" format="enum">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+            <enum name="top" value="2" />
+            <enum name="bottom" value="3" />
+            <enum name="left_center" value="4"/>
+            <enum name="right_center" value="5"/>
+            <enum name="top_center" value="6"/>
+            <enum name="bottom_center" value="7"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="AdvertBannerView">
+        <attr name="open_mz_mode" format="boolean"/>
+        <attr name="canLoop" format="boolean"/>
+        <attr name="indicatorPaddingLeft" format="dimension"/>
+        <attr name="indicatorPaddingRight" format="dimension"/>
+        <attr name="indicatorPaddingTop" format="dimension"/>
+        <attr name="indicatorPaddingBottom" format="dimension"/>
+        <attr name="indicatorAlign">
+            <enum name="left" value="0"/>
+            <enum name="center" value="1"/>
+            <enum name="right" value="2"/>
+        </attr>
+        <attr name="middle_page_cover" format="boolean"/>
+    </declare-styleable>
+</resources>
+

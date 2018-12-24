@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_rate"
+    style="@style/match_wrap"
+    android:background="@color/main_header_bg"
+    android:paddingTop="@dimen/margin_padding_5"
+    android:paddingLeft="@dimen/margin_padding_10"
+    android:paddingRight="@dimen/margin_padding_10"
+    android:paddingBottom="@dimen/margin_padding_10"
+    >
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="@dimen/margin_padding_5"
+        style="@style/wrap_wrap_h">
+        <TextView
+            android:id="@+id/bitcoin"
+            android:textSize="@dimen/text_size_14"
+            style="@style/tv_user_white_14"
+            android:text="BTC" />
+        <TextView
+            android:textSize="@dimen/text_size_16"
+            android:id="@+id/usd_price"
+            android:layout_marginLeft="@dimen/margin_padding_10"
+            android:singleLine="true"
+            android:ellipsize="end"
+            style="@style/tv_user_red_18"
+            android:text="$ 00" />
+        <TextView
+            android:textSize="@dimen/text_size_14"
+            android:id="@+id/rmb_price"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_marginLeft="@dimen/margin_padding_10"
+            style="@style/tv_user_red_14"
+            android:text="￥0.00" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        style="@style/match_wrap">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_toLeftOf="@+id/ll_kx_gd"
+            style="@style/wrap_wrap">
+            <LinearLayout
+                style="@style/wrap_wrap_h">
+                <TextView
+                    style="@style/tv_user_white_12"
+                    android:textColor="@color/rate_color"
+                    android:text="@string/rate"/>
+
+                <TextView
+                    android:id="@+id/rate"
+                    style="@style/tv_user_white_12"
+                    android:paddingLeft="@dimen/margin_padding_8"
+                    android:text="+0.00%" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/margin_padding_5"
+                style="@style/wrap_wrap_h">
+                <TextView
+                    style="@style/tv_user_white_12"
+                    android:textColor="@color/rate_color"
+                    android:text="@string/market_24xscjl"/>
+                <TextView
+                    android:text="0.00"
+                    android:id="@+id/vol"
+                    style="@style/tv_user_white_12"
+                    android:paddingLeft="@dimen/margin_padding_8" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+
+            android:visibility="gone"
+            android:layout_toLeftOf="@+id/ll_kx_gd"
+            style="@style/wrap_wrap">
+            <LinearLayout
+                style="@style/wrap_wrap_h">
+                <TextView
+                    android:textColor="@color/rate_color"
+                    style="@style/tv_user_white_12"
+                    android:text="@string/open"/>
+
+                <TextView
+                    android:id="@+id/open"
+                    style="@style/tv_user_white_12"
+                    android:paddingLeft="@dimen/margin_padding_8"
+                    android:text="0.00" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/wrap_wrap_h">
+                <TextView
+                    style="@style/tv_user_white_12"
+                    android:text="@string/close"/>
+                <TextView
+                    android:text="0.00"
+                    android:id="@+id/close"
+                    android:textColor="@color/rate_color"
+                    style="@style/tv_user_white_12"
+                    android:paddingLeft="@dimen/margin_padding_8" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/margin_padding_15"
+            android:id="@+id/ll_kx_gd"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/margin_padding_10"
+            style="@style/wrap_wrap">
+            <LinearLayout
+                style="@style/wrap_wrap_h">
+                <TextView
+                    style="@style/tv_user_white_12"
+                    android:textColor="@color/rate_color"
+                    android:text="@string/market_24xszgj"/>
+                <TextView
+                    android:text="0.00"
+                    android:id="@+id/hight"
+                    style="@style/tv_user_white_12"
+                    android:paddingLeft="@dimen/margin_padding_8"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/margin_padding_5"
+                style="@style/wrap_wrap_h">
+                <TextView
+                    android:textColor="@color/rate_color"
+                    style="@style/tv_user_white_12"
+                    android:text="@string/market_24xszdj"/>
+                <TextView
+                    android:text="0.00"
+                    android:id="@+id/low"
+                    style="@style/tv_user_white_12"
+                    android:paddingLeft="@dimen/margin_padding_8"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

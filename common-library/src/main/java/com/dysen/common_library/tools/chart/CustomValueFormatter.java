@@ -22,10 +22,10 @@ public class CustomValueFormatter {
 
         @Override
         public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-            if (Math.abs(entry.getY() - 0) > 0)
+            if (Math.abs(entry.getY() - 0) > 0) {
                 return parseFlost(entry.getY());
-            else
-                return "0";
+            } else
+                return "0.00";
         }
     }
 
@@ -34,39 +34,48 @@ public class CustomValueFormatter {
         int count = 0;
 
         public MyIAxisValueFormatter() {
+            mValues = null;
         }
 
         public MyIAxisValueFormatter(List<String> values) {
             this.mValues = values;
+            count = 0;
         }
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-
             if (mValues != null) {
-                int i = (++count - 1) % mValues.size();
-
-                return mValues.get(i);
+                int i = (int) value;
+                if (i < 0) i = 0;
+                while (i >= mValues.size()) {
+//                    i = i / (KLineActivity.INTERVAL_COUNT);//下标是从零开始的
+                }
+                return mValues.get(i % mValues.size());
             } else {
-                count = 0;
-                if (Math.abs(value - 0) > 0)
-                    return parseFlost(value);
-                else
-                    return "0";
+                return parseFlost(value);
             }
         }
     }
 
     /**
      * 数据达到万位时 转换已万位显示
+     *
      * @param value
      * @return
      */
     public static String parseFlost(float value) {
-        if (value > 10000.0)
-            return new DecimalFormat(".00").format(value * 0.0001) + "万";
+        if (value >= 10000.0 || value <= -10000.0)
+            if (value >= 10000*10000.0 || value <= -10000*10000.0)
+                return new DecimalFormat("###,###,###,##0.00").format(value * 0.00000001) + "亿";
+            else if (value >= 1000*10000.0 || value <= -1000*10000.0)
+                return new DecimalFormat("###,###,###,##0.00").format(value * 0.0000001) + "千万";
+            else
+                return new DecimalFormat("###,###,###,##0.00").format(value * 0.0001) + "万";
         else if (String.valueOf(value).contains("."))
-            return new DecimalFormat("###,###,###,##0.00").format(value);
+            if (String.valueOf(value).equalsIgnoreCase("0.0"))
+                return "0.00";
+            else
+                return new DecimalFormat("###,###,###,##0.00").format(value);
         else
             return value + "";
     }

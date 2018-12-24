@@ -19,13 +19,15 @@ import com.dysen.common_library.utils.Tools;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import butterknife.ButterKnife;
+
 /**
  * @package com.dysen.gesturelock.activity
  * @email dy.sen@qq.com
  * created by dysen on 2018/7/23 - 下午2:07
  * @info
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements BaseCallback {
 
     /**
      * the tag for log messages
@@ -44,9 +46,11 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedinstancestate) {
         super.onCreate(savedinstancestate);
 
-        setContentView(R.layout.activity_base);
+        setContentView(getLayoutId());
         baseInit();
+        initView();
     }
+
     protected void baseInit() {
         if (mHandler == null)
             mHandler = new Handler();
@@ -63,21 +67,28 @@ public class BaseActivity extends AppCompatActivity {
 
         Tools.eventBusRegister(this);
     }
+
     /**
      * set screen view
      *
      * @param layoutResID
      */
-    protected void baseSetContentView(int layoutResID) {
-
+    public void baseSetContentView(int layoutResID) {
         vContent = findViewById(R.id.v_content); //v_content是在基类布局文件中预定义的layout区域
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout
                 .LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         //通过LayoutInflater填充基类的layout区域
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(layoutResID, null);
+        ButterKnife.bind(this, v);
         vContent.addView(v, layoutParams);
+        setListener();
 
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_base;
     }
 
     protected void gotoNext(Class cls, boolean... isfinish) {
@@ -93,6 +104,7 @@ public class BaseActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(Message message) {
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

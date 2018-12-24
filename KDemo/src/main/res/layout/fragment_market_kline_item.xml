@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/match_wrap">
+
+    <include layout="@layout/fragment_market_item" />
+
+        <LinearLayout
+            style="@style/match_wrap"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_price_high"
+                style="@style/tv_user_gray_12"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/price_high" />
+
+            <TextView
+                android:id="@+id/tv_price_low"
+                style="@style/tv_user_gray_12"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/price_low" />
+        </LinearLayout>
+
+    <LinearLayout
+        style="@style/match_wrap"
+        android:background="@color/homekline_color">
+
+        <com.dysen.kdemo.views.MagicIndicatorView
+            android:id="@+id/magicIndicatorView"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/wrap_wrap"
+            app:background_color="@color/homekline_color"
+            app:text_size="@dimen/text_size_14"
+            app:text_normal_color="@color/text_color_black2"
+            app:text_selected_color="@color/black"
+            app:selected_color="@color/homekline_ztcolor"
+            app:width_size="6"
+            app:indicator_type="2"
+            android:layout_height="45dp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:padding="4dp">
+
+            <com.dysen.kdemo.views.ItemKview
+                android:id="@+id/linechart"
+                style="@style/match_match" />
+
+            <com.dysen.kdemo.views.LoadingFrameLayout
+                android:id="@+id/fl_loading"
+                style="@style/match_match"
+                android:background="@color/homekline_color"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,62 @@
+<LinearLayout
+    style="@style/match_wrap"
+    android:orientation="horizontal"
+    android:layout_height="30dp"
+    android:background="@color/kbg"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/margin_padding_20"
+        >
+        <TextView
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textSize="@dimen/text_size_14"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:id="@+id/tv_buy_price"
+            style="@style/keyboard_listView_item" />
+        <TextView
+            android:layout_weight="1"
+            android:gravity="right"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_size_14"
+            android:id="@+id/tv_buy_number"
+            android:textColor="@color/white"
+            style="@style/keyboard_listView_item"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:paddingLeft="@dimen/margin_padding_10"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_weight="1"
+            android:gravity="left"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_size_14"
+            android:id="@+id/tv_sell_price"
+            style="@style/keyboard_listView_item" />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/tv_sell_number"
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_14"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:textColor="@color/white"
+            style="@style/keyboard_listView_item"/>
+
+    </LinearLayout>
+
+</LinearLayout>

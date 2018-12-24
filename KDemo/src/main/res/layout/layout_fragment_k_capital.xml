@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/match_match">
+
+    <LinearLayout
+        android:id="@+id/linear_capital"
+        style="@style/match_match"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/linear_funds"
+            style="@style/m_w_bg"
+            android:padding="@dimen/margin_padding_8">
+
+            <TextView
+                style="@style/tv_user_white_16"
+                android:paddingBottom="@dimen/margin_padding_8"
+                android:paddingTop="@dimen/margin_padding_8"
+                android:text="@string/real_time_capital_flow" />
+
+            <com.dysen.kdemo.views.MagicIndicatorView
+                android:id="@+id/magic_indicator_funds"
+                style="@style/match_match"
+                android:layout_height="35dp"
+                android:visibility="gone"
+                app:background_color="@color/transparent"
+                app:indicator_type="1"
+                app:selected_color="@color/text_color_red"
+                app:text_normal_color="@color/white"
+                app:text_selected_color="@color/text_color_red"
+                app:text_size="@dimen/text_size_16"
+                app:width_size="5" />
+
+            <LinearLayout
+                style="@style/match_wrap_h"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/tv_fund_net"
+                    style="@style/tv_user_gray_12"
+                    android:layout_weight="1"
+                    android:text="@string/fund_net" />
+
+                <TextView
+                    android:id="@+id/tv_fund_unit"
+                    style="@style/tv_user_gray_12"
+                    android:layout_gravity="right"
+                    android:text="@string/fund_unit" />
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChart"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:background="@color/transparent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_historical_capitalf_low"
+            style="@style/m_w_bg"
+            android:padding="@dimen/margin_padding_8">
+
+            <TextView
+                style="@style/tv_user_white_16"
+                android:paddingBottom="@dimen/margin_padding_8"
+                android:paddingTop="@dimen/margin_padding_8"
+                android:text="@string/historical_capital_flow" />
+
+
+            <LinearLayout
+                android:id="@+id/ll_hcf"
+                style="@style/match_wrap_h"
+                android:gravity="center"
+                android:minHeight="@dimen/margin_padding_40">
+
+                <TextView
+                    style="@style/tv_white_14_wei_h_l"
+                    android:layout_width="0dp"
+                    android:text="@string/hcf_time"
+                    tools:ignore="Suspicious0dp" />
+
+                <TextView
+                    style="@style/tv_white_14_wei_h_r"
+                    android:layout_width="0dp"
+                    android:text="@string/hcf_buy"
+                    tools:ignore="Suspicious0dp" />
+
+                <TextView
+                    style="@style/tv_white_14_wei_h_r"
+                    android:layout_width="0dp"
+                    android:text="@string/hcf_sell"
+                    tools:ignore="Suspicious0dp" />
+
+                <TextView
+                    style="@style/tv_white_14_wei_h_r"
+                    android:layout_width="0dp"
+                    android:text="@string/hcf_net_inflow"
+                    tools:ignore="Suspicious0dp" />
+
+            </LinearLayout>
+
+            <FrameLayout style="@style/match_wrap">
+
+                <com.dysen.kdemo.views.ScrollViewForList
+                    android:id="@+id/listview_history"
+                    style="@style/keyboard_listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@color/status_bar_bg"
+                    android:dividerHeight="1px" />
+
+                <TextView
+                    android:id="@+id/tv_history_state"
+                    style="@style/tv_user_white_14"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="@string/now_no_data"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/m_w_bg"
+            android:padding="@dimen/margin_padding_8">
+
+            <TextView
+                style="@style/tv_user_white_16"
+                android:text="@string/net_inflow_funds_5" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/m_w_bg"
+            android:padding="@dimen/margin_padding_8">
+
+            <TextView
+                style="@style/tv_user_white_16"
+                android:text="@string/fund_transaction_distribution" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <LinearLayout style="@style/match_match_h">
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChartBuy"
+                    style="@style/weight_wrap"
+                    android:layout_height="120dp"
+                    android:layout_marginEnd="@dimen/margin_padding_4"
+                    tools:ignore="RtlCompat" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChartSell"
+                    style="@style/weight_wrap"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="@dimen/margin_padding_4"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/m_w_bg"
+            android:padding="@dimen/margin_padding_8">
+
+            <TextView
+                style="@style/tv_user_white_16"
+                android:paddingBottom="@dimen/margin_padding_8"
+                android:paddingTop="@dimen/margin_padding_8"
+                android:text="@string/large_single_monitoring" />
+
+            <LinearLayout
+                android:id="@+id/ll_hcf_large"
+                style="@style/match_wrap_h"
+                android:gravity="center"
+                android:minHeight="@dimen/margin_padding_40">
+
+                <TextView
+                    android:id="@+id/tv_0"
+                    style="@style/tv_white_14_wei_h_l"
+                    android:layout_width="0dp"
+                    android:text="@string/hcf_time"
+                    tools:ignore="Suspicious0dp" />
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    style="@style/tv_white_14_wei_h_r"
+                    android:layout_width="0dp"
+                    android:text="@string/hcf_amount"
+                    tools:ignore="Suspicious0dp" />
+
+                <TextView
+                    android:id="@+id/tv_2"
+                    style="@style/tv_white_14_wei_h_r"
+                    android:layout_width="0dp"
+                    android:text="@string/hcf_quantitative"
+                    tools:ignore="Suspicious0dp" />
+
+                <TextView
+                    android:id="@+id/tv_3"
+                    style="@style/tv_white_14_wei_h_r"
+                    android:layout_width="0dp"
+                    android:text="@string/hcf_net_price"
+                    tools:ignore="Suspicious0dp" />
+
+            </LinearLayout>
+
+            <FrameLayout style="@style/match_wrap">
+
+                <com.dysen.kdemo.views.ScrollViewForList
+                    android:id="@+id/listview_bigRecord"
+                    style="@style/keyboard_listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@color/status_bar_bg"
+                    android:dividerHeight="1px" />
+
+                <TextView
+                    android:id="@+id/tv_bigRecord_state"
+                    style="@style/tv_user_white_14"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:text="@string/now_big_no_data"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -42,10 +42,10 @@ public class TestActivity extends BaseActivity {
         baseSetContentView(R.layout.activity_test);
         ButterKnife.bind(this);
 
-        initView();
     }
 
-    private void initView() {
+    @Override
+    public void initView() {
         subscriberNextOrErrorListener2 = new SubscriberNextOrErrorListener2<TestBean>() {
 
             @Override
@@ -60,6 +60,11 @@ public class TestActivity extends BaseActivity {
 
             }
         };
+    }
+
+    @Override
+    public void setListener() {
+
     }
 
     @OnClick({R.id.btn_up, R.id.btn_down, R.id.btn_get})
@@ -93,6 +98,7 @@ public class TestActivity extends BaseActivity {
         mCustomPopWindow = new CustomPopWindow.PopupWindowBuilder(mContext)
                 .setView(contentView)
                 .enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
+                .size(-1, -1)
                 .setBgDarkAlpha(0.7f) // 控制亮度
                 .create();
 //        mCustomPopWindow.showAsDropDown(view, 0, -(view.getHeight() + mCustomPopWindow.getHeight()));
@@ -112,6 +118,8 @@ public class TestActivity extends BaseActivity {
         } else if (view.getId() == R.id.btn_down) {
             mCustomPopWindow.showAsDropDown(view, 0, 0, Gravity.BOTTOM);
         }
+        mCustomPopWindow.getPopupWindow().setAnimationStyle(R.style.pop_animation);
+
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

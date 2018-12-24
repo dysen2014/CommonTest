@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".DemoActivity">
+
+    <LinearLayout style="@style/match_wrap_h"
+        android:layout_height="48dp">
+
+        <net.lucode.hackware.magicindicator.views.MagicIndicatorView
+            android:id="@+id/magic_indicator"
+            style="@style/wrap_wrap"
+            app:background_color="@color/common_bg"
+            app:selected_color="@color/bnt_register_color_normal2"
+            app:text_normal_color="@color/text_color_gray"
+            app:text_selected_color="@color/white"
+            app:indicator_type="2"
+            app:width_size="3"
+            app:text_size="@dimen/text_size_16"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

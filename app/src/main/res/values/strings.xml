@@ -5,4 +5,7 @@
     <string name="jump_pop">启动PopWindow</string>
     <string name="scan_qr">扫描QR码</string>
     <string name="http_get">请求数据</string>
+    <string name="test">Test</string>
+    <string name="other">其它</string>
+    <string name="contacts">获取通讯录</string>
 </resources>

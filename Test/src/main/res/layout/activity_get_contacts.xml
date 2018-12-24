@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/match_match"
+    android:orientation="vertical"
+    tools:context=".contacts.GetContactsActivity">
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/sv_search"
+        style="@style/match_wrap" />
+
+    <FrameLayout
+        style="@style/match_match"
+        android:layout_below="@id/sv_search">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcl_contacts"
+            style="@style/match_match" />
+
+        <com.dysen.common_library.views.WaveSideBarView
+            android:id="@+id/side_bar"
+            style="@style/match_match"
+            android:padding="8dp"
+            app:sidebar_lazy_respond="false"
+            app:sidebar_text_color="@color/colorAccent" />
+    </FrameLayout>
+</LinearLayout>

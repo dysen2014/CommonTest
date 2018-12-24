@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape>
+            <!-- 填充的颜色：这里设置背景透明 -->
+            <solid android:color="@color/text_color_hint" />
+            <corners android:radius="@dimen/radius_3" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="@color/text_color_hint" />
+            <corners android:radius="@dimen/radius_3" />
+        </shape>
+    </item>
+    <item android:state_focused="false">
+        <shape>
+            <!-- 填充的颜色：这里设置背景透明 -->
+            <solid android:color="@color/main_login_header_bg" />
+            <corners android:radius="@dimen/radius_3" />
+        </shape>
+    </item>
+    <item android:state_pressed="false">
+        <shape>
+            <solid android:color="@color/main_login_header_bg" />
+            <corners android:radius="@dimen/radius_3" />
+        </shape>
+    </item>
+</selector>

@@ -1,5 +1,7 @@
 package com.dysen.common_library.tools.chart;
 
+import com.dysen.common_library.R;
+import com.dysen.common_library.utils.Tools;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -12,8 +14,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.vip.zb.R;
-import com.vip.zb.tool.Tools;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

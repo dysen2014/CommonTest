@@ -1,6 +1,9 @@
 package com.dysen.share_dialog;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
@@ -82,7 +85,7 @@ public class ScreenShotListenManager {
      * 截屏依据中的路径判断关键字
      */
     private static final String[] KEYWORDS = {
-            "screenshot", "screen_shot", "screen-shot", "screen shot",
+            "screenshot", "Screenshot", "screen_shot", "screen-shot", "screen shot",
             "screencapture", "screen_capture", "screen-capture", "screen capture",
             "screencap", "screen_cap", "screen-cap", "screen cap"
     };
@@ -132,9 +135,23 @@ public class ScreenShotListenManager {
         }
     }
 
-    public static ScreenShotListenManager newInstance(Context context) {
+    public static ScreenShotListenManager newInstance(Activity mActivity) {
+        /**
+         * 动态获取权限，Android 6.0 新特性，一些保护权限，除了要在AndroidManifest中声明权限，还要使用如下代码动态获取
+         */
+        if (Build.VERSION.SDK_INT >= 23) {
+            int REQUEST_CODE_CONTACT = 101;
+            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            //验证是否许可权限
+            for (String str : permissions) {
+                if (mActivity.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
+                    //申请权限
+                    mActivity.requestPermissions(permissions, REQUEST_CODE_CONTACT);
+                }
+            }
+        }
         assertInMainThread();
-        return new ScreenShotListenManager(context);
+        return new ScreenShotListenManager(mActivity);
     }
 
     /**

@@ -75,7 +75,7 @@ public class ScreenShot {
 //            fos = new FileOutputStream(strFileName);
             fos = act.openFileOutput(strFileName, SAVE_AUTHORITY);
             if (null != fos) {
-                b.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+                b.compress(Bitmap.CompressFormat.WEBP, 90, fos);
                 fos.flush();
                 fos.close();
             }

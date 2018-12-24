@@ -1,0 +1,148 @@
+<resources>
+
+    <style name="layout_user_head_ll" parent="match_wrap_h_bg_white">
+        <item name="android:layout_marginBottom">@dimen/margin_padding_10</item>
+        <item name="android:layout_marginTop">@dimen/margin_padding_10</item>
+        <item name="android:paddingLeft">@dimen/margin_padding_10</item>
+        <item name="android:paddingRight">@dimen/margin_padding_10</item>
+        <item name="android:paddingBottom">@dimen/margin_padding_20</item>
+        <item name="android:paddingTop">@dimen/margin_padding_20</item>
+    </style>
+    <style name="llayout_user_head" parent="match_wrap_h">
+        <item name="android:paddingLeft">@dimen/margin_padding_10</item>
+        <item name="android:paddingRight">@dimen/margin_padding_10</item>
+        <item name="android:paddingBottom">@dimen/margin_padding_20</item>
+        <item name="android:paddingTop">@dimen/margin_padding_20</item>
+        <item name="android:background">@color/status_bar_bg</item>
+    </style>
+
+    <style name="layout_user_head_name_ll" parent="weight_wrap">
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="tv_user_item" parent="tv_user_black_14">
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:drawablePadding">@dimen/margin_padding_10</item>
+    </style>
+    <style name="tv_user_item_r" parent="tv_user_gray_14">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="user_view_line_v" parent="view_line_v">
+        <item name="android:layout_marginLeft">@dimen/margin_padding_10</item>
+        <item name="android:layout_marginRight">@dimen/margin_padding_10</item>
+        <item name="android:layout_height">@dimen/w_0.5</item>
+    </style>
+    <style name="user_safety_line" parent="view_line_v">
+        <item name="android:layout_height">@dimen/w_0.1</item>
+    </style>
+    <style name="user_safety_line2" parent="view_line_v">
+        <item name="android:layout_height">@dimen/w_0.1</item>
+    </style>
+    <style name="img_user_login_r" parent="wrap_wrap">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:padding">@dimen/margin_padding_12</item>
+    </style>
+
+    <style name="ed_user_login" parent="match_wrap">
+        <item name="android:padding">@dimen/margin_padding_12</item>
+        <item name="android:background">@null</item>
+        <item name="android:drawablePadding">@dimen/margin_padding_10</item>
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:textColorHint">@color/text_color_hint</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">100</item>
+    </style>
+    <style name="ed_user_safety" parent="match_match">
+        <item name="android:padding">@dimen/margin_padding_10</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:textColorHint">@color/text_color_gray</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">100</item>
+    </style>
+    <style name="tv_asset_gray" parent="tv_user_gray_14">
+        <item name="android:textColorHint">@color/text_color_gray</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <style name="tv_asset_black" parent="tv_user_black_14">
+        <item name="android:textColorHint">@color/text_color_gray</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <style name="tv_asset_red" parent="tv_user_red_14">
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <style name="ed_asset" parent="match_match">
+        <item name="android:padding">@dimen/margin_padding_10</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:textColorHint">@color/text_color_gray</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="rl_user_item" parent="match_wrap_bg_white">
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:paddingLeft">@dimen/margin_padding_10</item>
+        <item name="android:paddingRight">@dimen/margin_padding_10</item>
+    </style>
+    <style name="rl_safety_item" parent="rl_user_item">
+        <item name="android:focusableInTouchMode">false</item>
+    </style>
+    <style name="sv_user">
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="but_user_asset" parent="match_wrap">
+        <item name="android:layout_height">@dimen/but_height</item>
+        <item name="android:layout_margin">@dimen/margin_padding_10</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/text_color_white</item>
+    </style>
+
+    <style name="label_identity_note" parent="tv_user_black_14">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/margin_padding_10</item>
+    </style>
+    <style name="ll_ll_user_identity" parent="weight_wrap">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginTop">@dimen/margin_padding_5</item>
+        <item name="android:layout_marginBottom">@dimen/margin_padding_5</item>
+        <item name="android:layout_marginLeft">@dimen/margin_padding_10</item>
+        <item name="android:layout_marginRight">@dimen/margin_padding_10</item>
+    </style>
+    <style name="ll_ll_img_user_identity" parent="wrap_wrap">
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+    <style name="ll_ll_img_user_identity_picture" parent="ll_ll_img_user_identity">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">75dp</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+    <style name="ll_ll_tv_black_user_identity" parent="tv_user_black_12">
+    </style>
+    <style name="ll_ll_tv_black_user_identity_picture" parent="tv_user_black_12">
+    </style>
+    <style name="ll_ll_tv_gray_user_identity" parent="tv_user_gray_10">
+        <item name="android:layout_marginTop">@dimen/margin_padding_5</item>
+    </style>
+
+    <style name="customer_rl" parent="wrap_wrap">
+        <item name="android:layout_margin">@dimen/margin_padding_15</item>
+        <item name="android:layout_gravity">bottom|right</item>
+    </style>
+    <style name="customer_img_bg" parent="wrap_wrap_ci">
+
+    </style>
+</resources>
