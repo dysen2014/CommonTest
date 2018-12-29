@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.dysen.common_library.base.BaseActivity;
-import com.dysen.common_library.bean.CommonBean;
 import com.dysen.common_library.ui.UIHelper;
-import com.dysen.common_library.utils.base_recycler_adapter.SuperRecyclerAdapter;
-import com.dysen.common_library.utils.base_recycler_adapter.SuperRecyclerHolder;
 
 import net.lucode.hackware.magicindicator.views.MagicIndicatorView;
 
@@ -28,11 +25,11 @@ public class DemoActivity extends BaseActivity {
         super.onCreate(savedinstancestate);
         baseSetContentView(R.layout.activity_demo);
         ButterKnife.bind(this);
+        magicInit();
     }
 
     @Override
     public void initView() {
-        magicInit();
     }
 
     @Override
@@ -52,24 +49,10 @@ public class DemoActivity extends BaseActivity {
 //        magicIndicator.setSelected_color(Color.parseColor("#ff4801"));
         magicIndicator.onPageSelected(2);
         magicIndicator.setiOnListener(new MagicIndicatorView.IOnListener() {
-            String tip = null;
 
             @Override
             public void onItem(int index) {
-                switch (index) {
-                    case 0:
-                        tip = titleLists.get(index);
-                        break;
-                    case 1:
-                        tip = "";
-                        break;
-                    case 2:
-                        tip = "";
-                        break;
-                    case 3:
-                        tip = "";
-                        break;
-                }
+
                 UIHelper.ToastMessage(DemoActivity.this, "你选择了-->>" + titleLists.get(index));
             }
         });

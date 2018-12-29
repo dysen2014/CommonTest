@@ -8,7 +8,6 @@ import com.dysen.authenticator.AuthenticatorActivity
 import com.dysen.common_library.base.BaseActivity
 import com.dysen.common_library.ui.UIHelper
 import com.dysen.common_library.utils.Tools
-import com.dysen.test.contacts.GetContactsActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,6 +21,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         btn_start_gesture.setOnClickListener(this)
         btn_pop.setOnClickListener(this)
         btn_scan.setOnClickListener(this)
+        btn_other.setOnClickListener(this)
         btn_contacts.setOnClickListener(this)
     }
 
@@ -48,9 +48,13 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
                 scanBarcode()
             }
-            R.id.btn_contacts -> {
+            R.id.btn_other -> {
+                transAty(DemoActivity::class.java)
 
-                transAty(com.dysen.test.contacts.GetContactsActivity::class.java)
+            }
+            R.id.btn_contacts -> {
+                transAty(DemoActivity::class.java)
+
             }
         }
     }

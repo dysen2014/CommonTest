@@ -68,6 +68,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
         Tools.eventBusRegister(this);
     }
 
+    @Override
+    public void initView() {
+
+    }
+
     /**
      * set screen view
      *
