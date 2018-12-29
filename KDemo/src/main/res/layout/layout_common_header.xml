@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_header"
+    style="@style/layout_header">
+    <!-- 返回按钮 -->
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_padding_48"
+        android:paddingLeft="@dimen/margin_padding_8"
+        android:paddingRight="@dimen/margin_padding_8"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_back"
+            style="@style/common_txt_title"
+            android:drawableLeft="@mipmap/icon_back"
+            android:text="@string/user_back"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/common_txt_title"
+            android:layout_weight="4" />
+
+        <TextView
+            android:id="@+id/tv_menu"
+            style="@style/common_txt_title" />
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</RelativeLayout>
