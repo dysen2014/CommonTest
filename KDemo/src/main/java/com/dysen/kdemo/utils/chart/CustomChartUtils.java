@@ -253,18 +253,17 @@ public class CustomChartUtils {
         xAxis.setAvoidFirstLastClipping(true);
         xAxis.setEnabled(true);
         // 设置y轴数据的位置
-        rightAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        rightAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         rightAxis.setYOffset(-6f);
         // 不从y轴发出横向直线
         rightAxis.setDrawGridLines(true);
         rightAxis.setGridColor(color_bg);
         // 是否显示y轴坐标线
-        rightAxis.setDrawZeroLine(false);
+//        rightAxis.setDrawZeroLine(true);
         rightAxis.setZeroLineColor(color_bg);
         // 设置y轴的文字颜色
         rightAxis.setTextColor(color_white);
         rightAxis.setAxisLineColor(Tools.getColor(R.color.transparent));
-        rightAxis.setDrawZeroLine(true);
         // 设置y轴文字的大小
         rightAxis.setTextSize(10);
         rightAxis.setSpaceTop(10f);
@@ -326,11 +325,11 @@ public class CustomChartUtils {
                 lineChart.getAxisRight().setAxisMinimum(0f);
                 lineChart.getAxisLeft().setAxisMinimum(0f);
             }
-            LimitLine limitLine = new LimitLine(0f, "0.00");
-            limitLine.setLineColor(color_bg);
-            limitLine.setTextSize(10f);
-            limitLine.setTextColor(color_white);
-            lineChart.getAxisRight().addLimitLine(limitLine);
+//            LimitLine limitLine = new LimitLine(0f, "0.00");
+//            limitLine.setLineColor(color_bg);
+//            limitLine.setTextSize(10f);
+//            limitLine.setTextColor(color_white);
+//            lineChart.getAxisRight().addLimitLine(limitLine);
             lineChart.setData(lineData);
         }
         //通知数据已经改变

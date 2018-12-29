@@ -15,6 +15,7 @@ import com.dysen.kdemo.activity.KLineActivity;
 import com.dysen.kdemo.entity.CapitalFlow;
 import com.dysen.kdemo.utils.ColorUtils;
 import com.dysen.kdemo.utils.DateUtils;
+import com.dysen.kdemo.utils.JsonUtils;
 import com.dysen.kdemo.utils.Tools;
 import com.dysen.kdemo.utils.ViewUtils;
 import com.dysen.kdemo.utils.chart.CustomChartUtils;
@@ -31,8 +32,13 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.gson.JsonArray;
 import com.joanzapata.android.BaseAdapterHelper;
 import com.joanzapata.android.QuickAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,7 +60,7 @@ public class KCapitalFragment extends Fragment {
     private View mView;
     private static KLineActivity mActivity;
 
-    private static String exchangeType, currencyType;
+    private static String exchangeType = "QC", currencyType = "BTC";
     List<String> list = new ArrayList<String>();
 
     TextView tv_fund_unit, tv_fund_net;
@@ -118,10 +124,10 @@ public class KCapitalFragment extends Fragment {
         mBarChartSell = mView.findViewById(R.id.barChartSell);
         tv_fund_unit = (TextView) mView.findViewById(R.id.tv_fund_unit);
         tv_fund_net = (TextView) mView.findViewById(R.id.tv_fund_net);
-        initMethod();
 
-        initDatas();
         initAdapter();
+        initDatas();
+        initMethod();
     }
 
     private void initMethod() {
@@ -140,22 +146,6 @@ public class KCapitalFragment extends Fragment {
         tv_fund_unit.setText(getString(R.string.fund_unit, currencyType));
         tv_fund_net.setText(Html.fromHtml(DateUtils.dateSimpleFormat(new Date(), new SimpleDateFormat("MM月dd日")) + "\t\t" + getString(R.string.fund_net,
                 "<font color='#E70101'><big><big>" + "--" + "</big></big></font> ")));
-    }
-
-    public void doInitData(Object object) {
-        if (object != null) {
-            if (isAdded())
-                if (object instanceof CapitalFlow.Kline)
-                    createKLine((CapitalFlow.Kline) object);
-                else if (object instanceof CapitalFlow.FundDistribute)
-                    createFundDistribute((CapitalFlow.FundDistribute) object);
-                else if (object instanceof CapitalFlow.BigRecord)
-                    createBigRecord((CapitalFlow.BigRecord) object);
-                else if (object instanceof CapitalFlow.HistoryFunds)
-                    createHistoryFunds((CapitalFlow.HistoryFunds) object);
-                else if (object instanceof CapitalFlow.Netfund)
-                    createNetfunds((CapitalFlow.Netfund) object);
-        }
     }
 
     private void initAdapter() {
@@ -245,10 +235,10 @@ public class KCapitalFragment extends Fragment {
         listview_bigRecord.setAdapter(adapter_big_record);
     }
 
-    private void createNetfunds(CapitalFlow.Netfund netfund) {
+    private void createNetfunds(List<List<String>> netFunds) {
         List<String> barChartLists = new ArrayList<>();
         List<BarEntry> barEntries = new ArrayList<>();
-        List<List<String>> array = netfund.getArray();
+        List<List<String>> array = netFunds;
         tv_fund_unit.setText(getString(R.string.fund_unit, currencyType));
         if (array == null || array.size() == 0) {
             if (mBarDataSet != null) {
@@ -270,11 +260,9 @@ public class KCapitalFragment extends Fragment {
 
             String netInFlow = CustomValueFormatter.parseFlost(Float.valueOf(array.get(array.size() - 1).get(1)));
             if (Tools.checkPositiveNumber(netInFlow)) {
-
                 tv_fund_net.setText(Html.fromHtml(DateUtils.dateSimpleFormat(new Date(), new SimpleDateFormat("MM月dd日")) + "\t\t" + getString(R.string.fund_net,
                         "<font color='#E70101'><big><big>" + netInFlow + "</big></big></font>")));
             } else {
-
                 tv_fund_net.setText(Html.fromHtml(DateUtils.dateSimpleFormat(new Date(), new SimpleDateFormat("MM月dd日")) + "\t\t" + getString(R.string.fund_net,
                         "<font color='#08BA52'><big><big>" + netInFlow + "</big></big></font>")));
             }
@@ -284,9 +272,9 @@ public class KCapitalFragment extends Fragment {
         CustomChartUtils.initBarChart(mBarChart, barEntries, "sendy", Tools.getColor(R.color.text_color_red));
     }
 
-    private void createHistoryFunds(final CapitalFlow.HistoryFunds historyFunds) {
+    private void createHistoryFunds(List<List<String>> historyFunds) {
         mArrayListHistoryFunds.clear();
-        List<List<String>> array = historyFunds.getArray();
+        List<List<String>> array = historyFunds;
         CapitalFlow.HistoryFunds.ListBean listBean = null;
         if (array == null || array.size() == 0) {
             adapter_history_funds.clear();
@@ -306,9 +294,9 @@ public class KCapitalFragment extends Fragment {
         }
     }
 
-    private void createBigRecord(CapitalFlow.BigRecord bigRecord) {
+    private void createBigRecord(List<List<String>> bigRecords) {
         mArrayListBigRecord.clear();
-        List<List<String>> array = bigRecord.getArray();
+        List<List<String>> array = bigRecords;
         CapitalFlow.BigRecord.ListBean listBean = null;
 
         tv_1.setText(getString(R.string.hcf_amount, exchangeType));
@@ -316,7 +304,7 @@ public class KCapitalFragment extends Fragment {
         tv_3.setText(getString(R.string.hcf_net_price, exchangeType));
         if (array == null || array.size() == 0) {
             adapter_big_record.clear();
-            tv_bigRecord_state.setText(Tools.getString(R.string.now_big_no_data, CustomValueFormatter.parseFlost(bigRecord.getHighAmount())));
+            tv_bigRecord_state.setText(Tools.getString(R.string.now_big_no_data, CustomValueFormatter.parseFlost(500000F)));
             tv_bigRecord_state.setVisibility(View.VISIBLE);
             listview_bigRecord.setVisibility(View.GONE);
         } else {
@@ -332,8 +320,8 @@ public class KCapitalFragment extends Fragment {
         }
     }
 
-    private void createFundDistribute(CapitalFlow.FundDistribute fundDistribute) {
-        CapitalFlow.FundDistribute.ObjBean obj = fundDistribute.getObj();
+    private void createFundDistribute(CapitalFlow.FundDistribute.ObjBean objBean) {
+        CapitalFlow.FundDistribute.ObjBean obj = objBean;
         if (obj == null)
             return;
         //饼图
@@ -366,11 +354,11 @@ public class KCapitalFragment extends Fragment {
         CustomChartUtils.initBarChart(mBarChartSell, 1, new BarDataSet(sellBarEntries, ""));
     }
 
-    private void createKLine(CapitalFlow.Kline kline) {
+    private void createKLine(List<List<String>> klines) {
         long nowTime = 0, firstTime = 0;
         List<String> lineChartLists = new ArrayList<>();
         List<Entry> lineEntries = new ArrayList<>();
-        List<List<String>> array = kline.getArray();
+        List<List<String>> array = klines;
         if (array == null || array.size() == 0) {
 
             if (mLineDataSet != null) {
@@ -412,36 +400,125 @@ public class KCapitalFragment extends Fragment {
      * 获取最新资金净量
      */
     public void getKline() {
-        Tools.getString(R.string.capital_kline_data);
-//        doInitData();
+        String datas = Tools.getString(R.string.capital_kline_data);
+        if (!datas.isEmpty()) {
+            try {
+                JSONObject jsonObject = JsonUtils.getJsonObject(datas, "datas");
+                JSONArray arrays = JsonUtils.getJsonArray(jsonObject, "array");
+                List<List<String>> klines = new ArrayList<>();
+                List<String> kline = new ArrayList<>();
+                for (int i = 0; i < arrays.length(); i++) {
+                    kline = new ArrayList<>();
+                    for (int j = 0; j < arrays.optJSONArray(i).length(); j++) {
+                        kline.add(arrays.optJSONArray(i).optString(j));
+                    }
+                    klines.add(kline);
+                }
+                if (isAdded())
+                    createKLine(klines);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
      * 获取最近24资金分布图
      */
     public void getFundDistribute() {
-        Tools.getString(R.string.capital_fund_distribute_data);
+
+        String datas = Tools.getString(R.string.capital_fund_distribute_data);
+        if (!datas.isEmpty()) {
+            try {
+                JSONObject jsonObject = JsonUtils.getJsonObject(datas, "datas");
+                CapitalFlow.FundDistribute.ObjBean objBean = JsonUtils.parseObject(jsonObject.optString("obj"), CapitalFlow.FundDistribute.ObjBean.class);
+                if (isAdded())
+                    createFundDistribute(objBean);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
      * getBigRecord 获取最近24小时大单记录
      */
     public void getBigRecord() {
-        Tools.getString(R.string.capital_big_record_data);
+
+        String datas = Tools.getString(R.string.capital_big_record_data);
+        if (!datas.isEmpty()) {
+            try {
+                JSONObject jsonObject = JsonUtils.getJsonObject(datas, "datas");
+                JSONArray arrays = JsonUtils.getJsonArray(jsonObject, "array");
+                List<List<String>> bigRecords = new ArrayList<>();
+                List<String> bigRecord = new ArrayList<>();
+                for (int i = 0; i < arrays.length(); i++) {
+                    bigRecord = new ArrayList<>();
+                    for (int j = 0; j < arrays.optJSONArray(i).length(); j++) {
+                        bigRecord.add(arrays.optJSONArray(i).optString(j));
+                    }
+                    bigRecords.add(bigRecord);
+                }
+                if (isAdded())
+                    createBigRecord(bigRecords);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
      * 获取历史资金记录
      */
     public void getHistoryFunds() {
-        Tools.getString(R.string.capital_history_funds_data);
+
+        String datas = Tools.getString(R.string.capital_history_funds_data);
+        if (!datas.isEmpty()) {
+            try {
+                JSONObject jsonObject = JsonUtils.getJsonObject(datas, "datas");
+                JSONArray arrays = JsonUtils.getJsonArray(jsonObject, "array");
+                List<List<String>> historyFunds = new ArrayList<>();
+                List<String> historyFund = new ArrayList<>();
+                for (int i = 0; i < arrays.length(); i++) {
+                    historyFund = new ArrayList<>();
+                    for (int j = 0; j < arrays.optJSONArray(i).length(); j++) {
+                        historyFund.add(arrays.optJSONArray(i).optString(j));
+                    }
+                    historyFunds.add(historyFund);
+                }
+                if (isAdded())
+                    createHistoryFunds(historyFunds);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
      * 获取近5天资金流向图
      */
     public void getNetfunds() {
-        Tools.getString(R.string.capital_net_funds_data);
+
+        String datas = Tools.getString(R.string.capital_net_funds_data);
+        if (!datas.isEmpty()) {
+            try {
+                JSONObject jsonObject = JsonUtils.getJsonObject(datas, "datas");
+                JSONArray arrays = JsonUtils.getJsonArray(jsonObject, "array");
+                List<List<String>> netFunds = new ArrayList<>();
+                List<String> netFund = new ArrayList<>();
+                for (int i = 0; i < arrays.length(); i++) {
+                    netFund = new ArrayList<>();
+                    for (int j = 0; j < arrays.optJSONArray(i).length(); j++) {
+                        netFund.add(arrays.optJSONArray(i).optString(j));
+                    }
+                    netFunds.add(netFund);
+                }
+                if (isAdded())
+                    createNetfunds(netFunds);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

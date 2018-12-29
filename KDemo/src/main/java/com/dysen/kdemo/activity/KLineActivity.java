@@ -1,22 +1,17 @@
 package com.dysen.kdemo.activity;
 
-import android.annotation.TargetApi;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,23 +19,29 @@ import android.widget.TextView;
 
 import com.dysen.kdemo.R;
 import com.dysen.kdemo.adapter.BasePagerAdapter;
-import com.dysen.kdemo.entity.ChartData;
 import com.dysen.kdemo.kline.KAnalyzeFragment;
 import com.dysen.kdemo.kline.KCapitalFragment;
 import com.dysen.kdemo.kline.KIntroductionFragment;
 import com.dysen.kdemo.kline.KRecordlFragment;
+import com.dysen.kdemo.utils.JsonUtils;
 import com.dysen.kdemo.utils.Tools;
 import com.dysen.kdemo.views.AutoHeightViewPager;
+import com.dysen.kdemo.views.LoadingFrameLayout;
 import com.dysen.kdemo.views.MagicIndicatorView;
 import com.dysen.kdemo.views.MarketChartData;
 import com.dysen.kdemo.views.ObservableScrollView;
 import com.dysen.kdemo.views.RateLinearView;
 import com.dysen.kdemo.views.TargetView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by bitbank on 2018/4/6.
@@ -48,13 +49,16 @@ import java.util.TimerTask;
 
 public class KLineActivity extends AppCompatActivity implements View.OnClickListener {
 
+    @BindView(R.id.tv_back)
+    TextView tvBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+
     private ObservableScrollView mScrollView;
     private RateLinearView linear_rate;
-    private LinearLayout linear_buy_sell;
     private MagicIndicatorView mMagicIndicatorView, mMagicIndicatorViewBottom, mklineTagget;
     private TextView cointitle, tv_target, ma, ema, boll;
     private TargetView mTargetView, mMyChartsView;
-    private Button buy, sell;
     private ImageView image_full;
     private RelativeLayout relative_target;
 
@@ -62,17 +66,11 @@ public class KLineActivity extends AppCompatActivity implements View.OnClickList
     private String exchangeType = "QC", currencyType = "BTC", symbol = "zbbtcqc";
     private String kChartTimeInterval = "3600";                       //图表数据间隔
     private final String kChartDataSize = "1440";                          //图表数据总条数
-    //定时器
-    Timer timer1 = null;  //刷新定时器
-    Timer timer2 = null;  //刷新定时器
-    private final int dataRefreshTime1 = 2 * 1000;                         //数据刷新间隔
-    private final int dataRefreshTime2 = 60 * 1000;                         //数据刷新间隔
     private Context mContext;
     List<String> list = new ArrayList<String>();
     private List<MarketChartData> marketChartDataLists = new ArrayList<MarketChartData>();
     private ArrayList data_list;
     private Resources res;
-    private boolean isCollected = false;
     private LinearLayout llSpaceView;
     private boolean is_treeObserver = false;
     private KCapitalFragment kCapitalFragment;
@@ -81,28 +79,34 @@ public class KLineActivity extends AppCompatActivity implements View.OnClickList
     private KIntroductionFragment kIntroductionFragment;
     AutoHeightViewPager vpType;
     private List<Fragment> fragments = new ArrayList<>();
+    private int mIndex = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //tintManager.setStatusBarTintResource(R.color.klinebg);//通知栏所需颜色
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         // 设置显示的视图
         setContentView(R.layout.activity_kline);
+        ButterKnife.bind(this);
         mContext = this;
         res = this.getResources();
 
         initView();
-        initMagicIndicator();
-        initData();
-        initGroup();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initData();
+                initMagicIndicator();
 
-        /** 注册广播 */
-        receiveBroadViewData = new ReceiveBroadViewData();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("com.vip.zb.activity.KLineActivity");    //只有持有相同的action的接受者才能接收此广播
-        this.registerReceiver(receiveBroadViewData, filter);
+                indexMarketChart(Tools.getDatas(mIndex));
+            }
+        }, 100);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void initData() {
@@ -110,11 +114,6 @@ public class KLineActivity extends AppCompatActivity implements View.OnClickList
         kAnalyzeFragment = KAnalyzeFragment.newInstance(this);
         kRecordlFragment = KRecordlFragment.newInstance(this);
         kIntroductionFragment = KIntroductionFragment.newInstance(this);
-
-        //加载币种资料数据
-        kIntroductionFragment.init(exchangeType, currencyType);
-        //加载K线数据
-        kCapitalFragment.init(exchangeType, currencyType);
 
         fragments.add(kCapitalFragment);
         fragments.add(kAnalyzeFragment);
@@ -125,28 +124,23 @@ public class KLineActivity extends AppCompatActivity implements View.OnClickList
         vpType.setOffscreenPageLimit(fragments.size());
     }
 
-    public String getExchangeType() {
-        return exchangeType;
-    }
-
-    public String getCurrencyType() {
-        return currencyType;
-    }
-
     private void initView() {
-
+        tvTitle.setText(Tools.getString(R.string.app_name));
+        tvBack.setOnClickListener(this);
         ma = (TextView) findViewById(R.id.ma);
         ma.setOnClickListener(this);
         ema = (TextView) findViewById(R.id.ema);
         ema.setOnClickListener(this);
         boll = (TextView) findViewById(R.id.boll);
         boll.setOnClickListener(this);
-
+        image_full = (ImageView) findViewById(R.id.image_full);
+        image_full.setOnClickListener(this);
         mTargetView = (TargetView) findViewById(R.id.mTargetView);
         mTargetView.setOnClickListener(this);
 
         linear_rate = (RateLinearView) findViewById(R.id.linear_rate);
         linear_rate.setOnClickListener(this);
+        linear_rate.marketlist();
         mMagicIndicatorView = (MagicIndicatorView) findViewById(R.id.mMagicIndicatorView);
         mMagicIndicatorView.setOnClickListener(this);
         mMagicIndicatorViewBottom = (MagicIndicatorView) findViewById(R.id.magic_indicator);
@@ -228,6 +222,7 @@ public class KLineActivity extends AppCompatActivity implements View.OnClickList
 
             for (int i = 0; i < marketChartDatas.length; i++) {
                 String[] data = marketChartDatas[i];
+
                 MarketChartData mMarketChartData = new MarketChartData();
                 mMarketChartData.setTime(Long.parseLong(data[0]));
                 mMarketChartData.setOpenPrice(Double.parseDouble(data[3]));
@@ -253,70 +248,14 @@ public class KLineActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private void initGroup() {
-
-        String[] kline_target = res.getStringArray(R.array.kline_target);
-        List<String> klineList = new ArrayList<>();
-        for (int i = 0; i < kline_target.length; i++) {
-            klineList.add(kline_target[i]);
-        }
-        mMagicIndicatorView.setTitle_list(klineList);
-        mMagicIndicatorView.initView();
-        mMagicIndicatorView.onPageSelected(4);
-        mMagicIndicatorView.setiOnListener(new MagicIndicatorView.IOnListener() {
-            @Override
-            public void onItem(int index) {
-
-                switch (index) {
-                    case 0:
-                        kChartTimeInterval = 1 * 60 + "";
-                        break;
-                    case 1:
-                        kChartTimeInterval = 5 * 60 + "";
-                        break;
-                    case 2:
-                        kChartTimeInterval = 15 * 60 + "";
-                        break;
-                    case 3:
-                        kChartTimeInterval = 30 * 60 + "";
-                        break;
-                    case 4:
-                        kChartTimeInterval = 60 * 60 + "";
-                        break;
-                    case 5:
-                        kChartTimeInterval = 2 * 60 * 60 + "";
-                        break;
-                    case 6:
-                        kChartTimeInterval = 4 * 60 * 60 + "";
-                        break;
-                    case 7:
-                        kChartTimeInterval = 6 * 60 * 60 + "";
-                        break;
-                    case 8:
-                        kChartTimeInterval = 12 * 60 * 60 + "";
-                        break;
-                    case 9:
-                        kChartTimeInterval = 24 * 60 * 60 + "";
-                        break;
-                    case 10:
-                        kChartTimeInterval = 3 * 24 * 60 * 60 + "";
-                        break;
-                    case 11:
-                        kChartTimeInterval = 7 * 24 * 60 * 60 + "";
-                        break;
-                }
-                indexMarketChart();
-
-            }
-        });
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_back:
+                finish();
+                break;
             case R.id.image_full:
-//                UIHelper.showFullScreenActivity(this, symbol);
+                showFullScreenActivity(mIndex);
                 break;
             case R.id.tv_target:
                 if (relative_target.getVisibility() == View.VISIBLE) {
@@ -349,111 +288,53 @@ public class KLineActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    public void showFullScreenActivity(int index) {
+        Intent intent = new Intent(this, FullScreenActivity.class);
+        intent.putExtra("index", index);
+        startActivity(intent);
+    }
+
     //todo index
-    private void indexMarketChart() {
-        String datas = Tools.getString(R.string.analyze_data);
-        ChartData chartData1 = null;
-        if (chartData1 != null && chartData1.getChartData().length > 0) {
-            createLineChartDataSet(chartData1.getChartData());
-        }
-    }
+    private void indexMarketChart(String datas) {
+        try {
+            JSONObject objects = JsonUtils.getJsonObject(datas, "datas");
+            JSONArray chartData = JsonUtils.getJsonArray(objects, "chartData");
+            String[][] sChartData = new String[chartData.length()][chartData.optJSONArray(0).length()];
+            for (int i = 0; i < chartData.length(); i++) {
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        stopTimer();
-    }
+                for (int j = 0; j < chartData.optJSONArray(i).length(); j++) {
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        startTimer();
-//        keyboard.getfunds();
-//        mScrollView.scrollTo(0, (int) move_range);
-    }
-
-    Handler handlerOfTrans = new Handler() {
-        public void handleMessage(Message msg) {
-
-            if (msg.what == 1) {//2S
-                linear_rate.marketlist();
-                kAnalyzeFragment.init(exchangeType, currencyType);
-                kRecordlFragment.init(exchangeType, currencyType);
-            } else if (msg.what == 2) {//60S
-                indexMarketChart();
-                kCapitalFragment.init(exchangeType, currencyType);
+                    sChartData[i][j] = chartData.optJSONArray(i).optString(j);
+                }
             }
-            super.handleMessage(msg);
-        }
-    };
-
-    /**
-     * 启动定时器
-     */
-    public void startTimer() {
-        if (timer1 == null) {
-            //Log.i("KD_startTimer", "KD_startTimer+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            timer1 = new Timer();
-            TransTimerTask task1 = new TransTimerTask(handlerOfTrans, 1);
-            timer1.schedule(task1, 0, dataRefreshTime1);
-        }
-        if (timer2 == null) {
-            //Log.i("KD_startTimer", "KD_startTimer+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            timer2 = new Timer();
-            TransTimerTask task2 = new TransTimerTask(handlerOfTrans, 2);
-            timer2.schedule(task2, 0, dataRefreshTime2);
-        }
-    }
-
-    /**
-     * 停止定时器
-     */
-    public void stopTimer() {
-        if (timer1 != null) {
-            //Log.i("KD_stoptimer", "KD_stoptimer+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            timer1.cancel();
-            timer1 = null;
-        }
-        if (timer2 != null) {
-            //Log.i("KD_stoptimer", "KD_stoptimer+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            timer2.cancel();
-            timer2 = null;
-        }
-    }
-
-    /**
-     * 定时器任务
-     */
-    class TransTimerTask extends TimerTask {
-        private int code;
-        private Handler mHandler;
-
-        public TransTimerTask() {
-
-        }
-
-        public TransTimerTask(Handler handler, int code) {
-            this.mHandler = handler;
-            this.code = code;
-        }
-
-        @Override
-        public void run() {
-            // 需要做的事:发送消息
-            Message message = new Message();
-            message.what = code;
-            this.mHandler.sendMessage(message);
+            createLineChartDataSet(sChartData);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     private void initMagicIndicator() {
 
+        String[] kline_target = res.getStringArray(R.array.kline_target);
+        List<String> klineList = new ArrayList<>();
+        for (int i = 0; i < kline_target.length; i++) {
+            klineList.add(kline_target[i]);
+        }
+        mMagicIndicatorView.setTitle_list(klineList);
+        mMagicIndicatorView.initView();
+        mMagicIndicatorView.onPageSelected(4);
+        mMagicIndicatorView.setiOnListener(new MagicIndicatorView.IOnListener() {
+            @Override
+            public void onItem(int index) {
+                mIndex = index;
+                indexMarketChart(Tools.getDatas(index));
+            }
+        });
+
         intoTitle.add(res.getString(R.string.funds));//资金
         intoTitle.add(res.getString(R.string.analyze));//分析
         intoTitle.add(res.getString(R.string.Trading_Record));//成交
         intoTitle.add(res.getString(R.string.introduction));//简介
-        //TODO 隐藏评论
-//        intoTitle.add(res.getString(R.string.comment));//评论
 
         mMagicIndicatorViewBottom.setTitle_list(intoTitle);
         mMagicIndicatorViewBottom.setWidth_size(intoTitle.size());
@@ -486,30 +367,6 @@ public class KLineActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
-    }
-
-    public void setMagicIndicatorViewBottomIndex() {
-        mMagicIndicatorViewBottom.onPageSelected(3);
-        //mScrollView.fullScroll(ScrollView.FOCyUS_DOWN);//滚动到底部
-        int y = (int) mMagicIndicatorViewBottom.getY();
-        mScrollView.scrollTo(0, y);
-    }
-
-    private ReceiveBroadViewData receiveBroadViewData;
-
-    class ReceiveBroadViewData extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            marketChartDataLists.clear();
-            indexMarketChart();
-            linear_rate.marketlist();
-
-            kCapitalFragment.init(exchangeType, currencyType);
-            kAnalyzeFragment.init(exchangeType, currencyType);
-            kRecordlFragment.init(exchangeType, currencyType);
-            kIntroductionFragment.init(exchangeType, currencyType);
-        }
     }
 
     /**

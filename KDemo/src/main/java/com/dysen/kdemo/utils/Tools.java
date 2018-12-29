@@ -13,10 +13,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dysen.kdemo.AppContext;
+import com.dysen.kdemo.R;
 import com.dysen.kdemo.views.AutoHeightViewPager;
 
 import java.math.BigDecimal;
@@ -128,6 +131,9 @@ public class Tools {
             return "";
         }
     }
+    public static void printStackTrace(Exception e) {
+        Log.e("zb_debug", e.getMessage(), e);
+    }
 
     public static void printStackTrace(String tag, Exception e) {
         Log.e(tag, e.getMessage(), e);
@@ -199,4 +205,108 @@ public class Tools {
         });
     }
 
+    /**
+     * 执行动画
+     *
+     * @param view
+     * @param animationId
+     */
+    public static void doAnimation(final View view, final int animationId) {
+        try {
+            view.startAnimation(AnimationUtils.loadAnimation(getApp(), animationId));
+        } catch (Exception e) {
+            Tools.printStackTrace(e);
+        }
+    }
+
+    public static void doFadeinAnimation(final View view) {
+        doAnimation(view, R.anim.fadein);
+    }
+
+    /**
+     * 显示
+     */
+    public static void setVisible(final View view) {
+        try {
+            if (view == null || view.getVisibility() == View.VISIBLE)
+                return;
+            view.setVisibility(View.VISIBLE);
+            doAnimation(view, R.anim.fadein);
+        } catch (Exception e) {
+            Tools.printStackTrace(e);
+        }
+    }
+
+    /**
+     * 隐藏
+     *
+     * @param view
+     */
+    public static void setGone(final View view) {
+        try {
+            if (view == null || view.getVisibility() == View.GONE ||
+                    view.getVisibility() == View.INVISIBLE)
+                return;
+            view.setVisibility(View.GONE);
+            doAnimation(view, R.anim.fadeout);
+        } catch (Exception e) {
+            Tools.printStackTrace(e);
+        }
+    }
+
+    public static String getDatas(int index) {
+        String datas = Tools.getString(R.string.kline_index_market_chart_4);
+        String kChartTimeInterval;
+        switch (index) {
+            case 0:
+                kChartTimeInterval = 1 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_0);
+                break;
+            case 1:
+                kChartTimeInterval = 5 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_2);
+                break;
+            case 2:
+                kChartTimeInterval = 15 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_2);
+                break;
+            case 3:
+                kChartTimeInterval = 30 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_3);
+                break;
+            case 4:
+                kChartTimeInterval = 60 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_4);
+                break;
+            case 5:
+                kChartTimeInterval = 2 * 60 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_5);
+                break;
+            case 6:
+                kChartTimeInterval = 4 * 60 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_6);
+                break;
+            case 7:
+                kChartTimeInterval = 6 * 60 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_7);
+                break;
+            case 8:
+                kChartTimeInterval = 12 * 60 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_8);
+                break;
+            case 9:
+                kChartTimeInterval = 24 * 60 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_9);
+                break;
+            case 10:
+                kChartTimeInterval = 3 * 24 * 60 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_10);
+                break;
+            case 11:
+                kChartTimeInterval = 7 * 24 * 60 * 60 + "";
+                datas = Tools.getString(R.string.kline_index_market_chart_11);
+                break;
+        }
+        return datas;
+    }
 }

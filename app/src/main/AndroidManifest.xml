@@ -23,7 +23,6 @@
         </activity>
         <activity android:name=".TestActivity" />
         <activity android:name=".DemoActivity" />
-        <activity android:name=".contacts.GetContactsActivity"/>
     </application>
 
 </manifest>

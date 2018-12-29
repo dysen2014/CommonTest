@@ -1,12 +1,10 @@
 package com.dysen.kdemo.entity;
 
-
 import com.dysen.kdemo.utils.SystemConfig;
 
 import java.math.BigDecimal;
 
-
-public class TickerData  {
+public class TickerData {
     private String symbol="";
     private String buy = "";                   // 买一价（人民币）
     private String buydollar = "";               // 买一价（美元）

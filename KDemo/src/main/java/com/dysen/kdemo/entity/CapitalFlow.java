@@ -70,6 +70,16 @@ public class CapitalFlow {
             public void setNet(float net) {
                 this.net = net;
             }
+
+            @Override
+            public String toString() {
+                return "ListBean{" +
+                        "time=" + time +
+                        ", buy=" + buy +
+                        ", sell=" + sell +
+                        ", net=" + net +
+                        '}';
+            }
         }
     }
 
@@ -362,6 +372,10 @@ public class CapitalFlow {
     public static class Kline{
 
         private List<List<String>> array;
+
+        public Kline(List<List<String>> array) {
+            this.array = array;
+        }
 
         public List<List<String>> getArray() {
             return array;

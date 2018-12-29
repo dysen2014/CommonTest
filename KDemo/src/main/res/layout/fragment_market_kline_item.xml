@@ -34,7 +34,7 @@
             android:id="@+id/magicIndicatorView"
             android:layout_gravity="center"
             android:gravity="center"
-            style="@style/wrap_wrap"
+            style="@style/match_wrap"
             app:background_color="@color/homekline_color"
             app:text_size="@dimen/text_size_14"
             app:text_normal_color="@color/text_color_black2"
@@ -42,7 +42,42 @@
             app:selected_color="@color/homekline_ztcolor"
             app:width_size="6"
             app:indicator_type="2"
-            android:layout_height="45dp"/>
+            android:layout_height="45dp"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            style="@style/match_wrap"
+            android:padding="@dimen/margin_padding_8"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tv_0"
+                style="@style/tab_title"
+                android:background="@drawable/btn_ova_hollowl"
+                android:textColor="@color/black"
+                android:layout_marginLeft="0dp"
+                android:text="时分"
+                />
+            <TextView
+                android:id="@+id/tv_1"
+                style="@style/tab_title"
+                android:layout_toRightOf="@id/tv_0"
+                />
+            <TextView
+                android:id="@+id/tv_2"
+                style="@style/tab_title"
+                android:layout_toRightOf="@id/tv_1"
+                />
+            <TextView
+                android:id="@+id/tv_3"
+                style="@style/tab_title"
+                android:layout_toRightOf="@id/tv_2"
+                />
+            <TextView
+                android:id="@+id/tv_4"
+                style="@style/tab_title"
+                android:layout_toRightOf="@id/tv_3"
+                />
+        </RelativeLayout>
 
         <FrameLayout
             android:layout_width="match_parent"

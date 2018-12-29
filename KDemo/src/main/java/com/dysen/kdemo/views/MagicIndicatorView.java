@@ -154,7 +154,7 @@ public class MagicIndicatorView extends LinearLayout {
 		}
 		return titleCount;
 	}
-	private void initMagicIndicator() {
+	public void initMagicIndicator() {
 		magicIndicator.setBackgroundColor(background_color);
 		commonNavigator = new CommonNavigator(mContext);
 		commonNavigator.setAdapter(new CommonNavigatorAdapter() {

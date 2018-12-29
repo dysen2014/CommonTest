@@ -170,4 +170,13 @@
         <item name="android:scrollbars">none</item>
         <item name="android:overScrollMode">never</item>
     </style>
+
+    <style name="tab_title" parent="tv_user_gray_12">
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>

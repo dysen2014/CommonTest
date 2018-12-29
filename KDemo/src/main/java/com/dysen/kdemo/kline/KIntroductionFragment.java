@@ -12,6 +12,8 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.dysen.kdemo.R;
+import com.dysen.kdemo.utils.Tools;
+import com.dysen.kdemo.views.WrappedWebView;
 
 /**
  * @package com.vip.zb.fragment
@@ -49,23 +51,27 @@ public class KIntroductionFragment extends Fragment {
 
     public void initView() {
 
-        mWebView = (WebView) mView.findViewById(R.id.webview);
-        cointitle = (TextView) mView.findViewById(R.id.cointitle);
+        mWebView = mView.findViewById(R.id.webview);
+        cointitle = mView.findViewById(R.id.cointitle);
         cointitle.setText(mContext.getString(R.string.coin_data_title));
         getCoinData();
     }
 
     //获取币种资料
     public void getCoinData() {
+
         mWebView.loadUrl("file:///android_asset/coin_data.html");
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
+                if (true)
+                    return true;
+                return super.shouldOverrideUrlLoading(view, url);
             }
         });
 
+        mWebView.setBackgroundColor(Tools.getColor(R.color.kbg)); // 设置背景色
+        mWebView.getBackground().setAlpha(0); // 设置填充透明度 范围：0-255
         //支持App内部javascript交互
 //        mWebView.getSettings().setJavaScriptEnabled(true);
 //        //自适应屏幕

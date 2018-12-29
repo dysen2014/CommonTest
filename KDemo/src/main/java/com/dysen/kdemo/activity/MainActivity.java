@@ -5,12 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.dysen.kdemo.R;
-import com.dysen.kdemo.utils.Tools;
-import com.dysen.kdemo.adapter.MarketAdapter2;
+import com.dysen.kdemo.adapter.MarketAdapter;
+import com.dysen.kdemo.adapter.MarketAdapterNew;
 import com.dysen.kdemo.entity.CommonBean;
 import com.dysen.kdemo.utils.JsonUtils;
+import com.dysen.kdemo.utils.Tools;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,14 +24,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.rcl_view)
     RecyclerView rclView;
+    @BindView(R.id.tv_back)
+    TextView tvBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     int mItemViewType;
-    private MarketAdapter2 mAdapter;
+    private MarketAdapterNew mAdapter;
     private List<CommonBean.BtcQc> tickerData = new ArrayList<>();
 
     @Override
@@ -42,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initViews() {
-        mAdapter = new MarketAdapter2(this);
+        tvTitle.setText(Tools.getString(R.string.app_name));
+        mAdapter = new MarketAdapterNew(this);
         rclView.setLayoutManager(Tools.setManager1(LinearLayoutManager.VERTICAL));
         rclView.setAdapter(mAdapter);
         mAdapter.setDatas(initDatas());
 
-        mAdapter.setOnItemClickListener(new MarketAdapter2.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new MarketAdapterNew.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, int timeInterval) {
                 int timeInterval_market = 60;
@@ -57,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
                     ++mItemViewType;
                     mAdapter.setmItemViewType(mItemViewType % 2);
                 }
-                Tools.toast(view + "==Touch ==" + timeInterval_market);
 
                 indexMarketChart(position, timeInterval_market);
             }
         });
+
     }
 
     private List<CommonBean.BtcQc> initDatas() {
@@ -99,5 +107,10 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    @OnClick(R.id.tv_back)
+    public void onViewClicked() {
+        finish();
     }
 }

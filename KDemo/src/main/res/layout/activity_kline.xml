@@ -4,18 +4,10 @@
     style="@style/match_match_bg_color"
     android:background="@color/full_bg">
 
-    <LinearLayout
-        android:id="@+id/ll_top"
-        style="@style/match_wrap"
-        android:orientation="vertical">
-
-<!--
-        <include
-            android:id="@+id/include_kx"
-            layout="@layout/layout_kline_header"
-            android:background="@color/full_bg" />
--->
-    </LinearLayout>
+    <include
+        android:id="@+id/include_kx"
+        layout="@layout/layout_common_header"
+        android:background="@color/full_bg" />
 
     <FrameLayout
         style="@style/match_match"
@@ -61,6 +53,7 @@
                 android:background="@color/full_bg">
 
                 <include layout="@layout/layout_kline" />
+
                 <com.dysen.kdemo.views.MagicIndicatorView
                     android:id="@+id/magic_indicator_title"
                     style="@style/match_match"
