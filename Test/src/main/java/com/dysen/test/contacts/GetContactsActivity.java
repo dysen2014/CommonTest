@@ -12,11 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -80,10 +79,11 @@ public class GetContactsActivity extends AppCompatActivity {
                 } else
                     holder.setImageResource(R.id.iv_pic, R.mipmap.icon_user_img);
 
-                holder.setOnItemClickListenner(new View.OnClickListener() {
+                holder.getViewById(R.id.ll_item).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Tools.toast(bean.getName()+"\n"+bean.getTelPhone());
+                        Toast.makeText(mContext,bean.getName()+"\n"+bean.getTelPhone(), Toast.LENGTH_LONG);
+                        //todo
                     }
                 });
             }

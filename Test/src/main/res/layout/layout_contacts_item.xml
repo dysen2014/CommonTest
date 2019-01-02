@@ -11,6 +11,7 @@
         android:text="A" />
 
     <com.dysen.common_library.views.RevealLayout
+        android:id="@+id/ll_item"
         style="@style/match_wrap">
 
         <RelativeLayout
