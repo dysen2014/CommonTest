@@ -37,7 +37,7 @@ public class ContactsUtil {
     //联系人提供者的uri
     private Uri phoneUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
     private ContentResolver cr;
-    private Long mContactId;
+    private long mContactId = -1l;
 
     public ContactsUtil(Context context) {
         this.context = context;
@@ -54,18 +54,19 @@ public class ContactsUtil {
             //得到手机号码
             String contactNum = cursor.getString(cursor.getColumnIndex(NUM));
             //得到联系人ID
-            Long contactId = cursor.getLong(cursor.getColumnIndex(ID));
+            long contactId = cursor.getLong(cursor.getColumnIndex(ID));
             //得到联系人头像ID
-            Long photoId = cursor.getLong(cursor.getColumnIndex(IMG));
+            long photoId = cursor.getLong(cursor.getColumnIndex(IMG));
 //            contactNum = contactNum.replace(" ", "");
 //            contactNum = contactNum.replace("-", "");
 //            if (!FormatUtil.isMobileNO(contactNum))
 //                continue;
-            ContactsBean contactsBean = new ContactsBean(contactName, contactNum, contactId, photoId);
-            System.out.println(mContactId +"=============="+contactId + "========contactId=======" + contactsBean.toString());
 
-            if (mContactId.longValue() != contactId.longValue())//过滤同一个用户有多个号码（仅取第一个）
+            if (mContactId != contactId) {//过滤同一个用户有多个号码（仅取第一个）
+                ContactsBean contactsBean = new ContactsBean(contactName, contactNum, contactId, photoId);
+                System.out.println(mContactId +"=============="+contactId + "========contactId=======" + contactsBean.toString());
                 contactsBeans.add(contactsBean);
+            }
             mContactId = contactId;
         }
         return sortList(contactsBeans);

@@ -1,0 +1,77 @@
+package com.dysen.common_library.utils;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.telephony.SmsManager;
+
+import java.util.ArrayList;
+
+/**
+ * Created by dysen on 2017/10/11.
+ *
+ * @Info
+ */
+
+public class CallAndSMS {
+
+    /**
+     * 调用拨号功能 直接拨号
+     *
+     * @param phone 电话号码
+     */
+    public static void call2(Activity mContext, String phone) {
+
+        LogUtils.v("tel:" + phone);
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
+
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(mContext, new String[]{Manifest.permission.CALL_PHONE}, 201);
+        } else {
+
+            mContext.startActivity(intent);
+        }
+    }
+
+    /**
+     * 调用拨号界面
+     * ACTION_DIAL 开启系统拨号器, ACTION_CALL 直接拨号
+     *
+     * @param phone 电话号码
+     */
+    public static void call(Activity mContext, String phone) {
+        LogUtils.v("tel:" + phone);
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(mContext, new String[]{Manifest.permission.CALL_PHONE}, 201);
+        } else {
+
+            mContext.startActivity(intent);
+        }
+    }
+
+    /**
+     * 调用系统发送信息
+     *
+     * @param number
+     * @param content
+     */
+    public static void sendSms(String number, String content) {
+        SmsManager sm = SmsManager.getDefault();
+
+        //拆分长短信
+        ArrayList<String> smss = sm.divideMessage(content);
+        for (String sms : smss) {
+            sm.sendTextMessage(number, null, sms, null, null);
+        }
+    }
+}

@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dysen.common_library.adapter.recycler.SuperRecyclerAdapter;
 import com.dysen.common_library.adapter.recycler.SuperRecyclerHolder;
+import com.dysen.common_library.utils.CallAndSMS;
 import com.dysen.common_library.utils.Tools;
 import com.dysen.common_library.views.WaveSideBarView;
 import com.dysen.test.R;
@@ -84,9 +85,9 @@ public class GetContactsActivity extends AppCompatActivity {
                 holder.getViewById(R.id.ll_item).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(mContext,bean.getName()+"\n"+bean.getTelPhone(), Toast.LENGTH_LONG);
+//                        Toast.makeText(mContext,bean.getName()+"\n"+bean.getTelPhone(), Toast.LENGTH_LONG).show();
                         //todo
-                        uploadData();
+                        doCall(bean.getTelPhone());
                     }
                 });
             }
@@ -101,14 +102,11 @@ public class GetContactsActivity extends AppCompatActivity {
         initData();
     }
 
-    private void uploadData() {
-        //userId	String	是	用户id
-        //token	String	是	登录token
-        //abcdList	String	是	json格式abcdp，abcdn进行rsa加密
-        Map<String, String> param = new HashMap<>();
-        param.put("userId", "");
-        param.put("token", "");
-//        param.put("abcdList", );
+    private void doCall(String telPhone) {
+//        Tools.showConfirmDialog(this, telPhone);
+        Tools.toast(telPhone);
+
+        CallAndSMS.call(this, telPhone);
     }
 
     private void initData() {
