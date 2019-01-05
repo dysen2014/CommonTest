@@ -9,10 +9,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/AlarmDemo" />
+            <option value="$PROJECT_DIR$/ContactDemo" />
             <option value="$PROJECT_DIR$/KDemo" />
             <option value="$PROJECT_DIR$/Magicindicator" />
             <option value="$PROJECT_DIR$/NiceSpinner" />
-            <option value="$PROJECT_DIR$/Test" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common-library" />
             <option value="$PROJECT_DIR$/imagedemo" />
