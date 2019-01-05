@@ -8,9 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.annotation.IdRes;
-
-import com.dysen.common_library.utils.FormatUtil;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ import java.util.List;
  * created by dysen on 2018/12/15 - 10:31 AM
  * @info 获取联系人工具类
  */
-public class PhoneUtil {
+public class ContactsUtil {
 
     // 号码
     public final static String NUM = ContactsContract.CommonDataKinds.Phone.NUMBER;
@@ -40,14 +37,15 @@ public class PhoneUtil {
     //联系人提供者的uri
     private Uri phoneUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
     private ContentResolver cr;
+    private Long mContactId;
 
-    public PhoneUtil(Context context) {
+    public ContactsUtil(Context context) {
         this.context = context;
     }
 
     //获取所有联系人
-    public List<PhoneBean> getPhone() {
-        List<PhoneBean> phoneBeans = new ArrayList<>();
+    public List<ContactsBean> getContactsData() {
+        List<ContactsBean> contactsBeans = new ArrayList<>();
         cr = context.getContentResolver();
         Cursor cursor = cr.query(phoneUri, new String[]{NUM, NAME, ID, IMG}, null, null, null);
         while (cursor.moveToNext()) {
@@ -59,27 +57,31 @@ public class PhoneUtil {
             Long contactId = cursor.getLong(cursor.getColumnIndex(ID));
             //得到联系人头像ID
             Long photoId = cursor.getLong(cursor.getColumnIndex(IMG));
-            if (!FormatUtil.isMobileNO(contactNum.replace(" ", "")))
-                continue;
-            PhoneBean phoneBean = new PhoneBean(contactName, contactNum, contactId, photoId);
-            System.out.println("===============" + phoneBean.toString());
+//            contactNum = contactNum.replace(" ", "");
+//            contactNum = contactNum.replace("-", "");
+//            if (!FormatUtil.isMobileNO(contactNum))
+//                continue;
+            ContactsBean contactsBean = new ContactsBean(contactName, contactNum, contactId, photoId);
+            System.out.println(mContactId +"=============="+contactId + "========contactId=======" + contactsBean.toString());
 
-            phoneBeans.add(phoneBean);
+            if (mContactId.longValue() != contactId.longValue())//过滤同一个用户有多个号码（仅取第一个）
+                contactsBeans.add(contactsBean);
+            mContactId = contactId;
         }
-        return sortList(phoneBeans);
+        return sortList(contactsBeans);
     }
 
-    public List<PhoneBean> sortList(List<PhoneBean> phoneBeans) {
+    public List<ContactsBean> sortList(List<ContactsBean> contactsBeans) {
         //对集合排序
-        Collections.sort(phoneBeans, new Comparator<PhoneBean>() {
+        Collections.sort(contactsBeans, new Comparator<ContactsBean>() {
             @Override
-            public int compare(PhoneBean lhs, PhoneBean rhs) {
+            public int compare(ContactsBean lhs, ContactsBean rhs) {
                 //根据拼音进行排序
                 return lhs.getPinyin().compareTo(rhs.getPinyin());
             }
         });
 
-        return phoneBeans;
+        return contactsBeans;
     }
 
     public Bitmap getContactsImg(Context context, long contactId) {

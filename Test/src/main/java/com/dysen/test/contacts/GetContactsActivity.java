@@ -26,7 +26,9 @@ import com.dysen.common_library.views.WaveSideBarView;
 import com.dysen.test.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,10 +44,10 @@ public class GetContactsActivity extends AppCompatActivity {
 
     private Activity aty;
     private Context mContext;
-    private List<PhoneBean> mPhoneBean;
-    private List<PhoneBean> mPhoneShow = new ArrayList<>();
-    private SuperRecyclerAdapter<PhoneBean> adapter;
-    private PhoneUtil phoneUtil;
+    private List<ContactsBean> mContactsBean;
+    private List<ContactsBean> mPhoneShow = new ArrayList<>();
+    private SuperRecyclerAdapter<ContactsBean> adapter;
+    private ContactsUtil contactsUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +60,14 @@ public class GetContactsActivity extends AppCompatActivity {
     private void initViews() {
         aty = this;
         mContext = this;
-        phoneUtil = new PhoneUtil(this);
-        mPhoneBean = phoneUtil.getPhone();
-        adapter = new SuperRecyclerAdapter<PhoneBean>(this) {
+        contactsUtil = new ContactsUtil(this);
+        mContactsBean = contactsUtil.getContactsData();
+        adapter = new SuperRecyclerAdapter<ContactsBean>(this) {
             @Override
-            public void convert(SuperRecyclerHolder holder, final PhoneBean bean, int layoutType, int position) {
+            public void convert(SuperRecyclerHolder holder, final ContactsBean bean, int layoutType, int position) {
 
                 //是否显示分组标题
-                if (position == 0 || !mPhoneBean.get(position - 1).getHeaderWord().equals(bean.getHeaderWord())) {
+                if (position == 0 || !mContactsBean.get(position - 1).getHeaderWord().equals(bean.getHeaderWord())) {
                     Tools.setVisible(holder.getViewById(R.id.tv_group));
                     holder.setText(R.id.tv_group, bean.getHeaderWord());
                 } else {
@@ -75,7 +77,7 @@ public class GetContactsActivity extends AppCompatActivity {
                 holder.setText(R.id.tv_num, bean.getTelPhone());
                 //是否加载默认图片
                 if (bean.getPhotoId() > 0) {//加载图像并以圆角显示
-                    Glide.with(mContext).load(phoneUtil.getContactsImg(aty, bean.getContactId())).apply(RequestOptions.circleCropTransform()).into((ImageView) holder.getViewById(R.id.iv_pic));
+                    Glide.with(mContext).load(contactsUtil.getContactsImg(aty, bean.getContactId())).apply(RequestOptions.circleCropTransform()).into((ImageView) holder.getViewById(R.id.iv_pic));
                 } else
                     holder.setImageResource(R.id.iv_pic, R.mipmap.icon_user_img);
 
@@ -84,12 +86,13 @@ public class GetContactsActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Toast.makeText(mContext,bean.getName()+"\n"+bean.getTelPhone(), Toast.LENGTH_LONG);
                         //todo
+                        uploadData();
                     }
                 });
             }
 
             @Override
-            public int getLayoutAsViewType(PhoneBean bean, int position) {
+            public int getLayoutAsViewType(ContactsBean bean, int position) {
                 return R.layout.layout_contacts_item;
             }
         };
@@ -98,13 +101,23 @@ public class GetContactsActivity extends AppCompatActivity {
         initData();
     }
 
+    private void uploadData() {
+        //userId	String	是	用户id
+        //token	String	是	登录token
+        //abcdList	String	是	json格式abcdp，abcdn进行rsa加密
+        Map<String, String> param = new HashMap<>();
+        param.put("userId", "");
+        param.put("token", "");
+//        param.put("abcdList", );
+    }
+
     private void initData() {
-        adapter.setDatas(mPhoneBean);
+        adapter.setDatas(mContactsBean);
         sideBar.setOnSelectIndexItemListener(new WaveSideBarView.OnSelectIndexItemListener() {
             @Override
             public void onSelectIndexItem(String letter) {
-                for (int i = 0; i < mPhoneBean.size(); i++) {
-                    if (mPhoneBean.get(i).getHeaderWord().equals(letter)) {
+                for (int i = 0; i < mContactsBean.size(); i++) {
+                    if (mContactsBean.get(i).getHeaderWord().equals(letter)) {
                         ((LinearLayoutManager) rclContacts.getLayoutManager()).scrollToPositionWithOffset(i, 0);
                         return;
                     }
@@ -126,16 +139,16 @@ public class GetContactsActivity extends AppCompatActivity {
                 if (!TextUtils.isEmpty(newText)) {
                     newText = newText.toUpperCase();
                     mPhoneShow.clear();
-                    for (PhoneBean model : mPhoneBean) {
+                    for (ContactsBean model : mContactsBean) {
                         String str = PinYinUtils.getPinyin(model.getName());
                         if (str.startsWith(newText) || model.getName().startsWith(newText)) {
                             mPhoneShow.add(model);
                         }
                     }
-                    phoneUtil.sortList(mPhoneShow);
+                    contactsUtil.sortList(mPhoneShow);
                     adapter.setDatas(mPhoneShow);
                 } else {
-                    adapter.setDatas(mPhoneBean);
+                    adapter.setDatas(mContactsBean);
                 }
                 return false;
             }

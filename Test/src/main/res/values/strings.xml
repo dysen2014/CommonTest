@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Test</string>
+    <string name="contacts">
+        {
+    "contacts": [
+        {
+            "abcdn": "sendy",
+            "abcdp": "18989898989"
+        },
+        {
+            "abcdn": "chris",
+            "abcdp": "18686868686"
+        },
+        {
+            "abcdn": "勒布朗",
+            "abcdp": "17798765432"
+        }
+    ]
+}
+    </string>
 </resources>
