@@ -22,6 +22,11 @@ public class BasePagerAdapter {
     public static class ViewAdapter extends PagerAdapter {
         private List<View> views = new ArrayList<>();//数据源
 
+        public void setData(View item) {
+            views.clear();
+            views.add(item);
+            notifyDataSetChanged();
+        }
         public void setDatas(List<View> items) {
             views.clear();
             views.addAll(items);

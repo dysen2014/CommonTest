@@ -397,6 +397,18 @@ public class DateUtils extends android.text.format.DateUtils{
         return dateFormat.format(calendar.getTime());
     }
 
+    /****
+     * 获取系统当前的时间
+     *
+     * @author chenjianfan
+     * @return
+     */
+    public static String getCurrentTime2() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        return dateFormat.format(calendar.getTime());
+    }
+
 
     /**
      * 格式转换

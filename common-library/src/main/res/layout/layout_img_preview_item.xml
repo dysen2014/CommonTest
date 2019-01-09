@@ -4,5 +4,6 @@
     style="@style/wrap_wrap">
 <ImageView
     android:id="@+id/iv_pic"
-    style="@style/wrap_wrap"/>
+    style="@style/wrap_wrap"
+    android:padding="@dimen/margin_padding_16"/>
 </LinearLayout>
