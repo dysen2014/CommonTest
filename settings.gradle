@@ -1,1 +1,1 @@
-include ':app', ':common-library', ':NiceSpinner', ':imagedemo', ':shareDialog', ':Magicindicator', ':ContactDemo', ':AlarmDemo', ':KotlinDemo' , ':recyclerview-library', ':percent-library', ':percent-sample', ':KDemo'
+include ':app', ':common-library', ':NiceSpinner', ':imagedemo', ':shareDialog', ':Magicindicator', ':ContactDemo', ':AlarmDemo', ':KotlinDemo' , ':recyclerview-library', ':percent-library', ':percent-sample', ':KDemo', ':ChangeSkin'

@@ -170,7 +170,12 @@ public class GetContactsActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 201) {
-            initViews();
+            if (permissions[0].equals(Manifest.permission.READ_CONTACTS))
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    initViews();
+                } else {
+                    return;
+                }
         } else {
             return;
         }
