@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.ClipboardManager;
 
-import com.zhy.changeskin.SkinManager;
 
 
 /**
@@ -26,7 +25,6 @@ public class AppContext extends Application {
     public void onCreate() {
         super.onCreate();
         app = this;
-        SkinManager.getInstance().init(this);
     }
 
 

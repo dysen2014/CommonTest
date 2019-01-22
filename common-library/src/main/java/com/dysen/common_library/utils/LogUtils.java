@@ -13,7 +13,7 @@ public class LogUtils {
     public static final String TAG = "dysen";
     // 是否需要打印bug，可以在application的onCreate函数里面初始化
     public static boolean isDebug = true;
-//    public static boolean isDebug = AppContext.getInstance().getDeBugMode();
+//    public static boolean isDebug = BaseAppContext.getInstance().getDeBugMode();
 
     public LogUtils() {
         /* cannot be instantiated */

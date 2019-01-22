@@ -30,15 +30,12 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.dysen.common_library.R;
-import com.dysen.common_library.base.AppContext;
+import com.dysen.common_library.base.BaseAppContext;
 import com.dysen.common_library.ui.UIHelper;
 import com.dysen.common_library.views.AutoHeightViewPager;
 import com.dysen.common_library.views.ConfirmDialog;
@@ -63,7 +60,7 @@ public class Tools {
     private static long lastClickTime;
 
     public static Application getApp() {
-        return AppContext.getInstance();
+        return BaseAppContext.getInstance();
     }
 
     public static void printStackTrace(String tag, Exception e) {
@@ -823,11 +820,12 @@ public class Tools {
 
     /**
      * 播放动画
+     *
      * @param context
      * @param view
      * @param animId
      */
-    public static void playAnimation(Context context, View view, int animId){
+    public static void playAnimation(Context context, View view, int animId) {
         // 初始化需要加载的动画资源
         Animation animation = AnimationUtils
                 .loadAnimation(context, animId);
@@ -864,6 +862,7 @@ public class Tools {
 
     /**
      * 判断字符是否是正数
+     *
      * @param sVal
      * @return
      */
@@ -882,7 +881,7 @@ public class Tools {
     }
 
     /**
-     *  1、LinearLayoutManager:线性布局管理器，支持水平和垂直效果。
+     * 1、LinearLayoutManager:线性布局管理器，支持水平和垂直效果。
      */
     public static RecyclerView.LayoutManager setManager1(Context context, int orientation) {
         LinearLayoutManager manager = new LinearLayoutManager(context);
@@ -899,7 +898,7 @@ public class Tools {
     }
 
     /**
-     *　3、StaggeredGridLayoutManager:分布型管理器，瀑布流效果
+     * 　3、StaggeredGridLayoutManager:分布型管理器，瀑布流效果
      */
     public static RecyclerView.LayoutManager setManager3(int spanCount, int orientation) {
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(spanCount, orientation);
@@ -1013,5 +1012,16 @@ public class Tools {
 
             }
         });
+    }
+
+    /**
+     * 把布局转换成View
+     * @param activity
+     * @param layoutId
+     * @return
+     */
+    public static View getView(Activity activity, int layoutId) {
+        View contentView = activity.getLayoutInflater().inflate(R.layout.layout_common_recyclerview, null);
+        return contentView;
     }
 }

@@ -85,7 +85,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     private fun jumpGesturte() {
 
-//        val user_lock = SharedPreUtils.getInstance(mContext).get(AppContext.KEY_USER_LOCK, "")
+//        val user_lock = SharedPreUtils.getInstance(mContext).get(BaseAppContext.KEY_USER_LOCK, "")
 
 //        if ("1".equals(user_lock))
 //        //手势密码

@@ -13,9 +13,7 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.webkit.MimeTypeMap;
 
-import com.dysen.common_library.base.AppContext;
 import com.dysen.common_library.utils.LogUtils;
-import com.dysen.common_library.utils.SharedPreUtils;
 
 import java.io.File;
 
@@ -49,8 +47,8 @@ public class DownloadService extends Service {
         super.onCreate();
 
         context = getApplicationContext();
-//        versionUrl = (String) SharedPreUtils.getInstance(context).get(AppContext.APP_DOWNLOAD_URL, "");
-//        versionName = (String) SharedPreUtils.getInstance(context).get(AppContext.APP_VERSION_NAME, "");
+//        versionUrl = (String) SharedPreUtils.getInstance(context).get(BaseAppContext.APP_DOWNLOAD_URL, "");
+//        versionName = (String) SharedPreUtils.getInstance(context).get(BaseAppContext.APP_VERSION_NAME, "");
 
         downloadAPK(versionUrl, versionName);
     }

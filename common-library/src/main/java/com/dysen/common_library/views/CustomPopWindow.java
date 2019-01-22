@@ -5,8 +5,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,6 +17,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+
+import com.dysen.common_library.R;
 
 /**
  *
@@ -65,6 +69,24 @@ public class CustomPopWindow implements PopupWindow.OnDismissListener{
 
     public int getHeight() {
         return mHeight;
+    }
+
+    public static CustomPopWindow newInstance(Context context, View contentView, boolean showLocation) {
+
+        CustomPopWindow customPopWindow = new PopupWindowBuilder(context)
+                .setView(contentView)
+                .enableBackgroundDark(true) //弹出popWindow时，背景是否变暗
+                .setBgDarkAlpha(0.7f) // 控制亮度
+                .size(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                .create();
+        if (customPopWindow.getPopupWindow().isShowing())
+            customPopWindow.dissmiss();
+        customPopWindow.getPopupWindow().setAnimationStyle(R.style.pop_animation);
+        if (!showLocation)
+        customPopWindow.showAtLocation(contentView, Gravity.TOP, 40, 50);
+//        customPopWindow.showAsDropDown(v, 50, 50, Gravity.BOTTOM);
+        customPopWindow.getPopupWindow().update();
+        return customPopWindow;
     }
 
     /**

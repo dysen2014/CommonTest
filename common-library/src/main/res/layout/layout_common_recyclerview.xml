@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/match_wrap"
+    android:paddingBottom="48dp">
+
+    <com.dysen.common_library.views.bubble.BubbleLayout
+        style="@style/match_wrap"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/margin_padding_16"
+        app:bl_arrowDirection="top"
+        app:bl_arrowHeight="8dp"
+        app:bl_arrowPosition="40dp"
+        app:bl_arrowWidth="16dp"
+        app:bl_cornersRadius="16dp"
+        app:bl_strokeWidth="0dp"
+        android:id="@+id/bl_pop_bg">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            style="@style/match_wrap" />
+    </com.dysen.common_library.views.bubble.BubbleLayout>
+</LinearLayout>

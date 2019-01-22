@@ -8,7 +8,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.dysen.common_library.R;
-import com.dysen.common_library.base.AppContext;
 import com.dysen.common_library.utils.Tools;
 /**
  * @package com.vip.zb.view

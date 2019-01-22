@@ -16,7 +16,7 @@ import com.dysen.common_library.R;
 
 import java.util.Arrays;
 /**
- * @package com.vip.zb.view
+ * @package com.dysen.common_library.views
  * @email dy.sen@qq.com
  * created by dysen on 2018/12/15 - 10:30 AM
  * @info    侧边的字母导航栏
@@ -26,8 +26,12 @@ public class WaveSideBarView extends View {
     private final static int DEFAULT_TEXT_SIZE = 14; // sp
     private final static int DEFAULT_MAX_OFFSET = 80; //dp
 
-    private final static String[] DEFAULT_INDEX_ITEMS = {"#","A", "B", "C", "D", "E", "F", "G", "H", "I",
+    private static String[] DEFAULT_INDEX_ITEMS = {"#","A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
+    public void setDefaultIndexItems(String[] defaultIndexItems) {
+        DEFAULT_INDEX_ITEMS = defaultIndexItems;
+    }
 
     private String[] mIndexItems;
 

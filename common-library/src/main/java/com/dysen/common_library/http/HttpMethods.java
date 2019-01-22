@@ -1,7 +1,6 @@
 package com.dysen.common_library.http;
 
-import com.dysen.common_library.base.AppContext;
-import com.dysen.common_library.bean.CommonBean;
+import com.dysen.common_library.base.BaseAppContext;
 import com.dysen.common_library.bean.TestBean;
 import com.dysen.common_library.subscribers.ProgressSubscriber;
 import com.dysen.common_library.subscribers.ProgressSubscriber2;
@@ -208,7 +207,7 @@ public class HttpMethods {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    UIHelper.ToastMessage(AppContext.getInstance(), "授权失败");
+                    UIHelper.ToastMessage(BaseAppContext.getInstance(), "授权失败");
                 }
             });
         } catch (Exception e) {
@@ -224,7 +223,7 @@ public class HttpMethods {
                     String[] strArr = {"sendCode"};
                     for (String str_ls : strArr) {
                         if (str_ls.toLowerCase().equals(method.toLowerCase())) {
-                            UIHelper.ToastMessage(AppContext.getInstance(), message);
+                            UIHelper.ToastMessage(BaseAppContext.getInstance(), message);
                         }
                     }
                 }

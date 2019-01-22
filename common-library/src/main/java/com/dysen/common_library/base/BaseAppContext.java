@@ -21,13 +21,13 @@ import com.google.zxing.integration.android.IntentIntegrator;
  * created by dysen on 2018/7/27 - 下午2:07
  * @info
  */
-public class AppContext extends Application {
+public class BaseAppContext extends Application {
     public static String T_TIME_OUT = "t_time_out";
     private String TAG = getClass().getSimpleName();
-    private static AppContext app;
+    private static BaseAppContext app;
     private static Boolean deBugMode = true;
 
-    public static AppContext getInstance() {
+    public static BaseAppContext getInstance() {
         return app;
     }
 
@@ -155,7 +155,7 @@ public class AppContext extends Application {
             mNowActionTime = System.currentTimeMillis();
 
         LogUtils.e(TAG, DateUtils.getDateString(mLastActionTime) + "==user touch==" + DateUtils.getDateString(mNowActionTime));
-        long time = SharedPreUtils.getInstance(app).get(AppContext.T_TIME_OUT, 0l);
+        long time = SharedPreUtils.getInstance(app).get(BaseAppContext.T_TIME_OUT, 0l);
         if (time > 0)
             mTotalTime = time;
         LogUtils.e(TAG, time+"========time=mTotalTime=========="+mTotalTime);

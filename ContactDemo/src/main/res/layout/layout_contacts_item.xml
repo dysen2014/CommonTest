@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/match_wrap">
 
     <TextView
         android:id="@+id/tv_group"
         style="@style/tv_user_black2_14"
         android:layout_width="match_parent"
-        android:background="#E0E0E0"
+        android:background="#20000000"
         android:paddingLeft="16dp"
-        android:text="A" />
+        android:text="A"
+        android:textStyle="bold"
+        android:tag="skin:text_color:textColor"
+        android:textColor="@color/text_color"/>
 
     <com.dysen.common_library.views.RevealLayout
         android:id="@+id/ll_item"
@@ -23,7 +27,8 @@
                 style="@style/wrap_wrap"
                 android:layout_width="@dimen/margin_padding_40"
                 android:layout_height="@dimen/margin_padding_40"
-                android:layout_marginRight="@dimen/margin_padding_8" />
+                android:layout_marginRight="@dimen/margin_padding_8"
+                android:src="@mipmap/icon"/>
 
             <LinearLayout
                 style="@style/wrap_wrap"
@@ -32,13 +37,17 @@
                 <TextView
                     android:id="@+id/tv_name"
                     style="@style/tv_user_black2_16"
-                    android:text="sendy" />
+                    android:text="sendy"
+                    android:tag="skin:text_color:textColor"
+                    android:textColor="@color/text_color" />
 
                 <TextView
                     android:id="@+id/tv_num"
                     style="@style/tv_user_black2_14"
                     android:layout_below="@id/tv_name"
-                    android:text="18971642933" />
+                    android:text="18971642933"
+                    android:tag="skin:text_color:textColor"
+                    android:textColor="@color/text_color" />
             </LinearLayout>
         </RelativeLayout>
     </com.dysen.common_library.views.RevealLayout>

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.dysen.common_library.adapter.viewpager.BasePagerAdapter
 import com.dysen.common_library.utils.ImgResUtils
 import com.dysen.common_library.utils.Tools
@@ -23,7 +22,7 @@ class FullScreenActivity : BaseAty(), ViewPager.OnPageChangeListener {
     }
 
     override fun onPageSelected(p0: Int) {
-        getViews(p0 + mIndex)
+        getViews(p0)
     }
 
     var mIndex = 0
@@ -38,7 +37,7 @@ class FullScreenActivity : BaseAty(), ViewPager.OnPageChangeListener {
         super.initView()
         mIndex = intent.getBundleExtra("data")?.getInt("index")!!
         vp_img?.adapter = adapter
-        getViews(mIndex)
+        getViews(0)
     }
 
     private fun getViews(index: Int) {
@@ -47,10 +46,12 @@ class FullScreenActivity : BaseAty(), ViewPager.OnPageChangeListener {
         tv_index?.text = Tools.getString(R.string.selected_index, index, lists?.size)
         for (url: String in lists) {
             var contentView = LayoutInflater.from(this).inflate(R.layout.layout_img_preview_item, null)
-            Glide.with(this).load(url).apply(RequestOptions().circleCrop()).into(contentView.findViewById<ImageView>(R.id.iv_pic))
+            Glide.with(this).load(url)
+//                    .apply(RequestOptions().circleCrop())
+                    .into(contentView.findViewById<ImageView>(R.id.iv_pic))
             views.add(contentView)
         }
-//        adapter.setDatas(views)
+        adapter.setDatas(views)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

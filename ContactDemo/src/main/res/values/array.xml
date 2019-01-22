@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="menu">
+        <item>绿色皮肤</item>
+        <item>红色皮肤</item>
+        <item>默认皮肤</item>
+    </string-array>
+</resources>

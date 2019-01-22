@@ -8,33 +8,35 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.dysen.common_library.adapter.recycler.SuperRecyclerAdapter;
 import com.dysen.common_library.adapter.recycler.SuperRecyclerHolder;
+import com.dysen.common_library.base.BaseActivity;
 import com.dysen.common_library.utils.CallAndSMS;
 import com.dysen.common_library.utils.Tools;
+import com.dysen.common_library.views.CustomPopWindow;
 import com.dysen.common_library.views.WaveSideBarView;
 import com.dysen.test.R;
+import com.zhy.changeskin.SkinManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GetContactsActivity extends AppCompatActivity {
+public class GetContactsActivity extends BaseActivity {
 
     @BindView(R.id.rcl_contacts)
     RecyclerView rclContacts;
@@ -49,18 +51,75 @@ public class GetContactsActivity extends AppCompatActivity {
     private List<ContactsBean> mPhoneShow = new ArrayList<>();
     private SuperRecyclerAdapter<ContactsBean> adapter;
     private ContactsUtil contactsUtil;
+    private CustomPopWindow customPopWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_get_contacts);
+        SkinManager.getInstance().register(this);
+        baseSetContentView(R.layout.activity_get_contacts);
         ButterKnife.bind(this);
         check();
+    }
+
+    String suffix = "";
+
+    private void showMenu(View v) {
+        View contentView = Tools.getView(this, R.layout.layout_common_recyclerview); //创建并显示popWindow
+
+        customPopWindow = CustomPopWindow.newInstance(this, contentView, true);
+        RecyclerView recyclerView = contentView.findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(Tools.setManager1(this, LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(new SuperRecyclerAdapter<String>(this,
+                Arrays.asList(this.getResources().getStringArray(R.array.menu))) {
+            @Override
+            public void convert(SuperRecyclerHolder holder, String name, int layoutType, final int position) {
+                if (position == 0)
+                    Tools.setGone(holder.getViewById(R.id.view_line));
+                holder.setText(R.id.tv_name, name);
+                holder.setOnItemClickListenner(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (customPopWindow.getPopupWindow().isShowing())
+                            customPopWindow.dissmiss();
+                        switch (position) {
+                            case 0:
+                                suffix = "green";
+                                break;
+                            case 1:
+                                suffix = "red";
+                                break;
+                            case 2:
+                                break;
+                        }
+                        SkinManager.getInstance().removeAnySkin();
+                        if (position != 2)
+                            SkinManager.getInstance().changeSkin(suffix);
+                    }
+                });
+            }
+
+            @Override
+            public int getLayoutAsViewType(String name, int position) {
+                return R.layout.layout_common_btn_v_item;
+            }
+        });
+
+        customPopWindow.showAsDropDown(v, 50, 50, Gravity.BOTTOM);
+        customPopWindow.getPopupWindow().update();
     }
 
     private void initViews() {
         aty = this;
         mContext = this;
+        tvTitle.setText("通讯录测试");
+        tvMenu.setText("Menu");
+        tvMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMenu(v);
+            }
+        });
         contactsUtil = new ContactsUtil(this);
         mContactsBean = contactsUtil.getContactsData();
         adapter = new SuperRecyclerAdapter<ContactsBean>(this) {
@@ -181,4 +240,14 @@ public class GetContactsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SkinManager.getInstance().unregister(this);
+    }
+
+    @Override
+    public void setListener() {
+
+    }
 }

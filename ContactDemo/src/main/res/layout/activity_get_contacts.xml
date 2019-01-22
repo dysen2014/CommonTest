@@ -9,7 +9,8 @@
 
     <android.support.v7.widget.SearchView
         android:id="@+id/sv_search"
-        style="@style/match_wrap"/>
+        style="@style/match_wrap"
+        android:background="@color/transparent"/>
 
     <FrameLayout
         style="@style/match_match"
@@ -24,6 +25,6 @@
             style="@style/match_match"
             android:padding="8dp"
             app:sidebar_lazy_respond="false"
-            app:sidebar_text_color="@color/colorAccent" />
+            app:sidebar_text_color="@color/colorAccent"/>
     </FrameLayout>
 </LinearLayout>
