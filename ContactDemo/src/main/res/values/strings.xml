@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test</string>
+    <string name="app_name">ContactDemo</string>
     <string name="contacts">
         {
     "contacts": [

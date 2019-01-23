@@ -47,6 +47,7 @@ class MainActivity : BaseAty(), View.OnClickListener {
     override fun initView() {
         super.initView()
         tvTitle.setText(R.string.app_name)
+
     }
 
     private fun getData(view:TextView) {

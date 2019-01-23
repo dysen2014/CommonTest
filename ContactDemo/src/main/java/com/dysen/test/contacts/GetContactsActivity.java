@@ -140,6 +140,7 @@ public class GetContactsActivity extends BaseActivity {
                 }
                 holder.setText(R.id.tv_name, bean.getName());
                 holder.setText(R.id.tv_num, bean.getTelPhone());
+                holder.setText(R.id.tv_pic, bean.getHeaderWord().toUpperCase());
                 //是否加载默认图片
                 if (bean.getPhotoId() > 0) {//加载图像并以圆角显示
                     Glide.with(mContext).load(contactsUtil.getContactsImg(aty, bean.getContactId())).apply(RequestOptions.circleCropTransform()).into((ImageView) holder.getViewById(R.id.iv_pic));
@@ -176,7 +177,6 @@ public class GetContactsActivity extends BaseActivity {
 
     private void initData() {
         adapter.setDatas(mContactsBean);
-        rclContacts.setFooterViewText("hello this is !!!");
         rclContacts.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {

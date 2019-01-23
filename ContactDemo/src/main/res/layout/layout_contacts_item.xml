@@ -29,24 +29,37 @@
                 android:layout_height="@dimen/margin_padding_40"
                 android:layout_marginRight="@dimen/margin_padding_8"
                 android:src="@mipmap/icon"/>
+            <TextView
+                android:id="@+id/tv_pic"
+                style="@style/wrap_wrap"
+                android:layout_width="@dimen/margin_padding_40"
+                android:layout_height="@dimen/margin_padding_40"
+                android:layout_marginRight="@dimen/margin_padding_8"
+                android:background="@color/text_color"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:tag="skin:text_color:background"
+                android:visibility="gone"/>
 
             <LinearLayout
                 style="@style/wrap_wrap"
-                android:layout_toRightOf="@id/iv_pic">
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="64dp">
 
                 <TextView
                     android:id="@+id/tv_name"
                     style="@style/tv_user_black2_16"
-                    android:text="sendy"
                     android:tag="skin:text_color:textColor"
+                    android:text="sendy"
                     android:textColor="@color/text_color" />
 
                 <TextView
                     android:id="@+id/tv_num"
                     style="@style/tv_user_black2_14"
                     android:layout_below="@id/tv_name"
-                    android:text="18971642933"
                     android:tag="skin:text_color:textColor"
+                    android:text="18971642933"
                     android:textColor="@color/text_color" />
             </LinearLayout>
         </RelativeLayout>

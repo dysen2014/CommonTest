@@ -47,8 +47,8 @@ dependencies {
     //公共库
     implementation project(':common-library')
     //ChangeSkin
-    implementation 'com.zhy:changeskin:4.0.2'
-//    implementation project(':ChangeSkin')
+//    implementation 'com.zhy:changeskin:4.0.2'
+    implementation project(':ChangeSkin')
 
     //RecyclerView 刷新 加载
     implementation project(':recyclerview-library')
