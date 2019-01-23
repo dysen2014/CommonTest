@@ -1,4 +1,4 @@
-package com.wuxiaolong.pullloadmorerecyclerview;
+package com.dysen.recyclerview;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/match_match"
     android:orientation="vertical"
-    tools:context=".contacts.GetContactsActivity">
+    tools:context=".contacts.GetContactsActivity"
+    android:tag="skin:bg_color:background">
 
     <android.support.v7.widget.SearchView
         android:id="@+id/sv_search"
@@ -16,7 +17,7 @@
         style="@style/match_match"
         android:layout_below="@id/sv_search">
 
-        <android.support.v7.widget.RecyclerView
+        <com.dysen.recyclerview.PullLoadMoreRecyclerView
             android:id="@+id/rcl_contacts"
             style="@style/match_match" />
 

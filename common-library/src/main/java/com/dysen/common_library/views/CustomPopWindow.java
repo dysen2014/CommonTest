@@ -71,7 +71,7 @@ public class CustomPopWindow implements PopupWindow.OnDismissListener{
         return mHeight;
     }
 
-    public static CustomPopWindow newInstance(Context context, View contentView, boolean showLocation) {
+    public static CustomPopWindow newInstance(Context context, View contentView, View... view) {
 
         CustomPopWindow customPopWindow = new PopupWindowBuilder(context)
                 .setView(contentView)
@@ -82,8 +82,9 @@ public class CustomPopWindow implements PopupWindow.OnDismissListener{
         if (customPopWindow.getPopupWindow().isShowing())
             customPopWindow.dissmiss();
         customPopWindow.getPopupWindow().setAnimationStyle(R.style.pop_animation);
-        if (!showLocation)
-        customPopWindow.showAtLocation(contentView, Gravity.TOP, 40, 50);
+        System.out.println(view+"=====view====="+view.length);
+        if (view.length==0)
+        customPopWindow.showAtLocation(contentView, Gravity.CENTER, 0, 0);
 //        customPopWindow.showAsDropDown(v, 50, 50, Gravity.BOTTOM);
         customPopWindow.getPopupWindow().update();
         return customPopWindow;

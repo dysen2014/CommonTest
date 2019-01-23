@@ -1,4 +1,4 @@
-package com.wuxiaolong.pullloadmorerecyclerview;
+package com.dysen.recyclerview;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -17,13 +17,13 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.dysen.recyclerview.R;
 
 /**
- * Created by WuXiaolong on 2015/7/2.
- * github:https://github.com/WuXiaolong/PullLoadMoreRecyclerView
- * weibo:http://weibo.com/u/2175011601
- * 微信公众号：吴小龙同学
- * 个人博客：http://wuxiaolong.me/
+ * @package com.dysen.recyclerview
+ * @email dy.sen@qq.com
+ * created by dysen on 2019/1/23 - 15:43 AM
+ * @info
  */
 public class PullLoadMoreRecyclerView extends LinearLayout {
     private RecyclerView mRecyclerView;
@@ -51,12 +51,12 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
 
     private void initView(Context context) {
         mContext = context;
-        View view = LayoutInflater.from(context).inflate(com.wuxiaolong.pullloadmorerecyclerview.R.layout.pull_loadmore_layout, null);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(com.wuxiaolong.pullloadmorerecyclerview.R.id.swipeRefreshLayout);
+        View view = LayoutInflater.from(context).inflate(R.layout.pull_loadmore_layout, null);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_green_dark, android.R.color.holo_blue_dark, android.R.color.holo_orange_dark);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayoutOnRefresh(this));
 
-        mRecyclerView = (RecyclerView) view.findViewById(com.wuxiaolong.pullloadmorerecyclerview.R.id.recycler_view);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setVerticalScrollBarEnabled(true);
 
         mRecyclerView.setHasFixedSize(true);

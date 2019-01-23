@@ -24,6 +24,10 @@ public abstract class SuperRecyclerAdapter<T> extends RecyclerView.Adapter<Super
         mValueList.addAll(items);
         notifyDataSetChanged();
     }
+    public void clearData() {
+        this.mValueList.clear();
+        notifyDataSetChanged();
+    }
 
     public SuperRecyclerAdapter(Context mCtx) {
         this.mCtx = mCtx;

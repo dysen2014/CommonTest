@@ -64,7 +64,7 @@ public class ContactsUtil {
 
             if (mContactId != contactId) {//过滤同一个用户有多个号码（仅取第一个）
                 ContactsBean contactsBean = new ContactsBean(contactName, contactNum, contactId, photoId);
-                System.out.println(mContactId +"=============="+contactId + "========contactId=======" + contactsBean.toString());
+//                System.out.println(mContactId +"=============="+contactId + "========contactId=======" + contactsBean.toString());
                 contactsBeans.add(contactsBean);
             }
             mContactId = contactId;
@@ -78,7 +78,7 @@ public class ContactsUtil {
             @Override
             public int compare(ContactsBean lhs, ContactsBean rhs) {
                 //根据拼音进行排序
-                return lhs.getPinyin().compareTo(rhs.getPinyin());
+                return lhs.getPinyin().toUpperCase().compareTo(rhs.getPinyin().toUpperCase());
             }
         });
 

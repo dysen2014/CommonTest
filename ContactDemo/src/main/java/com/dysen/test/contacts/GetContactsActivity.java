@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -14,7 +15,6 @@ import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +26,7 @@ import com.dysen.common_library.utils.CallAndSMS;
 import com.dysen.common_library.utils.Tools;
 import com.dysen.common_library.views.CustomPopWindow;
 import com.dysen.common_library.views.WaveSideBarView;
+import com.dysen.recyclerview.PullLoadMoreRecyclerView;
 import com.dysen.test.R;
 import com.zhy.changeskin.SkinManager;
 
@@ -39,7 +40,7 @@ import butterknife.ButterKnife;
 public class GetContactsActivity extends BaseActivity {
 
     @BindView(R.id.rcl_contacts)
-    RecyclerView rclContacts;
+    PullLoadMoreRecyclerView rclContacts;
     @BindView(R.id.sv_search)
     SearchView svSearch;
     @BindView(R.id.side_bar)
@@ -67,7 +68,7 @@ public class GetContactsActivity extends BaseActivity {
     private void showMenu(View v) {
         View contentView = Tools.getView(this, R.layout.layout_common_recyclerview); //创建并显示popWindow
 
-        customPopWindow = CustomPopWindow.newInstance(this, contentView, true);
+        customPopWindow = CustomPopWindow.newInstance(this, contentView, v);
         RecyclerView recyclerView = contentView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(Tools.setManager1(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(new SuperRecyclerAdapter<String>(this,
@@ -90,10 +91,13 @@ public class GetContactsActivity extends BaseActivity {
                                 suffix = "red";
                                 break;
                             case 2:
+                                suffix = "light";
+                                break;
+                            case 3:
                                 break;
                         }
                         SkinManager.getInstance().removeAnySkin();
-                        if (position != 2)
+                        if (position != 3)
                             SkinManager.getInstance().changeSkin(suffix);
                     }
                 });
@@ -104,6 +108,7 @@ public class GetContactsActivity extends BaseActivity {
                 return R.layout.layout_common_btn_v_item;
             }
         });
+
 
         customPopWindow.showAsDropDown(v, 50, 50, Gravity.BOTTOM);
         customPopWindow.getPopupWindow().update();
@@ -129,7 +134,7 @@ public class GetContactsActivity extends BaseActivity {
                 //是否显示分组标题
                 if (position == 0 || !mContactsBean.get(position - 1).getHeaderWord().equals(bean.getHeaderWord())) {
                     Tools.setVisible(holder.getViewById(R.id.tv_group));
-                    holder.setText(R.id.tv_group, bean.getHeaderWord());
+                    holder.setText(R.id.tv_group, bean.getHeaderWord().toUpperCase());
                 } else {
                     Tools.setGone(holder.getViewById(R.id.tv_group));
                 }
@@ -156,7 +161,8 @@ public class GetContactsActivity extends BaseActivity {
                 return R.layout.layout_contacts_item;
             }
         };
-        rclContacts.setLayoutManager(Tools.setManager1(this, LinearLayoutManager.VERTICAL));
+//        rclContacts.setLayoutManager(Tools.setManager1(this, LinearLayoutManager.VERTICAL));
+        rclContacts.setLinearLayout();
         rclContacts.setAdapter(adapter);
         initData();
     }
@@ -170,6 +176,30 @@ public class GetContactsActivity extends BaseActivity {
 
     private void initData() {
         adapter.setDatas(mContactsBean);
+        rclContacts.setFooterViewText("hello this is !!!");
+        rclContacts.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.clearData();
+                        initViews();
+                        rclContacts.setPullLoadMoreCompleted();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void onLoadMore() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        rclContacts.setPullLoadMoreCompleted();
+                    }
+                }, 1000);
+            }
+        });
         sideBar.setOnSelectIndexItemListener(new WaveSideBarView.OnSelectIndexItemListener() {
             @Override
             public void onSelectIndexItem(String letter) {
