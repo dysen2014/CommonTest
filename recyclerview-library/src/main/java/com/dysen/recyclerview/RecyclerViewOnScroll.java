@@ -1,4 +1,4 @@
-package com.wuxiaolong.pullloadmorerecyclerview;
+package com.dysen.recyclerview;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,12 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 /**
- * Created by WuXiaolong
- * on 2015/7/7.
- * github:https://github.com/WuXiaolong/PullLoadMoreRecyclerView
- * weibo:http://weibo.com/u/2175011601
- * 微信公众号：吴小龙同学
- * 个人博客：http://wuxiaolong.me/
+ * @package com.dysen.recyclerview
+ * @email dy.sen@qq.com
+ * created by dysen on 2019/1/23 - 16:08 PM
+ * @info
  */
 public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
     private PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
