@@ -19,6 +19,8 @@ buildscript {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
 
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        //XToast
+        classpath 'com.novoda:bintray-release:0.8.0'
     }
 }
 

@@ -15,12 +15,12 @@ open class BaseAty : BaseActivity(){
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun transAty(cls: Class<*>) {
+    override fun transAty(cls: Class<*>) {
         val intent = Intent(this, cls)
         startActivity(intent)
     }
 
-    fun transAty(cls: Class<*>, bundle : Bundle) {
+    override fun transAty(cls: Class<*>, bundle : Bundle) {
         val intent = Intent(this, cls)
         intent.putExtra("data", bundle)
         startActivity(intent)

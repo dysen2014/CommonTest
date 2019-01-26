@@ -91,7 +91,7 @@ public class GetContactsActivity extends BaseActivity {
                                 suffix = "red";
                                 break;
                             case 2:
-                                suffix = "light";
+                                suffix = "night";
                                 break;
                             case 3:
                                 break;

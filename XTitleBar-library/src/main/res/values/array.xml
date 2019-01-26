@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="menu_list" tools:ignore="ResourceName">
+        <item>Dialog</item>
+        <item>ToastUtils</item>
+        <item>TitleBar</item>
+        <item>Premissions</item>
+    </string-array>
+
+    <!---->
+    <string-array name="dialog_menu" tools:ignore="ResourceName">
+        <item>自定义Toast显示动画</item>
+        <item>自定义Toast显示时长</item>
+        <item>监听Toast生命周期</item>
+        <item>Toast响应点击事件</item>
+        <item>可自由拖拽的Toast</item>
+        <item>全局可拖拽的Toast</item>
+    </string-array>
+
+    <string-array name="toast_menu" tools:ignore="ResourceName">
+        <item>显示一个普通的吐司</item>
+        <item>在子线程中显示吐司</item>
+        <item>切换吐司的样式为白色</item>
+        <item>切换吐司的样式为黑色</item>
+        <item>切换吐司的样式为QQ</item>
+        <item>切换吐司的样式为支付宝</item>
+        <item>点我自定义Toast布局</item>
+    </string-array>
+</resources>

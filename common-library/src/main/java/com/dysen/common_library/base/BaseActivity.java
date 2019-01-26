@@ -115,4 +115,15 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
         super.onDestroy();
         Tools.eventBusUnregister(this);
     }
+
+    protected void transAty(Class<?> cls){
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
+    }
+
+    protected void transAty(Class<?> cls, Bundle bundle){
+        Intent intent = new Intent(this, cls);
+        intent.putExtra("data", bundle);
+        startActivity(intent);
+    }
 }
