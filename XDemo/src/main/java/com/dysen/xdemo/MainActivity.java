@@ -19,7 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends XBaseActivity {
 
     @BindView(R.id.rcl_menu)
     PullLoadMoreRecyclerView rclMenu;
@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        baseSetContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         initViews();
@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void initViews() {
+        setText(tvTitle, "Xdemo");
         rclMenu.setLinearLayout();
         mAdapter = new XAdapter(this);
         rclMenu.setAdapter(mAdapter);

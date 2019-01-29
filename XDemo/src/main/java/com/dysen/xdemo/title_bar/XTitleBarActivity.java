@@ -1,6 +1,5 @@
 package com.dysen.xdemo.title_bar;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,8 +8,9 @@ import com.dysen.title_bar.TitleBar;
 import com.dysen.title_bar.style.TitleBarLightStyle;
 import com.dysen.toast.ToastUtils;
 import com.dysen.xdemo.R;
+import com.dysen.xdemo.XBaseActivity;
 
-public class XTitleBarActivity extends AppCompatActivity {
+public class XTitleBarActivity extends XBaseActivity {
 
     private TitleBar mTitleBar;
 
@@ -22,8 +22,9 @@ public class XTitleBarActivity extends AppCompatActivity {
         // 在这里可以初始化样式
         TitleBar.initStyle(new TitleBarLightStyle(this));
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xtitle_bar);
+        baseSetContentView(R.layout.activity_xtitle_bar);
 
+        setText(tvTitle, "");
         mTitleBar = (TitleBar) findViewById(R.id.tb_main_title_bar);
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
 
@@ -42,5 +43,10 @@ public class XTitleBarActivity extends AppCompatActivity {
                 ToastUtils.show("右项View被点击");
             }
         });
+    }
+
+    @Override
+    public void setListener() {
+
     }
 }

@@ -15,7 +15,5 @@ public class AppContext extends BaseAppContext {
     public void onCreate() {
         super.onCreate();
         ToastUtils.init(this, new ToastBlackStyle());
-        // 建议在Application中初始化
-        ToastUtils.init(this);
     }
 }

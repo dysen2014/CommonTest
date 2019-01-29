@@ -14,6 +14,8 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.dysen.alarm.utils.AppUtils;
+import com.dysen.common_library.utils.FileUtils;
+import com.dysen.toast.ToastUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +27,7 @@ public class LongRunningService extends Service {
     private String pakNameSame = "com.dysen.alarm";
     private String atyName = "com.alibaba.lightapp.runtime.activity.CommonWebViewActivity";
     private int type;
+    int mCount = 0;
 
     public LongRunningService() {
     }
@@ -39,7 +42,7 @@ public class LongRunningService extends Service {
 
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        type = intent.getIntExtra("type",1);
+        type = intent.getIntExtra("type", 1);
         mContext = this;
         appUtils = AppUtils.newInstance(mContext);
         createNotificationChannel();
@@ -50,17 +53,28 @@ public class LongRunningService extends Service {
 
             public void run() {
 
-//                Log.d("LongRunningService", "executed at " + new Date().toString());
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-                String dateStr = sdf.format(new Date());
-                Log.d("LongRunningService", dateStr + "-----executed at " + DateUtils.getToday());
-                if (type==1 || dateStr.equals("08:50") || dateStr.equals("09:00") || dateStr.equals("19:30") || dateStr.equals("20:00")) {
-                Log.d("LongRunningService", type + "-----------------executed at " + DateUtils.getToday(DateUtils.BASE_DATE_FORMAT));
+                Date date = new Date();
+                if (DateUtils.isToday(date.getTime())) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                    String dateStr = sdf.format(date);
+                    date.getTime();
+                    Log.d("LongRunningService", dateStr + "-----executed at " + DateUtils.getToday());
+                    int nowTime = date2Int(dateStr);
+                    if ((date2Int("08:30") < nowTime && nowTime <= date2Int("09:30"))
+                            || (date2Int("20:00") < nowTime && nowTime <= date2Int("21:00"))
+//                            || (date2Int("16:30") < nowTime && nowTime <= date2Int("17:30"))
+                            ) {
 
-                    if (!appUtils.isAppRunning(pakName))
-                        AppUtils.newInstance(mContext).luachApp(pakName);
-                    if (!appUtils.isAppRunning(pakNameSame) || appUtils.isBackground())
-                        AppUtils.newInstance(mContext).luachApp(pakNameSame);
+                        Log.d("LongRunningService", nowTime + "-----------------executed at " + DateUtils.getToday(DateUtils.BASE_DATE_FORMAT));
+
+                        if (!appUtils.isAppRunning(pakName) || appUtils.isBackground())
+                            AppUtils.newInstance(mContext).luachApp(pakName);
+                        if (!appUtils.isAppRunning(pakNameSame) || appUtils.isBackground()) {
+                            AppUtils.newInstance(mContext).luachApp(pakNameSame);
+                            ToastUtils.show("打开钉定的次数：" + mCount++);
+                            FileUtils.save(mContext, AppContext.START_COUNT, "" + mCount);
+                        }
+                    }
                 }
             }
 
@@ -70,7 +84,7 @@ public class LongRunningService extends Service {
 
         int anHour = 60 * 60 * 1000;   // 这是一小时的毫秒数
 
-        long triggerAtTime = SystemClock.elapsedRealtime() + 30*60 * 1000;
+        long triggerAtTime = SystemClock.elapsedRealtime() + 15 * 60 * 1000;
         Intent i = new Intent(mContext, AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
 
@@ -78,6 +92,10 @@ public class LongRunningService extends Service {
 
         return super.onStartCommand(intent, flags, startId);
 
+    }
+
+    private int date2Int(String dateStr) {
+        return DateUtils.dateFormat(dateStr);
     }
 
     private void createNotificationChannel() {
@@ -117,6 +135,6 @@ public class LongRunningService extends Service {
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .build();
         startForeground(1, notification);
-        mNotificationManager.notify(1, notification);
+//        mNotificationManager.notify(1, notification);
     }
 }

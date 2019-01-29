@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:gravity="center"
+    tools:context=".MainActivity"
+    android:background="@mipmap/default_bg">
 
     <TextView
         android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        style="@style/tv_user_white_18"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="jump app"
+        android:text=""
         tools:layout_editor_absoluteX="177dp"
         tools:layout_editor_absoluteY="187dp"
         tools:ignore="MissingConstraints" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

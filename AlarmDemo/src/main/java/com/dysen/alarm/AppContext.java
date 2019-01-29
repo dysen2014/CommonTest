@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.ClipboardManager;
 
+import com.dysen.toast.ToastUtils;
 
 
 /**
@@ -16,6 +17,7 @@ import android.text.ClipboardManager;
  */
 public class AppContext extends Application {
     private static AppContext app;
+    public static String START_COUNT = "start_count";
 
     public static AppContext getInstance() {
         return app;
@@ -25,6 +27,8 @@ public class AppContext extends Application {
     public void onCreate() {
         super.onCreate();
         app = this;
+        ToastUtils.init(this);
+
     }
 
 

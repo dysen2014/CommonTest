@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,18 +8,10 @@
     android:background="@color/kbg"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    >
+    android:layout_gravity="center">
 
-        <com.dysen.title_bar.TitleBar
-            android:id="@+id/titleBar"
-            style="@style/wrap_wrap"
-            android:background="@color/colorPrimary"
-            app:barStyle="transparent"
-            app:leftTitle="返回"
-            app:title="XDemo" />
-
-        <com.dysen.recyclerview.PullLoadMoreRecyclerView
-            android:id="@+id/rcl_menu"
-            style="@style/match_wrap"
-            app:layout_constraintTop_toBottomOf="@+id/titleBar" />
+    <com.dysen.recyclerview.PullLoadMoreRecyclerView
+        android:id="@+id/rcl_menu"
+        style="@style/match_wrap"
+        />
 </android.support.constraint.ConstraintLayout>

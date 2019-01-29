@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dysen.common_library.R;
+import com.dysen.common_library.adapter.recycler.StringUtils;
 import com.dysen.common_library.utils.Tools;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -41,6 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
     protected TextView tvTitle;
     protected TextView tvMenu;
     protected LinearLayout vContent;
+    protected String defaultContent = "---";
 
     @Override
     protected void onCreate(@Nullable Bundle savedinstancestate) {
@@ -73,6 +75,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
 
     }
 
+
+    protected BaseActivity setText(TextView textView, String content) {
+        textView.setText(StringUtils.obtainNoNullText(content, defaultContent));
+        return this;
+    }
+
     /**
      * set screen view
      *
@@ -88,7 +96,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
         ButterKnife.bind(this, v);
         vContent.addView(v, layoutParams);
         setListener();
-
     }
 
     @Override

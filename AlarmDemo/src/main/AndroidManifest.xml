@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dysen.alarm">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".AppContext"
         android:allowBackup="true"
@@ -18,8 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<activity android:name="com.alibaba.lightapp.runtime.activity.CommonWebViewActivity"
-    android:exported="true"/>
         <service
             android:name=".LongRunningService"
             android:enabled="true"

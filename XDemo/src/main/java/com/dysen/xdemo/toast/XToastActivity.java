@@ -9,14 +9,13 @@ import com.dysen.common_library.adapter.recycler.SuperRecyclerAdapter;
 import com.dysen.common_library.adapter.recycler.SuperRecyclerHolder;
 import com.dysen.common_library.utils.Tools;
 import com.dysen.recyclerview.PullLoadMoreRecyclerView;
-import com.dysen.title_bar.TitleBar;
 import com.dysen.toast.ToastUtils;
 import com.dysen.toast.style.ToastAlipayStyle;
 import com.dysen.toast.style.ToastBlackStyle;
 import com.dysen.toast.style.ToastQQStyle;
 import com.dysen.toast.style.ToastWhiteStyle;
-import com.dysen.xdemo.MainActivity;
 import com.dysen.xdemo.R;
+import com.dysen.xdemo.XBaseActivity;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,11 +23,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class XToastActivity extends MainActivity {
+public class XToastActivity extends XBaseActivity {
 
-
-    @BindView(R.id.titleBar)
-    TitleBar titleBar;
     @BindView(R.id.rcl_menu)
     PullLoadMoreRecyclerView rclMenu;
 
@@ -38,7 +34,7 @@ public class XToastActivity extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        baseSetContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         initViews();
@@ -50,15 +46,12 @@ public class XToastActivity extends MainActivity {
         return datas;
     }
 
-    @Override
     public void initDatas() {
-        super.initDatas();
         mAdapter.setDatas(getDatas());
     }
 
-    @Override
     public void initViews() {
-        super.initViews();
+        setText(tvTitle, getClass().getSimpleName());
         rclMenu.setLinearLayout();
         mAdapter = new XAdapter(this);
         rclMenu.setAdapter(mAdapter);
