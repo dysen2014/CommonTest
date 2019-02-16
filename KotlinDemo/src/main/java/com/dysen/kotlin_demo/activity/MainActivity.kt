@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dysen.common_library.utils.DateUtils
 import com.dysen.common_library.utils.ImgResUtils
+import com.dysen.common_library.utils.StatusBarUtil
 import com.dysen.kotlin_demo.CommonBean
 import com.dysen.kotlin_demo.R
 import com.dysen.kotlin_demo.async.*
@@ -74,5 +75,7 @@ class MainActivity : BaseAty(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         baseSetContentView(R.layout.activity_main)
+        //透明状态栏
+        StatusBarUtil.setTransparent(this)
     }
 }

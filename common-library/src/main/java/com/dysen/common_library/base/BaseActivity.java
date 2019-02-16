@@ -1,26 +1,32 @@
 package com.dysen.common_library.base;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.MainThread;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dysen.common_library.R;
 import com.dysen.common_library.adapter.recycler.StringUtils;
+import com.dysen.common_library.utils.StatusBarUtil;
 import com.dysen.common_library.utils.Tools;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @package com.dysen.gesturelock.activity
@@ -42,15 +48,35 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
     protected TextView tvTitle;
     protected TextView tvMenu;
     protected LinearLayout vContent;
-    protected String defaultContent = "---";
+    protected LinearLayout llBg;
+    protected LinearLayoutCompat llTitleBg;
+    protected String defaultContent = "";
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(@Nullable Bundle savedinstancestate) {
         super.onCreate(savedinstancestate);
 
         setContentView(getLayoutId());
+
         baseInit();
+
+        //透明状态栏
+        StatusBarUtil.setTransparent(this);
+        llTitleBg.setBackgroundColor(Tools.getColor(R.color.transparent));
         initView();
+    }
+
+    /**
+     * 修改状态栏的夜色
+     * @param colorId
+     */
+    protected void setStatusColor(int colorId){
+
+        if (llBg == null)
+            llBg = findViewById(R.id.ll_bg);
+        llBg.setBackgroundColor(Tools.getColor(colorId));
+        StatusBarUtil.setTransparent(this);
     }
 
     protected void baseInit() {
@@ -60,6 +86,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
         tvBack = findViewById(R.id.tv_back);
         tvTitle = findViewById(R.id.tv_title);
         tvMenu = findViewById(R.id.tv_menu);
+        llTitleBg = findViewById((R.id.ll_title_bg));
+        llBg = findViewById((R.id.ll_bg));
         tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,12 +151,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
         Tools.eventBusUnregister(this);
     }
 
-    protected void transAty(Class<?> cls){
+    protected void transAty(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
     }
 
-    protected void transAty(Class<?> cls, Bundle bundle){
+    protected void transAty(Class<?> cls, Bundle bundle) {
         Intent intent = new Intent(this, cls);
         intent.putExtra("data", bundle);
         startActivity(intent);

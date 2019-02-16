@@ -7,6 +7,7 @@ import android.view.View;
 import com.dysen.common_library.adapter.recycler.SuperRecyclerAdapter;
 import com.dysen.common_library.adapter.recycler.SuperRecyclerHolder;
 import com.dysen.common_library.base.BaseActivity;
+import com.dysen.common_library.utils.StatusBarUtil;
 import com.dysen.common_library.utils.Tools;
 import com.dysen.recyclerview.PullLoadMoreRecyclerView;
 import com.dysen.xdemo.dialog.XDialogActivity;
@@ -33,6 +34,7 @@ public class MainActivity extends XBaseActivity {
         baseSetContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        setStatusColor(R.color.text_color_green);
         initViews();
         initDatas();
     }

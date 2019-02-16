@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/percent-sample" />
             <option value="$PROJECT_DIR$/recyclerview-library" />
             <option value="$PROJECT_DIR$/shareDialog" />
+            <option value="$PROJECT_DIR$/svga-library" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

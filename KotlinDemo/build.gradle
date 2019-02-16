@@ -14,7 +14,7 @@ android {
         versionName "1.0.1"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+multiDexEnabled true
     }
 
     buildTypes {
@@ -49,5 +49,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //common
     implementation project(':common-library')
+
+    implementation 'com.android.support:multidex:1.0.1'
 
 }

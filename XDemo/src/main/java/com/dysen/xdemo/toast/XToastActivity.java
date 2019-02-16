@@ -36,6 +36,7 @@ public class XToastActivity extends XBaseActivity {
         super.onCreate(savedInstanceState);
         baseSetContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setStatusColor(R.color.kbg);
 
         initViews();
         initDatas();

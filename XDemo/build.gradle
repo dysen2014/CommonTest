@@ -3,7 +3,11 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
 
-
+    sourceSets {
+        main {
+            res.srcDirs('src/main/res', 'src/main/res_dialog', 'src/main/res_toast', 'src/main/res_title')
+        }
+    }
 
     defaultConfig {
         applicationId "com.dysen.xdemo"

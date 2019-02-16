@@ -3,21 +3,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    style="@style/match_match"
     android:gravity="center"
-    tools:context=".MainActivity"
+    tools:context=".activity.MainActivity"
     android:background="@mipmap/default_bg">
+
+
+    <com.dysen.svga.SVGAImageView
+        android:id="@+id/iv_svga"
+        style="@style/match_match"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        app:source="angel.svga"
+        app:antiAlias="true"
+        />
 
     <TextView
         android:id="@+id/tv"
         style="@style/tv_user_white_18"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text=""
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="187dp"
-        tools:ignore="MissingConstraints" />
+        android:text="Touch"
+        android:visibility="gone"/>
 
 </LinearLayout>

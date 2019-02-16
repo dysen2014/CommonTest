@@ -1,15 +1,17 @@
-package com.dysen.alarm;
+package com.dysen.alarm.activity;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dysen.common_library.base.BaseActivity;
+import com.dysen.alarm.AppContext;
+import com.dysen.alarm.LongRunningService;
+import com.dysen.alarm.R;
 import com.dysen.common_library.utils.FileUtils;
+import com.dysen.common_library.utils.StatusBarUtils;
 import com.dysen.toast.ToastUtils;
 
 import butterknife.BindView;
@@ -30,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        //透明状态栏
+        StatusBarUtil.setTransparent(this);
         intent = new Intent(this, LongRunningService.class);
         intent.putExtra("type", type);
 

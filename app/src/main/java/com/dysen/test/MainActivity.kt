@@ -100,7 +100,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 //        }
     }
 
-    fun transAty(cls: Class<*>) {
+    override fun transAty(cls: Class<*>) {
         val intent = Intent(this, cls)
         startActivity(intent)
     }

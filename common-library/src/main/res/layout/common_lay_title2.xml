@@ -1,0 +1,52 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".base.BaseActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <!--app:collapsedTitleTextAppearance="@style/AlbumCollapsedTitle"
+            app:expandedTitleTextAppearance="@style/AlbumExpandedTitle"-->
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingtoolbarlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@color/white"
+            app:collapsedTitleGravity="center"
+            app:expandedTitleGravity="center"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="折叠效果">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_top_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/bg_login" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/coordinator_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                />
+<!--
+                app:titleTextAppearance="@style/Toolbar.TitleText"
+-->
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+</android.support.design.widget.CoordinatorLayout>
