@@ -52,7 +52,7 @@ public class XToastActivity extends XBaseActivity {
     }
 
     public void initViews() {
-        setText(tvTitle, getClass().getSimpleName());
+        baseSetText(tvTitle, getClass().getSimpleName());
         rclMenu.setLinearLayout();
         mAdapter = new XAdapter(this);
         rclMenu.setAdapter(mAdapter);

@@ -63,7 +63,7 @@ public class ContactsUtil {
 //                continue;
 
             if (mContactId != contactId) {//过滤同一个用户有多个号码（仅取第一个）
-                ContactsBean contactsBean = new ContactsBean(contactName, contactNum, contactId, photoId);
+                ContactsBean contactsBean = new ContactsBean(contactName.toUpperCase(), contactNum, contactId, photoId);
 //                System.out.println(mContactId +"=============="+contactId + "========contactId=======" + contactsBean.toString());
                 contactsBeans.add(contactsBean);
             }

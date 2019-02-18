@@ -46,6 +46,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -138,6 +139,14 @@ public class Tools {
         } catch (Exception e) {
             Tools.printStackTrace("Tools", e);
             return "";
+        }
+    }
+    public static String[] getStringArray(int id) {
+        try {
+            return getApp().getResources().getStringArray(id);
+        } catch (Exception e) {
+            Tools.printStackTrace("Tools", e);
+            return new String[]{};
         }
     }
 

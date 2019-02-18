@@ -25,8 +25,8 @@
         <com.dysen.common_library.views.WaveSideBarView
             android:id="@+id/side_bar"
             style="@style/match_match"
-            android:padding="8dp"
-            app:sidebar_lazy_respond="false"
+            android:paddingRight="8dp"
+            app:sidebar_lazy_respond="true"
             app:sidebar_text_color="@color/colorAccent"/>
     </FrameLayout>
 </LinearLayout>

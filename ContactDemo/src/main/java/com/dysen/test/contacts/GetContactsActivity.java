@@ -1,9 +1,11 @@
 package com.dysen.test.contacts;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -23,6 +25,7 @@ import com.dysen.common_library.adapter.recycler.SuperRecyclerAdapter;
 import com.dysen.common_library.adapter.recycler.SuperRecyclerHolder;
 import com.dysen.common_library.base.BaseActivity;
 import com.dysen.common_library.utils.CallAndSMS;
+import com.dysen.common_library.utils.ToolStatus;
 import com.dysen.common_library.utils.Tools;
 import com.dysen.common_library.views.CustomPopWindow;
 import com.dysen.common_library.views.WaveSideBarView;
@@ -54,12 +57,17 @@ public class GetContactsActivity extends BaseActivity {
     private ContactsUtil contactsUtil;
     private CustomPopWindow customPopWindow;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SkinManager.getInstance().register(this);
         baseSetContentView(R.layout.activity_get_contacts);
         ButterKnife.bind(this);
+//        setStatusColor(R.color.color_green);
+        setStatusBG(R.mipmap.default_bg);
+
+        sideBar.setTextSize(13);
         check();
     }
 
@@ -195,6 +203,13 @@ public class GetContactsActivity extends BaseActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        if (mContactsBean.size()>= 10) {
+                            rclContacts.setFooterViewText("没有更多数据！！！");
+                            Tools.setGone(rclContacts.loadMoreProgressBar);
+                        }else {
+                            Tools.setVisible(rclContacts.loadMoreProgressBar);
+                            rclContacts.setFooterViewText("正在加载更多数据！！！");
+                        }
                         rclContacts.setPullLoadMoreCompleted();
                     }
                 }, 1000);

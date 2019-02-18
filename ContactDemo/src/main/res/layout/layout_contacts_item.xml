@@ -11,6 +11,7 @@
         android:paddingLeft="16dp"
         android:text="A"
         android:textStyle="bold"
+        android:visibility="gone"
         android:tag="skin:text_color:textColor"
         android:textColor="@color/text_color"/>
 

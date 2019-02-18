@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.dysen.recyclerview.R;
 
@@ -37,6 +38,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     private View mFooterView;
     private Context mContext;
     private TextView loadMoreText;
+    public ProgressBar loadMoreProgressBar;
     private LinearLayout loadMoreLayout;
 
     public PullLoadMoreRecyclerView(Context context) {
@@ -69,6 +71,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
 
         loadMoreLayout = (LinearLayout) view.findViewById(R.id.loadMoreLayout);
         loadMoreText = (TextView) view.findViewById(R.id.loadMoreText);
+        loadMoreProgressBar = (ProgressBar) view.findViewById(R.id.loadMoreProgressBar);
 
         mFooterView.setVisibility(View.GONE);
 
@@ -209,7 +212,6 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     public void setFooterViewText(CharSequence text) {
         loadMoreText.setText(text);
     }
-
     public void setFooterViewText(int resid) {
         loadMoreText.setText(resid);
     }
@@ -218,6 +220,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         loadMoreText.setTextColor(ContextCompat.getColor(mContext, color));
     }
 
+//    public void set
 
     public void refresh() {
         if (mPullLoadMoreListener != null) {

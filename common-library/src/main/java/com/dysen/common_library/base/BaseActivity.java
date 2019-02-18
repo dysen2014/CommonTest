@@ -3,12 +3,13 @@ package com.dysen.common_library.base;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.MainThread;
+import android.support.annotation.ArrayRes;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.view.LayoutInflater;
@@ -24,9 +25,7 @@ import com.dysen.common_library.utils.Tools;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * @package com.dysen.gesturelock.activity
@@ -69,13 +68,22 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
 
     /**
      * 修改状态栏的夜色
+     *
      * @param colorId
      */
-    protected void setStatusColor(int colorId){
+    protected void setStatusColor(int colorId) {
 
         if (llBg == null)
             llBg = findViewById(R.id.ll_bg);
         llBg.setBackgroundColor(Tools.getColor(colorId));
+        StatusBarUtil.setTransparent(this);
+    }
+
+    protected void setStatusBG(int drawableId) {
+
+        if (llBg == null)
+            llBg = findViewById(R.id.ll_bg);
+        llBg.setBackgroundResource(drawableId);
         StatusBarUtil.setTransparent(this);
     }
 
@@ -101,12 +109,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
     @Override
     public void initView() {
 
-    }
-
-
-    protected BaseActivity setText(TextView textView, String content) {
-        textView.setText(StringUtils.obtainNoNullText(content, defaultContent));
-        return this;
     }
 
     /**
@@ -161,4 +163,41 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
         intent.putExtra("data", bundle);
         startActivity(intent);
     }
+
+    public int baseGetColor(@ColorInt int colorId) {
+        return Tools.getColor(colorId);
+    }
+
+    public String baseGetString(@StringRes int stringId) {
+        return Tools.getString(stringId);
+    }
+    public String[] baseGetStringArray(@ArrayRes int arrayId) {
+        return Tools.getStringArray(arrayId);
+    }
+
+    protected BaseActivity baseSetText(TextView textView, String content) {
+        if (isNull(textView))
+            return this;
+        textView.setText(StringUtils.obtainNoNullText(content, defaultContent));
+        return this;
+    }
+
+    protected BaseActivity baseSetTextColor(TextView textView, int colorId) {
+        if (isNull(textView))
+            return this;
+        textView.setTextColor(colorId);
+        return this;
+    }
+
+    protected BaseActivity baseSetTextSize(TextView textView, float size) {
+        if (isNull(textView))
+            return this;
+        textView.setTextSize(size);
+        return this;
+    }
+
+    public boolean isNull(Object object) {
+        return object == null ? true : false;
+    }
+
 }

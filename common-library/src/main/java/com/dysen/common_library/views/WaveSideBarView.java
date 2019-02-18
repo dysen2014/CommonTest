@@ -23,17 +23,12 @@ import java.util.Arrays;
  */
 
 public class WaveSideBarView extends View {
-    private final static int DEFAULT_TEXT_SIZE = 14; // sp
-    private final static int DEFAULT_MAX_OFFSET = 80; //dp
+    private static final int DEFAULT_TEXT_SIZE = 14; // sp
+    private static final int DEFAULT_MAX_OFFSET = 80; //dp
 
-    private static String[] DEFAULT_INDEX_ITEMS = {"#","A", "B", "C", "D", "E", "F", "G", "H", "I",
+    private String[] DEFAULT_INDEX_ITEMS = {"#","A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
-    public void setDefaultIndexItems(String[] defaultIndexItems) {
-        DEFAULT_INDEX_ITEMS = defaultIndexItems;
-    }
-
-    private String[] mIndexItems;
 
     /**
      * the index in {@link #mIndexItems} of the current selected index item,
@@ -49,6 +44,7 @@ public class WaveSideBarView extends View {
     private float mCurrentY = -1;
 
     private Paint mPaint;
+    private String[] mIndexItems;
     private int mTextColor;
     private float mTextSize;
 
@@ -148,7 +144,7 @@ public class WaveSideBarView extends View {
         initPaint();
     }
 
-    private void initPaint() {
+    public void initPaint() {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setColor(mTextColor);
@@ -338,6 +334,12 @@ public class WaveSideBarView extends View {
     public void setTextColor(int color) {
         mTextColor = color;
         mPaint.setColor(color);
+        invalidate();
+    }
+
+    public void setTextSize(int size) {
+        mTextSize = sp2px(size);
+        mPaint.setTextSize(sp2px(size));
         invalidate();
     }
 

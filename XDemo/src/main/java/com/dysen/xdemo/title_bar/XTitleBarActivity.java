@@ -24,7 +24,7 @@ public class XTitleBarActivity extends XBaseActivity {
         super.onCreate(savedInstanceState);
         baseSetContentView(R.layout.activity_xtitle_bar);
 
-        setText(tvTitle, "");
+        baseSetText(tvTitle, "");
         mTitleBar = (TitleBar) findViewById(R.id.tb_main_title_bar);
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
 
