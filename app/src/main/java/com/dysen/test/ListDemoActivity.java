@@ -70,7 +70,7 @@ public class ListDemoActivity extends BaseActivity {
     }
 
     private void initViews() {
-        baseSetText(tvTitle, "列表测试");
+        sText(tvTitle, "列表测试");
         rclList.setLinearLayout();
         rclList.setAdapter(mAdapter);
     }

@@ -164,32 +164,35 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
         startActivity(intent);
     }
 
-    public int baseGetColor(@ColorInt int colorId) {
+    public int gColor(@ColorInt int colorId) {
         return Tools.getColor(colorId);
     }
 
-    public String baseGetString(@StringRes int stringId) {
+    public String gString(@StringRes int stringId) {
         return Tools.getString(stringId);
     }
-    public String[] baseGetStringArray(@ArrayRes int arrayId) {
+    public String gString(@StringRes int stringId, Object... formatArgs) {
+        return Tools.getString(stringId, formatArgs);
+    }
+    public String[] gArrays(@ArrayRes int arrayId) {
         return Tools.getStringArray(arrayId);
     }
 
-    protected BaseActivity baseSetText(TextView textView, String content) {
+    protected BaseActivity sText(TextView textView, String content) {
         if (isNull(textView))
             return this;
         textView.setText(StringUtils.obtainNoNullText(content, defaultContent));
         return this;
     }
 
-    protected BaseActivity baseSetTextColor(TextView textView, int colorId) {
+    protected BaseActivity sTextColor(TextView textView, int colorId) {
         if (isNull(textView))
             return this;
         textView.setTextColor(colorId);
         return this;
     }
 
-    protected BaseActivity baseSetTextSize(TextView textView, float size) {
+    protected BaseActivity sTextSize(TextView textView, float size) {
         if (isNull(textView))
             return this;
         textView.setTextSize(size);

@@ -30,4 +30,5 @@ public interface OnTitleBarListener {
      * @param v     被点击的右项View
      */
     void onRightClick(View v);
+    void onClick(View v);
 }

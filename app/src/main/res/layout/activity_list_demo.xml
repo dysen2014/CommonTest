@@ -20,6 +20,7 @@
             style="@style/match_match"
             android:paddingRight="8dp"
             app:sidebar_lazy_respond="true"
+            android:scrollbars="vertical"
             app:sidebar_text_color="@color/colorAccent"/>
     </FrameLayout>
 

@@ -35,6 +35,7 @@ public class TitleBar extends FrameLayout
     private LinearLayout mMainLayout;
     private TextView mLeftView, mTitleView, mRightView;
     private View mLineView;
+    private boolean mIsItem;
 
     public TitleBar(Context context) {
         this(context, null, 0);
@@ -225,9 +226,9 @@ public class TitleBar extends FrameLayout
         }
 
         // 更新 View 状态
-        mLeftView.setEnabled(!"".equals(mLeftView.getText().toString()) || ViewBuilder.hasCompoundDrawables(mLeftView));
-        mTitleView.setEnabled(!"".equals(mTitleView.getText().toString()) || ViewBuilder.hasCompoundDrawables(mTitleView));
-        mRightView.setEnabled(!"".equals(mRightView.getText().toString()) || ViewBuilder.hasCompoundDrawables(mRightView));
+        mLeftView.setEnabled(mIsItem || !"".equals(mLeftView.getText().toString()) || ViewBuilder.hasCompoundDrawables(mLeftView));
+        mTitleView.setEnabled(mIsItem || !"".equals(mTitleView.getText().toString()) || ViewBuilder.hasCompoundDrawables(mTitleView));
+        mRightView.setEnabled(mIsItem || !"".equals(mRightView.getText().toString()) || ViewBuilder.hasCompoundDrawables(mRightView));
     }
 
     /**
@@ -245,6 +246,8 @@ public class TitleBar extends FrameLayout
         }else if (id == R.id.bar_id_right_view) {
             getOnTitleBarListener().onRightClick(v);
         }
+        if (mIsItem)
+            getOnTitleBarListener().onClick(v);
     }
 
     @Override
@@ -254,6 +257,7 @@ public class TitleBar extends FrameLayout
         mTitleView.setOnClickListener(this);
         mLeftView.setOnClickListener(this);
         mRightView.setOnClickListener(this);
+        mMainLayout.setOnClickListener(this);
     }
 
     @Override
@@ -262,6 +266,7 @@ public class TitleBar extends FrameLayout
         mTitleView.setOnClickListener(null);
         mLeftView.setOnClickListener(null);
         mRightView.setOnClickListener(null);
+        mMainLayout.setOnClickListener(null);
         super.onDetachedFromWindow();
     }
 
@@ -277,6 +282,11 @@ public class TitleBar extends FrameLayout
      */
     public void setOnTitleBarListener(OnTitleBarListener l) {
         mListener = l;
+        mIsItem = false;
+    }
+    public void setOnTitleBarListener(OnTitleBarListener l, boolean isItem) {
+        mListener = l;
+        mIsItem = isItem;
     }
 
     /**

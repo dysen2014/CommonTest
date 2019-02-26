@@ -3,6 +3,7 @@ package com.dysen.xdemo.title_bar;
 import android.os.Bundle;
 import android.view.View;
 
+import com.dysen.title_bar.OnClick;
 import com.dysen.title_bar.OnTitleBarListener;
 import com.dysen.title_bar.TitleBar;
 import com.dysen.title_bar.style.TitleBarLightStyle;
@@ -24,9 +25,9 @@ public class XTitleBarActivity extends XBaseActivity {
         super.onCreate(savedInstanceState);
         baseSetContentView(R.layout.activity_xtitle_bar);
 
-        baseSetText(tvTitle, "");
+        sText(tvTitle, "");
         mTitleBar = (TitleBar) findViewById(R.id.tb_main_title_bar);
-        mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
+        mTitleBar.setOnTitleBarListener(new OnClick() {
 
             @Override
             public void onLeftClick(View v) {
@@ -42,7 +43,12 @@ public class XTitleBarActivity extends XBaseActivity {
             public void onRightClick(View v) {
                 ToastUtils.show("右项View被点击");
             }
-        });
+
+            @Override
+            public void onClick(View v) {//整个Item的点击事件
+                ToastUtils.show("Item View被点击");
+            }
+        }, false);
     }
 
     @Override

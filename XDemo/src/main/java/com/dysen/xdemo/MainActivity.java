@@ -44,7 +44,7 @@ public class MainActivity extends XBaseActivity {
     }
 
     public void initViews() {
-        baseSetText(tvTitle, "Xdemo");
+        sText(tvTitle, "Xdemo");
         rclMenu.setLinearLayout();
         mAdapter = new XAdapter(this);
         rclMenu.setAdapter(mAdapter);

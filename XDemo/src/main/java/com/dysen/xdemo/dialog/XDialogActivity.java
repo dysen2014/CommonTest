@@ -60,7 +60,7 @@ public class XDialogActivity extends XBaseActivity {
 
     public void initViews() {
 
-        baseSetText(tvTitle, "Xdialog");
+        sText(tvTitle, "Xdialog");
         rclMenu.setLinearLayout();
         mAdapter = new XAdapter(this);
         rclMenu.setAdapter(mAdapter);
