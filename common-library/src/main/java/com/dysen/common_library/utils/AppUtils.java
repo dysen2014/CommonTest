@@ -11,6 +11,8 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -46,7 +48,7 @@ public class AppUtils {
             PackageInfo packageInfo = packageManager.getPackageInfo(
                     mContext.getPackageName(), 0);
             int labelRes = packageInfo.applicationInfo.labelRes;
-            Log.e(TAG, "packageInfo:"+packageInfo.toString());
+            Log.e(TAG, "packageInfo:" + packageInfo.toString());
             return mContext.getResources().getString(labelRes);
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,7 +112,6 @@ public class AppUtils {
 
     /**
      * 获取图标 bitmap
-     *
      */
     public synchronized Bitmap getBitmap() {
         PackageManager packageManager = null;
@@ -131,6 +132,7 @@ public class AppUtils {
 
     /**
      * 判断App是否在后台运行
+     *
      * @return true--后台， false--前台
      */
     public boolean isBackground() {
@@ -194,7 +196,7 @@ public class AppUtils {
      * 判断某一 uid 的程序是否有正在运行的进程，即是否存活
      * Created by cafeting on 2017/2/4.
      *
-     * @param uid     已安装应用的 uid
+     * @param uid 已安装应用的 uid
      * @return true 表示正在运行，false 表示没有运行
      */
     public boolean isProcessRunning(int uid) {
@@ -269,10 +271,11 @@ public class AppUtils {
 
     /**
      * 跳转Activity
+     *
      * @param cls
      * @param jsonData
      */
-    public Intent transAty(Class<?> cls, String jsonData, int...flag) {
+    public Intent transAty(Class<?> cls, String jsonData, int... flag) {
 //        MainActivity2.newInstance(jsonData);
         //打开自定义的Activity
         Intent intent = new Intent(mContext, cls);
@@ -286,11 +289,12 @@ public class AppUtils {
 
     /**
      * 跳转Activity(跳转前设置好数据)
+     *
      * @param cls
      * @param flag
      * @return
      */
-    public Intent transAty(Class<?> cls, int...flag) {
+    public Intent transAty(Class<?> cls, int... flag) {
 //        MainActivity2.newInstance(jsonData);
         //打开自定义的Activity
         Intent intent = new Intent(mContext, cls);
@@ -303,9 +307,10 @@ public class AppUtils {
 
     /**
      * 发送广播
+     *
      * @param action
      */
-    public void trans2Broadcast(String action, int...flag) {
+    public void trans2Broadcast(String action, int... flag) {
         //打开自定义的Activity
         Intent intent = new Intent(action);
         if (flag.length > 0)
@@ -315,6 +320,7 @@ public class AppUtils {
 
     /**
      * 通过包名和类名 启动Activity
+     *
      * @param packageName
      * @param className
      */
@@ -329,6 +335,7 @@ public class AppUtils {
 
     /**
      * 通过包名 启动Activity
+     *
      * @param packagename
      */
     public void doStartApplicationWithPackageName(String packagename) {
@@ -389,17 +396,39 @@ public class AppUtils {
         return names;
     }
 
-    public void luachApp(String packageName){
+    public void luachApp(String packageName) {
 
         PackageManager packageManager = mContext.getPackageManager();
-        Intent intent=new Intent();
-        intent =packageManager.getLaunchIntentForPackage("com.vict.fsd");
-        if(intent==null){
+        Intent intent = new Intent();
+        intent = packageManager.getLaunchIntentForPackage("com.vict.fsd");
+        if (intent == null) {
             Toast.makeText(mContext, "App 未安装", Toast.LENGTH_LONG).show();
-        }else{
+        } else {
             mContext.startActivity(intent);
 
         }
+    }
+
+    public void transWeb(String url) {
+        if (TextUtils.isEmpty(url))
+            url = "https://www.baidu.com";
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mContext.startActivity(intent);
+    }
+
+    public void transWeb(String url, String... pkg) {
+        if (TextUtils.isEmpty(url))
+            url = "https://www.baidu.com";
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.setClassName("com.UCMobile","com.uc.browser.InnerUCMobile");//打开UC浏览器
+//        intent.setClassName("com.tencent.mtt","com.tencent.mtt.MainActivity");//打开QQ浏览器
+        if (pkg.length > 2)
+            intent.setClassName(pkg[1], pkg[2]);//
+        mContext.startActivity(intent);
     }
 }
 

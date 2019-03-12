@@ -19,8 +19,11 @@ import android.widget.TextView;
 
 import com.dysen.common_library.R;
 import com.dysen.common_library.adapter.recycler.StringUtils;
+import com.dysen.common_library.utils.LogUtils;
 import com.dysen.common_library.utils.StatusBarUtil;
 import com.dysen.common_library.utils.Tools;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -203,4 +206,28 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
         return object == null ? true : false;
     }
 
+    /**
+     * 打印请求返回的数据信息
+     *
+     * @param object
+     */
+    protected void printResponseData(int type, Object object) {
+        String methodName = Thread.currentThread().getStackTrace()[3].getMethodName();
+        //lambda$getRecommendList$2$InvitationRecordFragment
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        for (int i = 0; i < stackTrace.length; i++) {
+//            LogUtils.w("==========method==========" + stackTrace[i].getMethodName());
+            if (stackTrace[i].getMethodName().contains("lambda$")) {
+                methodName = stackTrace[i].getMethodName();
+            }
+        }
+        methodName = methodName.replace("lambda$", "");
+        methodName = methodName.substring(0, methodName.indexOf("$"));
+        //此种创建方式可以防止转换Json时出现转义Bug
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+        if (type == 1)
+            LogUtils.v("请求--\t得到的数据：" + methodName + "\n-----------start--------------\n" + gson.toJson(object) + "\n-------------end-------------");
+        else
+            LogUtils.e("请求--\t异常的数据：" + methodName + "\n-----------start--------------\n" + gson.toJson(object) + "\n-------------end-------------");
+    }
 }
