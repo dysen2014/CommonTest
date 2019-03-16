@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="tv_item" parent="tv_user_black_14">
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:autoSizeMinTextSize">@dimen/text_size_8</item>
+        <item name="android:autoSizeMaxTextSize">@dimen/text_size_14</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="auto_size" parent="tv_item">
+
+    </style>
+</resources>

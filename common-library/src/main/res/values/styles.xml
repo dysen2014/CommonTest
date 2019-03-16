@@ -363,4 +363,15 @@
         <item name="android:windowEnterAnimation">@anim/pop_in</item>
         <item name="android:windowExitAnimation">@anim/pop_out</item>
     </style>
+
+    <style name="tv_item" parent="tv_user_black_14">
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="auto_size" parent="tv_item">
+
+    </style>
 </resources>

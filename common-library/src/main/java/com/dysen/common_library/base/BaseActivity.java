@@ -136,13 +136,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
         return R.layout.activity_base;
     }
 
-    protected void gotoNext(Class cls, boolean... isfinish) {
+    protected void gotoNext(Class cls) {
         Intent intent = new Intent(this, cls);
         intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        if (isfinish.length > 0)
-            if (isfinish[0])
-                finish();
+    }
+
+    protected void gotoNext(Class cls, boolean isfinish) {
+        gotoNext(cls);
+        if (isfinish)
+            finish();
     }
 
     // This method will be called when a MessageEvent is posted (in the UI thread for Toast)
@@ -174,9 +177,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCall
     public String gString(@StringRes int stringId) {
         return Tools.getString(stringId);
     }
+
     public String gString(@StringRes int stringId, Object... formatArgs) {
         return Tools.getString(stringId, formatArgs);
     }
+
     public String[] gArrays(@ArrayRes int arrayId) {
         return Tools.getStringArray(arrayId);
     }
