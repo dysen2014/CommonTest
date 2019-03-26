@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1075712398924",
+    "firebase_url": "https://balmy-atom-235609.firebaseio.com",
+    "project_id": "balmy-atom-235609",
+    "storage_bucket": "balmy-atom-235609.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075712398924:android:5fd9b50e69d96432",
+        "android_client_info": {
+          "package_name": "com.dysen.kdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075712398924-91ijg4ral3jhbjmdv39lgv7opo3pvk6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA09q35zYtVW5zh6kvib1n8tFEqrFjDqNM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

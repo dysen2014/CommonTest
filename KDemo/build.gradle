@@ -7,9 +7,10 @@ apply plugin: 'kotlin-android-extensions'
 android {
     signingConfigs {
         signing {
+//            storeFile file('/Users/dysen/Desktop/sendy/dysen.jks')
+            storeFile file('../dysen.jks')
             keyAlias 'dysen'
             keyPassword 'dy1211'
-            storeFile file('/Users/dysen/Desktop/sendy/dysen.jks')
             storePassword 'dy1211'
         }
     }
@@ -35,7 +36,7 @@ android {
         }
         debug {
             debuggable true
-            applicationIdSuffix ".debug"
+            applicationIdSuffix ""
         }
     }
 //    realm {
@@ -74,6 +75,10 @@ dependencies {
     //compile 'io.realm:android-adapters:1.2.1'
     compile 'io.realm:android-adapters:2.1.1'
     compile 'com.joanzapata.android:base-adapter-helper:1.1.11'
+// Add this line
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    // Add this line
+    apply plugin: 'com.google.gms.google-services'
 }
 repositories {
     mavenCentral()

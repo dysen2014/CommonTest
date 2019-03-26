@@ -158,6 +158,8 @@ dependencies {
     implementation project(':recyclerview-library')
     //svga
 //    implementation project(':svga-library')
+    //支持多版本安装
+    implementation 'com.android.support:multidex:1.0.2'
 }
 repositories {
     mavenCentral()

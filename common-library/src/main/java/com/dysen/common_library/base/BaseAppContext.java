@@ -40,6 +40,12 @@ public class BaseAppContext extends Application {
     public int count = 0;
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        android.support.multidex.MultiDex.install(this);
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
         app = this;

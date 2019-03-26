@@ -13,6 +13,7 @@ import com.dysen.kdemo.adapter.MarketAdapterNew;
 import com.dysen.kdemo.entity.CommonBean;
 import com.dysen.kdemo.utils.JsonUtils;
 import com.dysen.kdemo.utils.Tools;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     int mItemViewType;
     private MarketAdapterNew mAdapter;
     private List<CommonBean.BtcQc> tickerData = new ArrayList<>();
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initViews() {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         tvTitle.setText(Tools.getString(R.string.app_name));
         mAdapter = new MarketAdapterNew(this);
         rclView.setLayoutManager(Tools.setManager1(LinearLayoutManager.VERTICAL));
