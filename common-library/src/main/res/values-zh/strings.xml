@@ -27,4 +27,11 @@
     <string name="week_saturday">星期六 </string>
     <string name="week_sunday">星期天 </string>
     <string name="month_day">MM月dd日 </string>
+
+    <string name="Code_1">操作成功!</string>
+    <string name="Code_999">登录状态失效，请重新登录!</string>
+    <string name="Code_1000">系统错误!</string>
+    <string name="Code_888888888">未知异常!</string>
+    <string name="Code_666666666">服务器连接异常，正在重试!</string>
+    <string name="no_data">无数据!</string>
 </resources>

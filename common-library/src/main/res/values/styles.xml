@@ -374,4 +374,11 @@
     <style name="auto_size" parent="tv_item">
 
     </style>
+
+    <style name="trans_popup_bg" parent="match_wrap">
+        <item name="android:paddingLeft">@dimen/margin_padding_15</item>
+        <item name="android:paddingRight">@dimen/margin_padding_15</item>
+        <item name="android:layout_margin">@dimen/margin_padding_15</item>
+        <item name="android:background">@drawable/ed_user_confirm</item>
+    </style>
 </resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/match_wrap"
+    android:layout_margin="@dimen/margin_padding_40">
+
+    <LinearLayout style="@style/trans_popup_bg">
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            style="@style/match_wrap"
+            android:layout_height="400dp"
+            android:overScrollMode="never" />
+
+        <LinearLayout
+            style="@style/match_wrap"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:gravity="center">
+
+            <com.dysen.common_library.views.BezierBannerDot
+                android:id="@+id/bd"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
+                app:selectedColor="@color/text_color_green"
+                app:selectedRaduis="4dp"
+                app:spacing="2dp"
+                app:unSelectedColor="@android:color/darker_gray"
+                app:unSelectedRaduis="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

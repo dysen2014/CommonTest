@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/match_wrap"
+    android:gravity="center"
+    android:id="@+id/ll_dialog">
+
+    <com.dysen.common_library.views.bubble.BubbleLayout
+        style="@style/match_wrap"
+        android:layout_width="300dp"
+        android:layout_alignTop="@+id/ll_otc_advert_dqbj"
+        android:layout_centerHorizontal="true"
+        app:bl_arrowPosition="150dp"
+        app:bl_arrowWidth="16dp"
+        app:bl_bubbleColor="#20000000"
+        app:bl_cornersRadius="16dp"
+        app:bl_strokeWidth="0dp">
+
+        <TextView
+            android:id="@+id/tv_tip"
+            style="@style/tv_user_white_14"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="24dp"
+            android:text="haxhsch sc sc s"
+            android:background="@color/transparent"/>
+
+    </com.dysen.common_library.views.bubble.BubbleLayout>
+</LinearLayout>

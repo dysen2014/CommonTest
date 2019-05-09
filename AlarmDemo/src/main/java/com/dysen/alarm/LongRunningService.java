@@ -61,7 +61,7 @@ public class LongRunningService extends Service {
                     Log.d("LongRunningService", dateStr + "-----executed at " + DateUtils.getToday());
                     int nowTime = date2Int(dateStr);
                     if ((date2Int("08:30") < nowTime && nowTime <= date2Int("09:30"))
-                            || (date2Int("20:00") < nowTime && nowTime <= date2Int("21:00"))
+                            || (date2Int("18:50") < nowTime && nowTime <= date2Int("20:10"))
 //                            || (date2Int("16:30") < nowTime && nowTime <= date2Int("17:30"))
                             ) {
 

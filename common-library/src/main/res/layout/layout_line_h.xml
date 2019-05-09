@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/view_item_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_marginLeft="@dimen/margin_padding_15"
+        android:layout_marginRight="@dimen/margin_padding_15"
+        android:background="@color/line_color"
+        android:visibility="visible"/>
+</LinearLayout>

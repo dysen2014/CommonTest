@@ -11,6 +11,15 @@
 
     <!---->
     <!-- 主背景色值 -->
+    <color name="background_white">#FFFFFF</color>
+    <color name="background_dark">#363636</color>
+    <color name="background_tran">#00ffffff</color>
+    <color name="background_gray">#dfdede</color>
+
+    <color name="background_yellow">#E8703A</color>
+    <color name="background_yellow2">#F5A96C</color>
+
+    <!-- 主背景色值 -->
     <color name="background_color">#EFF0F2</color>
     <color name="background_color2">#D5D5D5</color>
     <color name="background_color3">#e2e3e6</color>
@@ -33,6 +42,11 @@
     <color name="main_login_header_bg">#A1BFD3</color>
 
     <color name="background_color_white">#ffffff</color>
+
+    <!--顶部刷新内部背景颜色-->
+    <color name="home_type_content_refresh_background">@color/background_white</color>
+    <!--顶部刷新内部球颜色-->
+    <color name="home_type_content_refresh_circle_color">@color/background_yellow</color>
 
     <!--竖分割线-->
     <color name="vertical_line_color">#D5D5D5</color>
@@ -96,6 +110,7 @@
     <color name="color_green">#00FF00</color>       <!--绿色-->
     <color name="color_cyan_blue">#00FFFF</color>       <!--青色-->
     <color name="color_blue">#0000FF</color>       <!--蓝色-->
-    <color name="color_violet">#8B00FF</color>       <!--紫色-->
+    <color name="color_violet">#8B00FF</color>  <!--紫色-->
+    <color name="line_color">#F6F9FF</color>
 
 </resources>
