@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/match_match"
+    android:background="@mipmap/default_bg"
     android:gravity="center"
-    tools:context=".activity.MainActivity"
-    android:background="@mipmap/default_bg">
+    tools:context=".activity.MainActivity">
 
 
     <com.dysen.svga.SVGAImageView
@@ -14,15 +13,21 @@
         style="@style/match_match"
         android:layout_height="200dp"
         android:scaleType="fitCenter"
-        app:source="angel.svga"
         app:antiAlias="true"
-        />
+        app:source="angel.svga" />
 
     <TextView
         android:id="@+id/tv"
         style="@style/tv_user_white_18"
         android:gravity="center"
         android:text="Touch"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
+    <com.dysen.common_library.views.AutoSizeTextView
+        style="@style/common_auto_size"
+        android:layout_width="@dimen/margin_padding_40"
+        android:layout_height="@dimen/margin_padding_20"
+        android:gravity="center"
+        android:text="Hello World! agdyagdyagdhdsvsvdsvsvsvsvsvsvssvsvsvsgsvsvbsvbhsvhs" />
 
 </LinearLayout>

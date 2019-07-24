@@ -117,7 +117,7 @@ public class CustomChartUtilsNew {
         //这个方法默认是true，设置为false之后，点击每一块不能向外突出
         mPieChart.setHighlightPerTapEnabled(true);
 
-        mPieChart.animateXY(3000, 3000);
+//        mPieChart.animateXY(3000, 3000);
 
         Legend legend = mPieChart.getLegend();
         // 是否显示图例

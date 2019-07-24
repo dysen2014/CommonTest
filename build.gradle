@@ -8,6 +8,11 @@ buildscript {
         maven {
             url "https://jitpack.io"
         }
+        maven { url 'http://developer.huawei.com/repo'} //如果需要使用华为推送HMS，则需要加上此句
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'

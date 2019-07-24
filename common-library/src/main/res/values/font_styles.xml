@@ -155,4 +155,12 @@
         <item name="android:textSize">@dimen/text_size_12</item>
         <item name="android:gravity">left</item>
     </style>
+    <style name="common_auto_size" parent="tv_user_white_14">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="autoSizeMaxTextSize">@dimen/text_size_16</item>
+        <item name="autoSizeMinTextSize">@dimen/text_size_6</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="autoSizeStepGranularity">0.5sp</item>
+    </style>
 </resources>
