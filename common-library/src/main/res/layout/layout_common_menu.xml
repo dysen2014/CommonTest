@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="16dp">
+
+    <ImageView
+        android:id="@+id/iv_img"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:padding="8dp"
+        android:src="@mipmap/icon"
+        android:background="@drawable/dialog_bg_white"/>
+
+    <com.dysen.common_library.views.AutoSizeTextView
+        android:id="@+id/tv_name"
+        style="@style/tv_user_gray_14"
+        android:gravity="center"
+        android:text="menu"/>
+</LinearLayout>

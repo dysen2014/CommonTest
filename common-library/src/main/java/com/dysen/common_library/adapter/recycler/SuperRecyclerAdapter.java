@@ -19,6 +19,10 @@ public abstract class SuperRecyclerAdapter<T> extends RecyclerView.Adapter<Super
     private Context mCtx;
     private List<T> mValueList = new ArrayList<>();
 
+    public void setObject(T t){
+        mValueList.add(t);
+        notifyItemChanged(mValueList.size()-1);
+    }
     public void setDatas(List<T> items) {
         mValueList.clear();
         mValueList.addAll(items);

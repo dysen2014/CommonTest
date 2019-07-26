@@ -1,3 +1,5 @@
-<resources>
-    <string name="app_name">IMDemo</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="MissingTranslation">IMDemo</string>
+    <string name="sys_msg" tools:ignore="MissingTranslation">系统提示：%1$s %2$s</string>
+    <string name="time" tools:ignore="MissingTranslation">%1$s %2$s</string>
 </resources>

@@ -18,7 +18,8 @@
             android:id="@+id/ec_edit_chat_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="对方的username"/>
+            android:hint="对方的username"
+            android:text="sendy"/>
 
         <Button
             android:id="@+id/ec_btn_start_chat"
