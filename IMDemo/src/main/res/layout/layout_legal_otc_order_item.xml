@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/match_wrap_bg_color">
+
+    <android.support.v7.widget.CardView
+        style="@style/match_wrap"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:cardCornerRadius="@dimen/radius_5">
+
+        <LinearLayout style="@style/match_wrap">
+
+            <LinearLayout
+                android:id="@+id/ll_otc_jr"
+                style="@style/match_wrap_h"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/tv_otc_order_ddsj"
+                    style="@style/tv_user_gray_12"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/otc_set_appeal_ddxx" />
+
+                <TextView
+                    android:id="@+id/tv_otc_order_ddzt"
+                    style="@style/tv_user_gray_14"
+                android:layout_gravity="center_vertical"
+                    android:text="@string/otc_set_appeal_ddxx" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/match_wrap_bg_color"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:background="@color/white"
+                android:paddingTop="@dimen/margin_padding_2">
+
+                <LinearLayout style="@style/match_wrap_h">
+
+                    <TextView
+                        android:id="@+id/tv_otc_order_type"
+                        style="@style/tv_user_black2_14"
+                        android:textStyle="bold"
+                        android:text="@string/otc_set_appeal_ddxx" />
+
+                    <View
+                        style="@style/weight_wrap"
+                        android:layout_height="@dimen/margin_padding_2" />
+
+                    <TextView
+                        android:id="@+id/tv_otc_order_sl"
+                        style="@style/tv_user_gray_12"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/otc_set_appeal_ddxx" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/match_wrap_h"
+                    android:layout_marginTop="@dimen/margin_padding_10">
+
+                    <TextView
+                        android:id="@+id/tv_otc_order_ddh"
+                        style="@style/tv_user_gray_12"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/otc_set_appeal_ddxx" />
+
+                    <View
+                        style="@style/weight_wrap"
+                        android:layout_height="@dimen/margin_padding_2" />
+
+                    <TextView
+                        android:id="@+id/tv_otc_order_dj"
+                        style="@style/tv_user_gray_12"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/otc_set_appeal_ddxx" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                style="@style/match_wrap"
+                android:layout_height="@dimen/w_0.5"
+                android:background="@color/background_color"
+                android:layout_marginTop="@dimen/margin_padding_5" />
+
+            <LinearLayout style="@style/match_wrap_h"
+                android:padding="@dimen/margin_padding_8">
+
+                <View
+                    style="@style/weight_wrap"
+                    android:layout_height="@dimen/margin_padding_2" />
+
+                <TextView
+                    style="@style/tv_user_gray_12"
+                    android:text="@string/otc_set_order_zj" />
+
+                <TextView
+                    android:id="@+id/tv_otc_order_zj"
+                    style="@style/tv_user_black2_14"
+                    android:text="@string/otc_set_appeal_ddxx" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

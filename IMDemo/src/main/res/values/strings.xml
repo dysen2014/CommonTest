@@ -2,4 +2,24 @@
     <string name="app_name" tools:ignore="MissingTranslation">IMDemo</string>
     <string name="sys_msg" tools:ignore="MissingTranslation">系统提示：%1$s %2$s</string>
     <string name="time" tools:ignore="MissingTranslation">%1$s %2$s</string>
+
+    //申诉
+    <string name="otc_set_appeal_wyss">我要申诉</string>
+    <string name="otc_set_appeal_ljss">立即申诉</string>
+    <string name="otc_set_appeal_ssxq">申诉详情</string>
+    <string name="otc_set_appeal_ssxx">申诉信息</string>
+    <string name="otc_set_appeal_ddxx">订单信息</string>
+    <string name="otc_set_appeal_sfzj">双方证据</string>
+    <string name="otc_set_appeal_sczj">上传证据</string>
+    <string name="otc_set_appeal_tjzj">提交证据</string>
+    <string name="otc_set_appeal_zcjg">仲裁结果</string>
+
+
+    <string name="hint_legal_operation8">商家</string>
+    <string name="otc_set_order_ddh">订单号：</string>
+    <string name="otc_set_order_ddsj">订单时间：</string>
+    <string name="otc_set_order_jdsx">接单时限：%1$s 秒</string>
+    <string name="otc_set_order_sl">数量：</string>
+    <string name="otc_set_order_dj">单价：</string>
+    <string name="otc_set_order_zj">总价：</string>
 </resources>

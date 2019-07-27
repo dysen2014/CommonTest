@@ -13,7 +13,7 @@ public class Bean {
 
     public static class Msg {
 
-        public enum MsgType{
+        public enum MsgType {
             SYSTEM_MSG,
             SEND_MSG,
             RECEIVE_MSG,
@@ -34,10 +34,12 @@ public class Bean {
             this.imgUrl = imgUrl;
             this.message = message;
         }
+
         public Msg(MsgType type, EMMessage message) {
             this.type = type;
             this.message = message;
         }
+
         public Msg(MsgType type, String imgUrl, String sysMsg) {
             this.type = type;
             this.imgUrl = imgUrl;
@@ -116,6 +118,9 @@ public class Bean {
                     ", time=" + time +
                     ", isSend=" + isSend +
                     ", sysMsg='" + sysMsg + '\'' +
+                    ", message=" + message == null ? "" : message.toString() +
+                    ", body=" + getMsg()  +
+                    ", type=" + type +
                     '}';
         }
     }

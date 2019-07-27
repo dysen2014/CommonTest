@@ -99,20 +99,25 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
 
                 Tools.setGone(llSendMsg);
                 Tools.setGone(llReceiveMsg);
+                Tools.setGone(tvTime);
+                Tools.setGone(tvSysMsg);
+                    System.out.println(position+"========msg=" + msg.toString());
                 if (msg.getType() == Bean.Msg.MsgType.SYSTEM_MSG) {
+                    Tools.setVisible(tvSysMsg);
                     tvSysMsg.setText(Tools.getString(R.string.sys_msg, DateUtils.getDateString(msg.getMessage().getMsgTime()), msg.getMsg()));
                 } else if (msg.getType() == Bean.Msg.MsgType.SEND_MSG || msg.getType() == Bean.Msg.MsgType.RECEIVE_MSG) {
-                    Tools.setGone(tvSysMsg);
-                    System.out.println("========msg=" + msg.toString());
-
-                    if (DateUtils.getOtherMinute(msg.getMessage().getMsgTime()) > 10)//判断与上条消息间隔超过10分钟显示
+                    if (DateUtils.getOtherMinute(msg.getMessage().getMsgTime()) > 10) {//判断与上条消息间隔超过10分钟显示
+                        Tools.setVisible(tvTime);
                         tvTime.setText(Tools.getString(R.string.time, DateUtils.getDateString(msg.getMessage().getMsgTime()), ""));
-                    else
-                        Tools.setGone(tvTime);
+                    }
+
                     Tools.setGone(msg.getType() == Bean.Msg.MsgType.SEND_MSG ? llReceiveMsg : llSendMsg);
+                    Tools.setVisible(msg.getType() == Bean.Msg.MsgType.SEND_MSG ? llSendMsg : llReceiveMsg);
                     holder.setText(msg.getType() == Bean.Msg.MsgType.SEND_MSG ? R.id.tv_send_msg : R.id.tv_receive_msg, msg.getMsg());
                     Glide.with(mContext).load(msg.getImgUrl()).apply(new RequestOptions().circleCrop().error(R.mipmap.ic_error_load_failed))
                             .into(msg.getType() == Bean.Msg.MsgType.SEND_MSG ? ivSendMsg : ivReceiveMsg);
+                }else if (msg.getType() == Bean.Msg.MsgType.NOMAL_MSG){
+                    Tools.toast("l聊天记录："+msg.getMsg());
                 }
             }
 
