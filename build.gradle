@@ -30,6 +30,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
         // Add this line
         classpath 'com.google.gms:google-services:4.0.1'
+
+        classpath "io.realm:realm-gradle-plugin:5.13.0"
     }
 }
 

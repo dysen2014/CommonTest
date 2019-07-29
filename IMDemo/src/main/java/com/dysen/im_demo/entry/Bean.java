@@ -3,6 +3,9 @@ package com.dysen.im_demo.entry;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * @package com.dysen.im_demo.entry
  * @email dy.sen@qq.com
@@ -20,14 +23,17 @@ public class Bean {
             NOMAL_MSG,
             TRADE_STATE_MSG
         }
-
+        @PrimaryKey
+        private String id="";//
         String msg, name, imgUrl;
         long time;
-        boolean isSend;
         String sysMsg;
         EMMessage message;
         private EMTextMessageBody body;
         MsgType type;
+
+        public Msg() {
+        }
 
         public Msg(MsgType type, String imgUrl, EMMessage message) {
             this.type = type;
@@ -46,6 +52,13 @@ public class Bean {
             this.sysMsg = sysMsg;
         }
 
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
         public MsgType getType() {
             return type;
         }
@@ -54,32 +67,8 @@ public class Bean {
             return message;
         }
 
-        public void setMessage(EMMessage message) {
-            this.message = message;
-        }
-
         public long getTime() {
             return message.getMsgTime();
-        }
-
-        public void setTime(long time) {
-            this.time = time;
-        }
-
-        public String getSysMsg() {
-            return sysMsg;
-        }
-
-        public void setSysMsg(String sysMsg) {
-            this.sysMsg = sysMsg;
-        }
-
-        public boolean isSend() {
-            return isSend;
-        }
-
-        public void setSend(boolean send) {
-            isSend = send;
         }
 
         public String getMsg() {
@@ -89,16 +78,8 @@ public class Bean {
             return body.getMessage();
         }
 
-        public void setMsg(String msg) {
-            this.msg = msg;
-        }
-
         public String getName() {
             return message.getFrom();
-        }
-
-        public void setName(String name) {
-            this.name = name;
         }
 
         public String getImgUrl() {
@@ -116,7 +97,6 @@ public class Bean {
                     ", name='" + name + '\'' +
                     ", imgUrl='" + imgUrl + '\'' +
                     ", time=" + time +
-                    ", isSend=" + isSend +
                     ", sysMsg='" + sysMsg + '\'' +
                     ", message=" + message == null ? "" : message.toString() +
                     ", body=" + getMsg()  +

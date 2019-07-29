@@ -13,6 +13,7 @@
         android:gravity="center"
         android:padding="@dimen/margin_padding_16"
         android:text="@string/sys_msg"
+        android:visibility="gone"
         />
 
     <LinearLayout
@@ -20,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="60dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/img_receive"
@@ -56,7 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="60dp"
         android:gravity="right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <com.dysen.common_library.views.bubble.BubbleLayout
             style="@style/match_wrap"
@@ -93,13 +96,17 @@
         style="@style/tv_user_gray_12"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:text="@string/sys_msg" />
+        android:text="@string/sys_msg"
+        android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/ll_state_msg"
         style="@style/match_wrap"
         android:background="@drawable/shape_view_bg"
-        android:padding="8dp">
-
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:visibility="gone"
+        >
         <include layout="@layout/layout_legal_otc_order_item"/>
     </LinearLayout>
 

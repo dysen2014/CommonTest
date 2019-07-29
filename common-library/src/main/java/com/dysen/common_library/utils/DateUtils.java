@@ -596,8 +596,8 @@ public class DateUtils extends android.text.format.DateUtils{
         long day = 24 * hour;// 1天
         long month = 31 * day;// 月
         long year = 12 * month;// 年
-
         long diff = new Date().getTime() - lTime;
+        System.out.println(new Date().getTime()+"=====lTime======"+lTime+"+========"+diff);
         long r = 0;
         if (diff > year) {
             r = (diff / year);
@@ -619,6 +619,42 @@ public class DateUtils extends android.text.format.DateUtils{
             r = (diff / minute);
             return r ;
         }
+        return 0;
+    }
+    /**
+     * 获得时间差
+     * @return
+     */
+    public static long getOtherMinute(long lastTime, long nowTime) {
+        long minute = 60 * 1000;// 1分钟
+        long hour = 60 * minute;// 1小时
+        long day = 24 * hour;// 1天
+        long month = 31 * day;// 月
+        long year = 12 * month;// 年
+        long diff = nowTime - lastTime;
+        long r = 0;
+        System.out.println("nowTime="+nowTime+"=====lastTime="+lastTime+"+=======diff="+diff);
+        if (diff > year) {
+            r = (diff / year);
+            return r ;
+        }
+        if (diff > month) {
+            r = (diff / month);
+            return r;
+        }
+        if (diff > day) {
+            r = (diff / day);
+            return r;
+        }
+        if (diff > hour) {
+            r = (diff / hour);
+            return r ;
+        }
+        if (diff > minute) {
+            r = (diff / minute);
+            return r ;
+        }
+
         return 0;
     }
     /**

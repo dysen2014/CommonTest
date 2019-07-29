@@ -22,10 +22,10 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-        <View
-            style="@style/view_line_h"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/w_0.5" />
+    <View
+        style="@style/view_line_h"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/w_0.5" />
 
     <!--输入框-->
     <LinearLayout
@@ -37,20 +37,22 @@
 
         <EditText
             android:id="@+id/ec_edit_message_input"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            style="@style/match_wrap"
             android:layout_alignParentLeft="true"
             android:layout_weight="1"
+            android:background="@drawable/btn_gray_bg"
             android:imeOptions="actionSend"
-            android:background="@drawable/dialog_bg_white" />
+            android:minHeight="48dp"
+            android:paddingLeft="8dp" />
 
         <CheckBox
             android:id="@+id/chb_more_menu"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:button="@null"
+            android:layout_gravity="bottom"
             android:layout_marginLeft="8dp"
-            android:background="@drawable/ic_more" />
+            android:background="@drawable/ic_more"
+            android:button="@null" />
     </LinearLayout>
 
     <LinearLayout

@@ -32,7 +32,9 @@ import com.dysen.common_library.adapter.recycler.SuperRecyclerHolder;
 import com.dysen.common_library.utils.DateUtils;
 import com.dysen.common_library.utils.ImgResUtils;
 import com.dysen.common_library.utils.Tools;
+import com.dysen.dao.MsgDao;
 import com.dysen.im_demo.entry.Bean;
+import com.dysen.im_demo.entry.Msg;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
@@ -43,6 +45,9 @@ import com.hyphenate.chat.EMTextMessageBody;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class ECChatActivity extends AppCompatActivity implements EMMessageListener {
 
@@ -60,13 +65,17 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
     private String mChatId;
     // 当前会话对象
     private EMConversation mConversation;
+    private long lastTime;
+    private List<Integer> mTimeIndexs = new ArrayList<>();
 
+    List<Msg> datas = new ArrayList<>();
     List<Bean.Msg> dataList = new ArrayList<>();
     List<Bean.Menu> menuList = new ArrayList<>();
     private SuperRecyclerAdapter<Bean.Msg> mAdapter;
     private SuperRecyclerAdapter<Bean.Menu> mMenuAdapter;
     private Context mContext;
     private String TAG = "sendy";
+    private Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,41 +92,55 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
     }
 
     private void initData() {
+        mRealm = AppContext.getRealm();
+
         for (int i = 0; i < 3; i++) {
 
             menuList.add(new Bean.Menu("系统提示" + i, ImgResUtils.ImageUrl.imageUrls().get(i)));
         }
+//        datas = MsgDao.getInstance().getMsg();
         mAdapter = new SuperRecyclerAdapter<Bean.Msg>(mContext, dataList) {
             @Override
-            public void convert(SuperRecyclerHolder holder, Bean.Msg msg, int layoutType, int position) {
+            public void convert(final SuperRecyclerHolder holder, Bean.Msg msg, int layoutType, int position) {
+
+//                datas.add(position, new Msg(position+"", msg.getMsg(), msg.getName(), msg.getImgUrl(), msg.getTime(), msg.getMsg(),msg.getType()));
                 TextView tvTime = (TextView) holder.getViewById(R.id.tv_time);
                 LinearLayout llSendMsg = (LinearLayout) holder.getViewById(R.id.ll_send_msg);
                 LinearLayout llReceiveMsg = (LinearLayout) holder.getViewById(R.id.ll_receive_msg);
+                LinearLayout llStateMsg = (LinearLayout) holder.getViewById(R.id.ll_state_msg);
                 ImageView ivSendMsg = (ImageView) holder.getViewById(R.id.img_send);
                 ImageView ivReceiveMsg = (ImageView) holder.getViewById(R.id.img_receive);
                 TextView tvSysMsg = (TextView) holder.getViewById(R.id.tv_sys_msg);
 
-                Tools.setGone(llSendMsg);
-                Tools.setGone(llReceiveMsg);
-                Tools.setGone(tvTime);
-                Tools.setGone(tvSysMsg);
-                    System.out.println(position+"========msg=" + msg.toString());
+//                Tools.setGone(llSendMsg);
+//                Tools.setGone(llReceiveMsg);
+//                Tools.setGone(llStateMsg);
+//                Tools.setGone(tvTime);
+//                Tools.setGone(tvSysMsg);
+                System.out.println((DateUtils.getOtherMinute(lastTime, msg.getTime()) >= 10) + "====time======" + DateUtils.getOtherMinute(lastTime, msg.getTime()));
+                if (DateUtils.getOtherMinute(lastTime, msg.getTime()) > 10 || (mTimeIndexs.size() > position ? mTimeIndexs.get(position) == position : false)) {//判断与上条消息间隔超过10分钟显示
+                    mTimeIndexs.add(position, position);
+                    Tools.setVisible(tvTime);
+                    holder.setIsRecyclable(false);
+                    tvTime.setText(Tools.getString(R.string.time, DateUtils.getDateString(msg.getTime()), ""));
+                }
+                lastTime = msg.getTime();
+                System.out.println(position + "========msg=" + msg.toString());
                 if (msg.getType() == Bean.Msg.MsgType.SYSTEM_MSG) {
                     Tools.setVisible(tvSysMsg);
-                    tvSysMsg.setText(Tools.getString(R.string.sys_msg, DateUtils.getDateString(msg.getMessage().getMsgTime()), msg.getMsg()));
+                    tvSysMsg.setText(Tools.getString(R.string.sys_msg, DateUtils.getDateString(msg.getTime()), msg.getMsg()));
                 } else if (msg.getType() == Bean.Msg.MsgType.SEND_MSG || msg.getType() == Bean.Msg.MsgType.RECEIVE_MSG) {
-                    if (DateUtils.getOtherMinute(msg.getMessage().getMsgTime()) > 10) {//判断与上条消息间隔超过10分钟显示
-                        Tools.setVisible(tvTime);
-                        tvTime.setText(Tools.getString(R.string.time, DateUtils.getDateString(msg.getMessage().getMsgTime()), ""));
-                    }
 
                     Tools.setGone(msg.getType() == Bean.Msg.MsgType.SEND_MSG ? llReceiveMsg : llSendMsg);
                     Tools.setVisible(msg.getType() == Bean.Msg.MsgType.SEND_MSG ? llSendMsg : llReceiveMsg);
                     holder.setText(msg.getType() == Bean.Msg.MsgType.SEND_MSG ? R.id.tv_send_msg : R.id.tv_receive_msg, msg.getMsg());
                     Glide.with(mContext).load(msg.getImgUrl()).apply(new RequestOptions().circleCrop().error(R.mipmap.ic_error_load_failed))
                             .into(msg.getType() == Bean.Msg.MsgType.SEND_MSG ? ivSendMsg : ivReceiveMsg);
-                }else if (msg.getType() == Bean.Msg.MsgType.NOMAL_MSG){
-                    Tools.toast("l聊天记录："+msg.getMsg());
+                } else if (msg.getType() == Bean.Msg.MsgType.NOMAL_MSG) {
+//                    Tools.toast("最后一条聊天记录："+msg.getMsg());
+                } else if (msg.getType() == Bean.Msg.MsgType.TRADE_STATE_MSG) {
+//                    Tools.toast("订单状态："+msg.getMsg());
+                    Tools.setVisible(llStateMsg);
                 }
             }
 
@@ -136,16 +159,14 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
                 Glide.with(mContext).load(menu.getImgUrl()).into((ImageView) holder.getViewById(R.id.iv_img));
                 holder.setText(R.id.tv_name, menu.getName());
 
-                holder.setOnItemClickListenner(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        switch (position) {
-                            case 0:
-                                sendMsg("sendy 已经放款！ 请您查收。。。");
-                                break;
-                            case 1:
-                                break;
-                        }
+                holder.setOnItemClickListenner(v -> {
+                    switch (position) {
+                        case 0:
+                            sendMsg(Bean.Msg.MsgType.SYSTEM_MSG, "sendy 已经放款！ 请您查收。。。");
+                            break;
+                        case 1:
+                            sendMsg(Bean.Msg.MsgType.TRADE_STATE_MSG, "sendy 您的订单已付款！ 请您放币。。。");
+                            break;
                     }
                 });
             }
@@ -159,11 +180,11 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
         rclMenu.setAdapter(mMenuAdapter);
     }
 
-    private void sendMsg(String msg) {
+    private void sendMsg(Bean.Msg.MsgType type, String msg) {
 
         // 创建一条新消息，第一个参数为消息内容，第二个为接受者username
         EMMessage message = EMMessage.createTxtSendMessage(msg, mChatId);
-        mAdapter.setObject(new Bean.Msg(Bean.Msg.MsgType.SYSTEM_MSG, message));
+        mAdapter.setObject(new Bean.Msg(type, message));
 
         // 调用发送消息的方法
         EMClient.getInstance().chatManager().sendMessage(message);
@@ -181,55 +202,55 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
 
         rclData = findViewById(R.id.rcl_data);
         rclMenu = findViewById(R.id.rcl_menu);
-        mMoreMenu.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    Tools.setVisible(findViewById(R.id.ll_menu));
-                else
-                    Tools.setGone(findViewById(R.id.ll_menu));
-            }
+        mMoreMenu.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked)
+                Tools.setVisible(findViewById(R.id.ll_menu));
+            else
+                Tools.setGone(findViewById(R.id.ll_menu));
+        });
+
+        mInputEdit.setOnClickListener(v -> {
+            /** 使其列表滚动到最底部  */
+            rclData.smoothScrollToPosition(mAdapter.getItemCount() - 1);
         });
         // 设置发送按钮的点击事件
-        mInputEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                String content = mInputEdit.getText().toString().trim();
-                if (!TextUtils.isEmpty(content)) {
-                    mInputEdit.setText("");
-                    // 创建一条新消息，第一个参数为消息内容，第二个为接受者username
-                    EMMessage message = EMMessage.createTxtSendMessage(content, mChatId);
-                    mAdapter.setObject(new Bean.Msg(Bean.Msg.MsgType.SEND_MSG, ImgResUtils.ImageUrl.imageList().get(1), message));
-                    // 将新的消息内容和时间加入到下边
-                    mContentText.setText(mContentText.getText()
-                            + "\n发送："
-                            + content
-                            + " - time: "
-                            + DateUtils.getDateString(message.getMsgTime()));
-                    // 调用发送消息的方法
-                    EMClient.getInstance().chatManager().sendMessage(message);
-                    // 为消息设置回调
-                    message.setMessageStatusCallback(new EMCallBack() {
-                        @Override
-                        public void onSuccess() {
-                            // 消息发送成功，打印下日志，正常操作应该去刷新ui
-                            Log.i("lzan13", "send message on success");
-                        }
+        mInputEdit.setOnEditorActionListener((v, actionId, event) -> {
 
-                        @Override
-                        public void onError(int i, String s) {
-                            // 消息发送失败，打印下失败的信息，正常操作应该去刷新ui
-                            Log.i("lzan13", "send message on error " + i + " - " + s);
-                        }
+            String content = mInputEdit.getText().toString().trim();
+            if (!TextUtils.isEmpty(content)) {
+                mInputEdit.setText("");
+                // 创建一条新消息，第一个参数为消息内容，第二个为接受者username
+                EMMessage message = EMMessage.createTxtSendMessage(content, mChatId);
+                mAdapter.setObject(new Bean.Msg(Bean.Msg.MsgType.SEND_MSG, ImgResUtils.ImageUrl.imageList().get(1), message));
+                // 将新的消息内容和时间加入到下边
+                mContentText.setText(mContentText.getText()
+                        + "\n发送："
+                        + content
+                        + " - time: "
+                        + DateUtils.getDateString(message.getMsgTime()));
+                // 调用发送消息的方法
+                EMClient.getInstance().chatManager().sendMessage(message);
+                // 为消息设置回调
+                message.setMessageStatusCallback(new EMCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        // 消息发送成功，打印下日志，正常操作应该去刷新ui
+                        Log.i("lzan13", "send message on success");
+                    }
 
-                        @Override
-                        public void onProgress(int i, String s) {
-                            // 消息发送进度，一般只有在发送图片和文件等消息才会有回调，txt不回调
-                        }
-                    });
-                }
-                return false;
+                    @Override
+                    public void onError(int i, String s) {
+                        // 消息发送失败，打印下失败的信息，正常操作应该去刷新ui
+                        Log.i("lzan13", "send message on error " + i + " - " + s);
+                    }
+
+                    @Override
+                    public void onProgress(int i, String s) {
+                        // 消息发送进度，一般只有在发送图片和文件等消息才会有回调，txt不回调
+                    }
+                });
             }
+            return false;
         });
     }
 
@@ -259,7 +280,7 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
             EMMessage messge = mConversation.getLastMessage();
             EMTextMessageBody body = (EMTextMessageBody) messge.getBody();
 
-            mAdapter.setObject(new Bean.Msg(Bean.Msg.MsgType.NOMAL_MSG, ImgResUtils.ImageUrl.imageList().get(0), messge));
+//            mAdapter.setObject(new Bean.Msg(Bean.Msg.MsgType.NOMAL_MSG, ImgResUtils.ImageUrl.imageList().get(0), messge));
             // 将消息内容和时间显示出来
             mContentText.setText(
                     "聊天记录：" + mChatId + "\t\t" + body.getMessage() + " - time: " + DateUtils.getDateString(mConversation.getLastMessage()
