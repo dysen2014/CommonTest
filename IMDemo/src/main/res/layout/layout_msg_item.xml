@@ -11,7 +11,7 @@
         style="@style/tv_user_gray_12"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:padding="@dimen/margin_padding_16"
+        android:padding="@dimen/margin_padding_8"
         android:text="@string/sys_msg"
         android:visibility="gone"
         />

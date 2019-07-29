@@ -93,11 +93,11 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
                 ImageView ivReceiveMsg = (ImageView) holder.getViewById(R.id.img_receive);
                 TextView tvSysMsg = (TextView) holder.getViewById(R.id.tv_sys_msg);
 
-//                Tools.setGone(llSendMsg);
-//                Tools.setGone(llReceiveMsg);
-//                Tools.setGone(llStateMsg);
-//                Tools.setGone(tvTime);
-//                Tools.setGone(tvSysMsg);
+                Tools.setGone(llSendMsg);
+                Tools.setGone(llReceiveMsg);
+                Tools.setGone(llStateMsg);
+                Tools.setGone(tvTime);
+                Tools.setGone(tvSysMsg);
                 System.out.println((DateUtils.getOtherMinute(lastTime, msg.getTime()) >= 10) + "====time======" + DateUtils.getOtherMinute(lastTime, msg.getTime()));
                 if (DateUtils.getOtherMinute(lastTime, msg.getTime()) > 10 || (mTimeIndexs.size() > position ? mTimeIndexs.get(position) == position : false)) {//判断与上条消息间隔超过10分钟显示
                     mTimeIndexs.add(position, position);
@@ -191,12 +191,13 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
         });
 
         mInputEdit.setOnClickListener(v -> {
+            if (mAdapter.getItemCount() > 0)
             /** 使其列表滚动到最底部  */
-            rclData.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+                rclData.smoothScrollToPosition(mAdapter.getItemCount() - 1);
         });
+
         // 设置发送按钮的点击事件
         mInputEdit.setOnEditorActionListener((v, actionId, event) -> {
-
             String content = mInputEdit.getText().toString().trim();
             if (!TextUtils.isEmpty(content)) {
                 mInputEdit.setText("");
