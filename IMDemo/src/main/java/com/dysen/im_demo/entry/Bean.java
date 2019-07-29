@@ -3,9 +3,6 @@ package com.dysen.im_demo.entry;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-
 /**
  * @package com.dysen.im_demo.entry
  * @email dy.sen@qq.com
@@ -23,7 +20,6 @@ public class Bean {
             NOMAL_MSG,
             TRADE_STATE_MSG
         }
-        @PrimaryKey
         private String id="";//
         String msg, name, imgUrl;
         long time;

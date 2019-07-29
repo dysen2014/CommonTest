@@ -1,10 +1,8 @@
 package com.dysen.im_demo;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,29 +10,20 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.dysen.common_library.adapter.recycler.SuperRecyclerAdapter;
 import com.dysen.common_library.adapter.recycler.SuperRecyclerHolder;
 import com.dysen.common_library.utils.DateUtils;
 import com.dysen.common_library.utils.ImgResUtils;
 import com.dysen.common_library.utils.Tools;
-import com.dysen.dao.MsgDao;
 import com.dysen.im_demo.entry.Bean;
-import com.dysen.im_demo.entry.Msg;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
@@ -45,9 +34,6 @@ import com.hyphenate.chat.EMTextMessageBody;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 public class ECChatActivity extends AppCompatActivity implements EMMessageListener {
 
@@ -68,14 +54,12 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
     private long lastTime;
     private List<Integer> mTimeIndexs = new ArrayList<>();
 
-    List<Msg> datas = new ArrayList<>();
     List<Bean.Msg> dataList = new ArrayList<>();
     List<Bean.Menu> menuList = new ArrayList<>();
     private SuperRecyclerAdapter<Bean.Msg> mAdapter;
     private SuperRecyclerAdapter<Bean.Menu> mMenuAdapter;
     private Context mContext;
     private String TAG = "sendy";
-    private Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,18 +76,15 @@ public class ECChatActivity extends AppCompatActivity implements EMMessageListen
     }
 
     private void initData() {
-        mRealm = AppContext.getRealm();
 
         for (int i = 0; i < 3; i++) {
 
             menuList.add(new Bean.Menu("系统提示" + i, ImgResUtils.ImageUrl.imageUrls().get(i)));
         }
-//        datas = MsgDao.getInstance().getMsg();
         mAdapter = new SuperRecyclerAdapter<Bean.Msg>(mContext, dataList) {
             @Override
             public void convert(final SuperRecyclerHolder holder, Bean.Msg msg, int layoutType, int position) {
 
-//                datas.add(position, new Msg(position+"", msg.getMsg(), msg.getName(), msg.getImgUrl(), msg.getTime(), msg.getMsg(),msg.getType()));
                 TextView tvTime = (TextView) holder.getViewById(R.id.tv_time);
                 LinearLayout llSendMsg = (LinearLayout) holder.getViewById(R.id.ll_send_msg);
                 LinearLayout llReceiveMsg = (LinearLayout) holder.getViewById(R.id.ll_receive_msg);

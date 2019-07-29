@@ -10,8 +10,6 @@ import com.hyphenate.chat.EMOptions;
 import java.util.Iterator;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 /**
  * @package com.dysen.im_demo
@@ -23,7 +21,6 @@ public class AppContext extends BaseAppContext {
 public String TIME_1 = "yyyy-MM-dd HH:mm:ss";
     // 上下文菜单
     private static Context mContext;
-    private static Realm realm;
     private static AppContext app;
 
 
@@ -34,29 +31,13 @@ public String TIME_1 = "yyyy-MM-dd HH:mm:ss";
         return app;
     }
 
-    public static Realm getRealm() {
-        return realm;
-    }
     @Override public void onCreate() {
         super.onCreate();
         mContext = this;
         app = this;
 
-        //初始化Realm
-        initRealm();
         // 初始化环信SDK
         initEasemob();
-    }
-
-    private void initRealm() {
-        String realm_name = "sendy_im.realm";
-        Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder().name(realm_name)
-                .schemaVersion(0) //版本号
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        Realm.setDefaultConfiguration(config);
-        realm = Realm.getInstance(config);
     }
 
     /**
