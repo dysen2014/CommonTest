@@ -21,7 +21,7 @@ public class TextViewGradient extends TextView {
     /**
      * 开始渐隐长度
      */
-    private float mGradientScope = 200;
+    private float mGradientScope = 20;
     /**
      * 渲染，主要实现api
      */

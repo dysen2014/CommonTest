@@ -19,11 +19,16 @@ android {
         applicationId "com.dysen.kdemo"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 1010
+        versionName "1.0.1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+    }
+    //Expected a name but was STRING at line 1 column 99 path $[0].apkInfo.versionName
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
     buildTypes {
 
@@ -39,6 +44,11 @@ android {
             applicationIdSuffix ""
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    buildToolsVersion = '28.0.0'
 //    realm {
 //        syncEnabled = true
 //    }
@@ -57,7 +67,7 @@ dependencies {
     implementation project(':Magicindicator')
     //https://github.com/realm/realm-android-adapters
     //compile 'io.realm:android-adapters:1.2.1'
-    compile 'io.realm:android-adapters:2.1.1'
+    implementation 'io.realm:android-adapters:2.1.1'
     //ButterKnife
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
@@ -69,12 +79,12 @@ dependencies {
     implementation('com.google.code.gson:gson:2.8.1') {
         exclude group: 'com.google.code.gson'
     }
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}"
     //https://github.com/PhilJay/MPAndroidChart
-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     //compile 'io.realm:android-adapters:1.2.1'
-    compile 'io.realm:android-adapters:2.1.1'
-    compile 'com.joanzapata.android:base-adapter-helper:1.1.11'
+    implementation 'io.realm:android-adapters:2.1.1'
+    implementation 'com.joanzapata.android:base-adapter-helper:1.1.11'
 // Add this line
     implementation 'com.google.firebase:firebase-core:16.0.1'
     // Add this line

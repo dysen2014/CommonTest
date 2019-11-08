@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/match_match"
-    android:background="@mipmap/default_bg"
+    android:background="@mipmap/bg_login"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".activity.MainActivity">
-
 
     <com.dysen.svga.SVGAImageView
         android:id="@+id/iv_svga"
@@ -22,12 +22,19 @@
         android:gravity="center"
         android:text="Touch"
         android:visibility="gone" />
+    <com.dysen.common_library.views.LinearGradientTextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_padding_50"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_20"
+        android:text="Hello sendy"
+        />
 
     <com.dysen.common_library.views.AutoSizeTextView
         style="@style/common_auto_size"
-        android:layout_width="@dimen/margin_padding_40"
         android:layout_height="@dimen/margin_padding_20"
         android:gravity="center"
-        android:text="Hello World! agdyagdyagdhdsvsvdsvsvsvsvsvsvssvsvsvsgsvsvbsvbhsvhs" />
+        android:text="Hello sendy"
+        android:visibility="gone"/>
 
 </LinearLayout>

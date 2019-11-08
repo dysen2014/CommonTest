@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="MagicIndicator"><attr format="color" name="normal_color"/><attr format="color" name="selected_color"/><attr format="color" name="background_color"/><attr format="float" name="width_size"/><attr format="dimension" name="text_size"/><attr format="color" name="text_normal_color"/><attr format="color" name="text_selected_color"/><attr format="integer" name="indicator_type"/></declare-styleable>
     <style name="wrap_match">
         <item name="android:orientation">vertical</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
     </style>
+    <declare-styleable name="MagicIndicator">
+    <attr format="color" name="normal_color"/>
+    <attr format="color" name="selected_color"/>
+    <attr format="color" name="background_color"/>
+    <attr format="float" name="width_size"/>
+    <attr format="dimension" name="text_size"/>
+    <attr format="color" name="text_normal_color"/>
+    <attr format="color" name="text_selected_color"/>
+    <attr format="integer" name="indicator_type"/>
+  </declare-styleable>
 </resources>
